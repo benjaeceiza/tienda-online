@@ -12,11 +12,20 @@
   align-items: center;
 }
 
+.NavbarLogo{
+  width: 80px;
+}
+
 .NavbarList{
   display: flex;
   list-style: none;
-  width: 30%;
   justify-content: space-between;
+  width: 700px;
+
+}
+
+.navbarItem{
+  margin: 0px 10px;
 }
 
 .NavbarLink{

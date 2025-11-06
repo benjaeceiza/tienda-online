@@ -4,7 +4,7 @@ const CursosPagos = () => {
 
     return (
         <>
-        
+          <h1>Cursos Pagos</h1>
         </>
     )
 }
