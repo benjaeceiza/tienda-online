@@ -1,0 +1,14 @@
+.listado-cursos {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-lista-curso {
+    display: flex;
+    flex-direction: column;
+    border:  2px solid blue;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+}
