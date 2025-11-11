@@ -4,6 +4,12 @@
   font-family: sans-serif;
 }
 
+.main{
+  padding: 0px 20px;
+}
+
+/* NAV BAR*/
+
 .Navbar{
   background-color: rgb(8, 32, 139);
   display: flex;
@@ -31,4 +37,79 @@
 .NavbarLink{
     text-decoration: none;
     color: white;
+}
+
+.NavUser{
+  color: white;
+}
+
+/* Mis cursos*/
+
+.title{
+   text-align: center;
+   padding: 30px;
+}
+
+.coursesSection{
+  margin: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cardCourse{
+  width: 33%;
+  height: 400px;
+  margin: 5px 0px;
+  position: relative;
+}
+
+.cardBackground{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.cardData{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+}
+
+
+.cardButton{
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+.cardButton:hover {
+  background-color: blue;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+/*LOGIN*/
+
+.formLogin{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 300px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.formInput{
+  height: 40px;
+  width: 100%;
+  border-radius: 10px;
+  padding-left: 10px;
 }

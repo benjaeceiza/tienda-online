@@ -11,15 +11,13 @@ export const router = Router();
 
 
 
-//Trae al usuario logueado con sus cursos
+//Trae al usuario logueado 
 router.get("/user", authMiddleware, async (req, res) => {
   try {
 
     const userId = req.user.id;
-    const userDb = await usuarioModelo.findById(userId).populate("courses.course");
-    const user = userDb.toObject();
-
-
+    const user = await usuarioModelo.findById(userId);
+  
     if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
     res.status(201).json({ message: "Success", user });

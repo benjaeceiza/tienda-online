@@ -1,6 +1,7 @@
 const form = document.getElementById('loginForm');
 
 form.addEventListener('submit', async (e) => {
+
     e.preventDefault();
 
     const data = {
@@ -18,15 +19,15 @@ form.addEventListener('submit', async (e) => {
 
         const result = await res.json();
 
-     
+
 
         if (res.ok) {
             mensaje.textContent = "✅ Inicio de sesion exitosa!";
             mensaje.style.color = "green";
-            
+
             if (result.token) {
                 localStorage.setItem("token", result.token);
-           
+
             }
 
             form.reset();
@@ -35,7 +36,7 @@ form.addEventListener('submit', async (e) => {
             mensaje.style.color = "red";
         }
 
-        
+
     } catch (err) {
         mensaje.textContent = "❌ Error de conexión con el servidor";
         mensaje.style.color = "red";

@@ -27,6 +27,7 @@ export function AuthProvider({ children }) {
         }
     }, []);
 
+
     //  Login: guardar token y decodificar
     const login = (token) => {
         localStorage.setItem("token", token);
