@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const CardCourse = ({ cursos }) => {
 
@@ -8,11 +9,11 @@ const CardCourse = ({ cursos }) => {
             {
                 cursos.map(c => (
                     <div key={Math.random()} className="cardCourse">
-                        <img className="cardBackground" src={c.course.thumbnail} alt="" />
+                        <img className="cardBackground" src={c.course.thumbnail} alt="Fondo Curso" />
                         <div className="cardData">
                             <h2 className="titleCardCourse">{c.course.nombre}</h2>
                             <p className="cardDescription"></p>
-                            <p className="cardButton">Ver Curso</p>
+                            <Link to={"/curso/" + c.course._id } className={"cardButton"}>Ver curso</Link>
                         </div>
                     </div>
                 ))

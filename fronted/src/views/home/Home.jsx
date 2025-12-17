@@ -1,8 +1,23 @@
 
+
+
+
+import ContactoFlotante from "../../components/ContactoFlotante";
+import Cursos from "./Cursos";
+import Header from "./Header";
+
 const Home = () => {
-    return(
+    
+    return (
         <>
-         <h1>HOMe</h1>
+
+            <div className="homeContainer">
+                <Header />
+                <main>
+                    <Cursos />
+                    <ContactoFlotante />
+                </main>
+            </div>
         </>
     )
 }

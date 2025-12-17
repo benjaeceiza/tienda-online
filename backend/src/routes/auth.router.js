@@ -21,15 +21,15 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "El email ya esta en uso!" })
     }
 
-    if (password.length < 8){
-       
-      return res.status(401).json({message: "Ingrese una contraseña de 8 o mas caracteres"})
+    if (password.length < 8) {
+
+      return res.status(401).json({ message: "Ingrese una contraseña de 8 o mas caracteres" })
     }
 
-    
 
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await usuarioModelo.create({ nombre, apellido, email, password: hashedPassword });
 
@@ -64,10 +64,10 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await usuarioModelo.findOne({ email });
-    if (!user) return res.status(404).json({ message: "Correo invalido" });
+    if (!user) return res.status(404).json({ message: "Email o Contraseña inválido" });
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(401).json({ message: "Contraseña incorrecta" });
+    if (!match) return res.status(401).json({ message: "Email o Contraseña inválido" });
 
     const token = jwt.sign(
       { id: user._id, email: user.email },

@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
+     const [loadingContext, setLoadingContext] = useState(true);
 
     //  Verificar si hay token y está vigente
     useEffect(() => {
@@ -25,6 +26,7 @@ export function AuthProvider({ children }) {
                 localStorage.removeItem("token");
             }
         }
+         setLoadingContext(false)
     }, []);
 
 
@@ -42,8 +44,8 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
-            {children}
+        <AuthContext.Provider value={{ user,setUser, login, logout,loadingContext}}>
+             {loadingContext ? <p>Cargando sesión...</p> : children}
         </AuthContext.Provider>
     );
 }

@@ -14,15 +14,16 @@ export const userLogin = async (email, password) => {
     if (!res.ok) {
       // Si el servidor devolvió un error HTTP
       const msg = result?.message || "Error desconocido en el servidor";
-      return `❌ ${msg}`;
+      return `${msg}`;
     }
 
     // ✅ Si llega acá, fue correcto el login
     if (result?.token) {
       localStorage.setItem("token", result.token);
+  
     }
 
-    return "✅ Inicio de sesión exitoso";
+    return "success";
 
   } catch (err) {
     console.error("Error en el login:", err);

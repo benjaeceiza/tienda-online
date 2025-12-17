@@ -1,56 +1,198 @@
-*{
+* {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  box-sizing: border-box
 }
 
-.main{
+
+
+
+.main {
   padding: 0px 20px;
 }
 
-/* NAV BAR*/
+.contactWtsFlotanteContainer {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  right: 0;
+  margin: 0px 20px 20px 0px;
+}
 
-.Navbar{
-  background-color: rgb(8, 32, 139);
+
+.imgContactoFlotante {
+  width: 60px;
+}
+
+
+/* PANTALLA DE CARGA */
+
+.loaderContainer {
+  position: fixed;
+  inset: 0;
+  background: #171f52;
   display: flex;
-  justify-content: space-around;
-  min-height: 70px;
+  justify-content: center;
   align-items: center;
+  z-index: 9999;
+
+  /* Cuando NO está visible */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
 
-.NavbarLogo{
-  width: 80px;
+/* Cuando debe verse */
+.loaderContainer.show {
+  opacity: 1;
+  pointer-events: all;
+  /* SOLO acá se habilitan los clics */
 }
 
-.NavbarList{
+/* Animación de salida */
+/* ojo: NO usamos pointer-events acá para no bloquear nada */
+.loaderContainer.exit {
+  animation: fadeOut 0.6s ease forwards;
+  pointer-events: none !important;
+  /* esta línea te salva la vida */
+}
+
+.butterfly {
+  width: 140px;
+  animation: flap 0.9s ease-in-out infinite;
+}
+
+/* salida */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* aleteo */
+@keyframes flap {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.08) rotate(1.5deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+
+/* NAVBAR */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
   display: flex;
+  justify-content: end;
+}
+
+
+.buttonMenuContainer {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.562);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.buttonMenu {
+  width: 35px;
+  height: 35px;
+  margin: 0;
+
+}
+
+.navbarListContainer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(37, 26, 26, 0.445);
+  display: flex;
+  justify-content: end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.navbarListContainer.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.navbarList {
+  background-color: #010b3f;
+  height: 100vh;
+  width: 100%;
+  max-width: 300px;
   list-style: none;
-  justify-content: space-between;
-  width: 700px;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
 
 }
 
-.navbarItem{
-  margin: 0px 10px;
+.navbarList.slide-in {
+  transform: translateX(0);
 }
 
-.NavbarLink{
-    text-decoration: none;
-    color: white;
+.navbarList.slide-out {
+  transform: translateX(100%);
 }
 
-.NavUser{
+
+.navbarItem {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  margin: 50px 0px;
+}
+
+
+.navbarLink {
   color: white;
+  text-decoration: none;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-weight: 800;
+  font-size: 13px;
+  opacity: .82;
+  transition: opacity .15s, transform .15s;
+
 }
 
 /* Mis cursos*/
 
-.title{
-   text-align: center;
-   padding: 30px;
+.title {
+  text-align: center;
+  padding: 30px;
 }
 
-.coursesSection{
+.coursesSection {
   margin: 1200px;
   margin: auto;
   display: flex;
@@ -58,20 +200,20 @@
   justify-content: space-between;
 }
 
-.cardCourse{
+.cardCourse {
   width: 33%;
   height: 400px;
   margin: 5px 0px;
   position: relative;
 }
 
-.cardBackground{
+.cardBackground {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-.cardData{
+.cardData {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -81,35 +223,728 @@
   align-items: center;
   justify-content: space-evenly;
   color: white;
+
 }
 
 
-.cardButton{
+.cardButton {
   padding: 10px 15px;
   border-radius: 20px;
+  color: white;
+  text-decoration: none;
 }
+
 .cardButton:hover {
   background-color: blue;
   cursor: pointer;
   transition: all .3s;
 }
 
+/* REGISTER */
+
+.bgRegister {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.registerSection {}
+
+.registerContainer {
+  height: 100vh;
+  width: 100%;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleModalContainer {
+  height: 500px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  background-color: #171f52;
+  color: white;
+  transition: all .3s;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
+  animation: slideDownFade 0.4s ease forwards;
+}
+
+.linkLogin {
+  text-decoration: none;
+}
+
+.linkLoginP {
+  text-align: center;
+  margin-top: 15px;
+  font-size: small;
+  font-weight: bold;
+  color: white;
+ 
+}
+
+.linkLoginP:hover {
+  color: rgb(170, 170, 170);
+  transition: all .3s;
+}
+
 /*LOGIN*/
 
-.formLogin{
+.bgLogin {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.loginContainer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 20px;
+
+}
+
+.loginFormContainer {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.formAuth {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   height: 300px;
   width: 100%;
   max-width: 500px;
   margin: auto;
+
 }
 
-.formInput{
+.labelForm {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 100%;
+  padding-left: 10px;
+  color: white;
+  font-size: smaller;
+  font-weight: bold;
+}
+
+.formInput {
   height: 40px;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
   padding-left: 10px;
+  border: 0;
+
+}
+
+.formInputButton {
+  padding: 8px 12px;
+  border-radius: 25px;
+  border: 0;
+  font-weight: bold;
+  font-size: smaller;
+  margin-top: 15px;
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+.formInputButton:hover {
+  background-color: #171f52;
+  border: 2px solid white;
+  color: white;
+  transition: all .3s;
+}
+
+.modalTitle {
+  color: white;
+  font-size: xx-large;
+
+}
+
+.modalLoginContainer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.349);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+}
+
+.modalLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #171f52;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
+  animation: slideDownFade 0.4s ease forwards;
+}
+
+.closeModalContainer {
+  width: 100%;
+  text-align: end;
+}
+
+.closeModalIcon {
+  width: 15px;
+  cursor: pointer;
+}
+
+.notAccountLink {
+  color: white;
+  text-decoration: none;
+  font-size: small;
+  font-weight: bold;
+  transition: all .3s;
+  margin: 5px;
+   cursor: pointer;
+}
+
+.notAccountLink:hover {
+  color: rgb(170, 170, 170);
+  transition: all .3s;
+}
+
+.registerLink {
+  text-decoration: underline;
+  margin-left: 10px;
+}
+
+.messageErrorLogin {
+  font-size: small;
+  color: rgb(192, 9, 9);
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* RECUPERACION CONTRASEÑA */
+
+.recoveryPasswordContainer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 20px;
+}
+
+.modalRecovery{
+  background-color: #171f52;
+  height: 400px;
+  width: 400px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px;
+    box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
+  animation: slideDownFade 0.4s ease forwards;
+ 
+}
+
+.iconContainerRecovery{
+  width: 100%;
+  text-align: start;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  margin-bottom: 50px;
+  
+}
+.iconContainerRecovery img{
+ width: 25px;
+ cursor: pointer;
+
+}
+.titleRecovery{
+  color: white;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.formRecovery{
+  margin: 20px 0px;
+  height: 150px;
+}
+
+.codeInputContainer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.codeInput {
+  width: 48px;
+  height: 56px;
+  font-size: 24px;
+  text-align: center;
+  border-radius: 12px;
+  border: 2px solid #d0d0d0;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.codeInput:focus {
+  border-color: #4f7cff;
+  box-shadow: 0 0 0 2px rgba(79, 124, 255, 0.2);
+}
+
+
+/* HOME */
+
+
+.headerHome {
+  position: relative;
+  height: 100vh;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+  background-image: url("../src/assets/fondos/inicio.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -4;
+  gap: clamp(18px, 2.4vw, 28px);
+  transform: translate3d(calc(var(--parallax-x)*.35), calc(var(--parallax-y)*.35), 0) rotateX(calc(var(--parallax-y)*-0.04)) rotateY(calc(var(--parallax-x)*0.04));
+  transition: transform .12s
+}
+
+.beforeTitle {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: .28em;
+  color: #fff;
+  transform: translateY(calc(-1 * clamp(14px, 2.2vh, 26px)));
+  opacity: .95;
+  font-size: .9rem;
+  z-index: 1;
+}
+
+.titleHome {
+
+  line-height: .95;
+  font-size: clamp(35px, 8vw, 90px);
+  font-weight: 900;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 6px 24px rgba(0, 0, 0, .35);
+  z-index: 1;
+
+}
+
+.subtitleHome {
+  max-width: 900px;
+  margin: auto;
+  margin-top: clamp(28px, 3.2vw, 44px);
+  margin-bottom: clamp(8px, 2vh, 20px);
+  color: #fff;
+  font-size: clamp(16px, 1.4vw, 20px);
+  z-index: 1;
+}
+
+.headerMariposa {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  max-height: 700px;
+  max-width: 700px;
+  z-index: 0;
+
+}
+
+
+.coursesCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  padding: 20px;
+  z-index: 1;
+}
+
+.bgCourseHome {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  object-fit: cover;
+  height: 100vh;
+  width: 100%;
+  filter: brightness(80%);
+
+}
+
+.textCoursesHome {
+  z-index: 1;
+}
+
+.titleCourseHome {
+  color: white;
+  margin: 0px 0px 0.25em;
+  font-size: clamp(42px, 9vw, 120px);
+  line-height: 0.92;
+  letter-spacing: 0.04em;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: rgba(0, 0, 0, 0.45) 0px 2px 24px;
+}
+
+.subtitleCourseHome {
+  margin: 0px;
+  color: white;
+  max-width: 640px;
+  font-size: clamp(14px, 1.35vw, 18px);
+  line-height: 1.65;
+  opacity: 0.95;
+  text-shadow: rgba(0, 0, 0, 0.45) 0px 1px 12px;
+}
+
+
+/* BOTON */
+
+.btnWrapper {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+  margin: 20px 10px;
+}
+
+.btnHome {
+  padding: 10px;
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: small;
+  border-radius: 10px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  font-weight: 600;
+  filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+}
+
+/* SVG que gira */
+.ring {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 140px;
+  height: 140px;
+  transform-origin: center;
+  animation: spin 15s linear infinite;
+  z-index: 1;
+  filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+}
+
+
+.dashed-circle {
+  fill: none;
+  stroke: white;
+  stroke-width: 1;
+  stroke-linecap: round;
+
+  /* rayitas largas y cortas intercaladas */
+  stroke-dasharray: 20 10 8 10;
+  /* largo 20 - espacio 6 - largo 8 - espacio 6 - (se repite) */
+}
+
+
+/* COURSES SELECTION */
+
+.bgCourseContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+
+.bgCourseImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  /* queda atrás del contenido */
+  filter: brightness(70%);
+
+
+}
+
+
+
+.dataCoursesContainter {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0 100px;
+
+}
+
+
+.subtitleCourses {
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  opacity: .9;
+  font-weight: 800;
+  color: white;
+}
+
+.titleCourses {
+  margin: 0 0 .25em 0;
+  font-size: clamp(38px, 6.6vw, 82px);
+  line-height: .92;
+  letter-spacing: .04em;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, .45);
+  color: white;
+}
+
+
+.contentVisualContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.videoTitleContainer {
+  width: 100%;
+  max-width: 600px;
+  height: 500px;
+  border: 2px solid white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.514);
+}
+
+.titleVideo {
+  margin: .1rem 0;
+  font-size: clamp(18px, 2vw, 24px);
+  color: white;
+
+}
+
+.subtitleVideo {
+  margin: 0 0 .55rem;
+  color: white;
+  line-height: 1.55;
+
+}
+
+.courseVideo {
+  height: 300px;
+  width: 100%;
+  border: solid white 2px;
+  border-radius: 20px;
+}
+
+.coursePrice {
+  background-color: white;
+  border-radius: 20px;
+  width: 200px;
+  height: 30px;
+  text-align: center;
+  padding: 10px;
+  font-size: small;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttonsCoursesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 600px;
+  justify-content: space-between;
+}
+
+.buttonNameContainer {
+  text-align: center;
+  transition: all .3s;
+}
+
+.buttonNameContainer:hover {
+  transform: translateY(-5%);
+  transition: all .3s;
+}
+
+
+/* SVG que gira */
+.ring-courses {
+  position: absolute;
+  top: -32px;
+  left: -32px;
+  width: 140px;
+  height: 140px;
+  transform-origin: center;
+  animation: spin 15s linear infinite;
+  z-index: 1;
+  filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+}
+
+
+
+.btnCourses {
+  padding: 10px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  font-size: small;
+  border-radius: 10px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  font-weight: 600;
+  filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+}
+
+.buttonTitleCourse {
+  color: white;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  white-space: nowrap;
+  opacity: .9;
+  margin-top: 10px;
+}
+
+
+/* FOOTER */
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background-color: #171f52;
+  min-height: 200px;
+  align-items: center;
+}
+
+.titleFooter {
+
+  line-height: .95;
+  font-weight: 900;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 6px 24px rgba(0, 0, 0, .35);
+  z-index: 1;
+  border-bottom: 1px solid white;
+  padding: 10px 5px;
+  font-size: 15px
+}
+
+.footerListMedia {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px 0px;
+}
+
+
+.iconItemMedia {
+  width: 25px;
+  height: 25px;
+}
+
+
+.footerListViews {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+}
+
+.footerLinkView {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-weight: 800;
+  font-size: 10px;
+  opacity: .82;
+  transition: opacity .15s, transform .15s;
+
+
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
