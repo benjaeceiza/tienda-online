@@ -288,7 +288,7 @@
   font-size: small;
   font-weight: bold;
   color: white;
- 
+
 }
 
 .linkLoginP:hover {
@@ -425,7 +425,7 @@
   font-weight: bold;
   transition: all .3s;
   margin: 5px;
-   cursor: pointer;
+  cursor: pointer;
 }
 
 .notAccountLink:hover {
@@ -456,7 +456,7 @@
   padding: 0px 20px;
 }
 
-.modalRecovery{
+.modalRecovery {
   background-color: #171f52;
   height: 400px;
   width: 400px;
@@ -466,12 +466,12 @@
   align-items: center;
   justify-content: flex-start;
   padding: 15px;
-    box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
+  box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
   animation: slideDownFade 0.4s ease forwards;
- 
+
 }
 
-.iconContainerRecovery{
+.iconContainerRecovery {
   width: 100%;
   text-align: start;
   height: 50px;
@@ -480,20 +480,22 @@
   align-items: start;
   justify-content: center;
   margin-bottom: 50px;
-  
-}
-.iconContainerRecovery img{
- width: 25px;
- cursor: pointer;
 
 }
-.titleRecovery{
+
+.iconContainerRecovery img {
+  width: 25px;
+  cursor: pointer;
+
+}
+
+.titleRecovery {
   color: white;
   font-size: larger;
   font-weight: bold;
 }
 
-.formRecovery{
+.formRecovery {
   margin: 20px 0px;
   height: 150px;
 }
@@ -866,6 +868,157 @@
   opacity: .9;
   margin-top: 10px;
 }
+
+/*       CONTACTO    */
+
+.contactContainer {
+  height: 100vh;
+  width: 100%;
+  background-image: url("./assets/fondos/fondo-violeta.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sectionContainer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.socialMediaSection {
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.listContainer {
+ height: 250px;
+  width: 100%;
+  max-width: 400px;
+  background-color: blue;
+  text-align: center;
+}
+
+.contactList {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.socialMediaList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 200px;
+  margin: 20px auto;
+
+
+}
+
+.formContactSection {
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+.glass {
+  background: rgba(94, 17, 94, 0.407);
+  /* transparencia */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* Safari */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.titleFormContainer {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.titleForm {
+  text-align: center;
+  margin: 10px 0px 20px 0px;
+  color: white;
+}
+
+.formContact {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  max-width: 500px;
+  margin: auto;
+  height: 400px;
+
+}
+
+.contactFormInput {
+  height: 40px;
+  border-radius: 10px;
+}
+
+.formContact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contactFormInput,
+.contactFormTextarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.contactFormTextarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contactFormButton {
+  align-self: flex-start;
+  /* queda independiente */
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: none;
+  background-color: purple;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.contactFormButton:hover {
+  background-color: rgb(93, 2, 93);
+  transition: all .3s;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 
 /* FOOTER */

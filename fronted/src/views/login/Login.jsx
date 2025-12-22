@@ -3,7 +3,7 @@ import { userLogin } from "../../services/login";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useLoading } from "../../context/LoadingContext";
-import fondo from "../../assets/fondos/inicio.png";
+import fondo from "../../assets/fondos/fondo-violeta.jpg";
 import Recovery from "../recovery-password/Recovery";
 
 const Login = () => {

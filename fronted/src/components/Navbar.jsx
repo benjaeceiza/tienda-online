@@ -60,7 +60,7 @@ const Navbar = () => {
                 className="navbarLink"
                 onClick={() => setIsVisible(false)}
               >
-                Cursos gratuitos
+                Eric Barone
               </NavLink>
             </li>
             <li className="navbarItem">
@@ -69,7 +69,25 @@ const Navbar = () => {
                 className="navbarLink"
                 onClick={() => setIsVisible(false)}
               >
-                Cursos Pagos
+                Rituales
+              </NavLink>
+            </li>
+            <li className="navbarItem">
+              <NavLink
+                to="/cursos-pagos"
+                className="navbarLink"
+                onClick={() => setIsVisible(false)}
+              >
+                Artesanias Magicas
+              </NavLink>
+            </li>
+            <li className="navbarItem">
+              <NavLink
+                to="/cursos-pagos"
+                className="navbarLink"
+                onClick={() => setIsVisible(false)}
+              >
+                Sanaciones
               </NavLink>
             </li>
              
