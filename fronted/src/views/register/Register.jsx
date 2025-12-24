@@ -45,23 +45,21 @@ const Register = () => {
       <main>
         <img className="bgRegister" src={fondo} alt="fondo" />
         <div className="registerContainer">
-          <div className="titleModalContainer">
-            <h1 className="title">Registrarse</h1>
-            <section className="registerSection">
-              <form className="formAuth" id="registerForm" onSubmit={submitUser}>
-                <label className="labelForm">Nombre</label>
-                <input className="formInput" type="text" name="name" id="name" placeholder="Nombre" required autoComplete="given-name" onChange={(e) => setNombre(e.target.value)} />
-                <label className="labelForm">Apellido</label>
-                <input className="formInput" type="text" name="lastname" id="lastname" placeholder="Apellido" required autoComplete="family-name" onChange={(e) => setApellido(e.target.value)} />
-                <label className="labelForm">Corre Electronico</label>
-                <input className="formInput" type="email" name="email" id="email" placeholder="Correo" required autoComplete="email" onChange={(e) => setEmail(e.target.value)} />
-                <label className="labelForm">Contraseña</label>
-                <input className="formInput" type="password" name="password" id="password" placeholder="Contraseña" required autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
-                <input className="formInputButton" type="submit" value="Registrarse" />
-              </form>
-              <p id="mensaje">{mensaje}</p>
-              <Link className="linkLogin" to={"/login"}><p className="linkLoginP">¿Ya tienes una cuenta?<span className="registerLink">Iniciar Sesión</span></p></Link>
-            </section>
+          <div className="modalLogin">
+            <h2 className="modalTitle">Registrarse</h2>
+            <form className="formAuth" onSubmit={submitUser}>
+              <label className="labelForm">Nombre</label>
+              <input className="formInput inputRegister" type="text" name="name" id="name" placeholder="Nombre" required autoComplete="given-name" onChange={(e) => setNombre(e.target.value)} />
+              <label className="labelForm">Apellido</label>
+              <input className="formInput inputRegister" type="text" name="lastname" id="lastname" placeholder="Apellido" required autoComplete="family-name" onChange={(e) => setApellido(e.target.value)} />
+              <label className="labelForm">Corre Electronico</label>
+              <input className="formInput inputRegister" type="email" name="email" id="email" placeholder="Correo" required autoComplete="email" onChange={(e) => setEmail(e.target.value)} />
+              <label className="labelForm">Contraseña</label>
+              <input className="formInput inputRegister" type="password" name="password" id="password" placeholder="Contraseña" required autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
+              <input className="formInputButton" type="submit" value="Registrarse" />
+            </form>
+            <p id="mensaje" className="messageErrorLogin">{mensaje}</p>
+            <Link className="linkLogin" to={"/login"}><p className="linkLoginP">¿Ya tienes una cuenta?<span className="registerLink">Iniciar Sesión</span></p></Link>
           </div>
         </div>
       </main>
