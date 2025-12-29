@@ -17,7 +17,7 @@ export const userRegister = async (nombre, apellido, email, password) => {
       }
 
       // 🔥 Devuelve un mensaje de éxito
-      return "✅ Usuario registrado exitosamente";
+      return {token: result.token};
     } else {
       // ❌ Mensaje de error del backend
       return `❌ Error: ${result.message || "No se pudo registrar el usuario"}`;

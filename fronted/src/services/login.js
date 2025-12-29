@@ -23,7 +23,7 @@ export const userLogin = async (email, password) => {
   
     }
 
-    return "success";
+    return {token:result.token};
 
   } catch (err) {
     console.error("Error en el login:", err);

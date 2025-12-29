@@ -92,23 +92,33 @@
 }
 
 
-/* NAVBAR */
-
+/* NAVBAR - Botón Flotante */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 20;
+  /* Asegura que esté siempre arriba */
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+  pointer-events: none;
+  /* Permite clickear a través de la barra vacía */
 }
 
-
 .buttonMenuContainer {
-  width: 50px;
-  height: 50px;
+  pointer-events: auto;
+  /* Reactiva clicks en el botón */
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.562);
+  /* Efecto Vidrio */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(58, 134, 255, 0.3);
+  /* Brillo azul suave */
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,26 +126,40 @@
   margin-top: 30px;
   margin-right: 30px;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.buttonMenuContainer:hover {
+  transform: scale(1.1);
+  background: rgba(58, 134, 255, 0.2);
+  /* Se ilumina al pasar el mouse */
+  border-color: rgba(58, 134, 255, 0.8);
+  box-shadow: 0 0 25px rgba(58, 134, 255, 0.6);
 }
 
 .buttonMenu {
-  width: 35px;
-  height: 35px;
-  margin: 0;
-
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
 }
 
+/* CONTENEDOR DE FONDO OSCURO (Overlay) */
 .navbarListContainer {
   position: fixed;
   top: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: rgba(37, 26, 26, 0.445);
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(5, 7, 12, 0.6);
+  /* Oscurece el resto de la web */
+  backdrop-filter: blur(3px);
+  /* Desenfoca levemente el fondo */
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
+  z-index: 10;
 }
 
 .navbarListContainer.show {
@@ -143,15 +167,28 @@
   pointer-events: auto;
 }
 
+/* EL PANEL LATERAL (Glassmorphism) */
 .navbarList {
-  background-color: #010b3f;
-  height: 100vh;
+  /* Degradado profundo azulado */
+  background: linear-gradient(180deg, rgba(1, 11, 63, 0.9) 0%, rgba(10, 14, 23, 0.95) 100%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  height: 100%;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   list-style: none;
-  transform: translateX(100%);
-  transition: transform 0.35s ease;
+  padding: 40px 20px;
+  /* Padding interno */
 
+  display: flex;
+  flex-direction: column;
+  /* Para ordenar items verticalmente */
+
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Animación suave */
 }
 
 .navbarList.slide-in {
@@ -162,27 +199,151 @@
   transform: translateX(100%);
 }
 
-
+/* ITEMS DEL MENÚ */
 .navbarItem {
-  margin-top: 20px;
+  margin: 15px 0;
   width: 100%;
   text-align: center;
-  margin: 50px 0px;
+  position: relative;
 }
 
-
 .navbarLink {
-  color: white;
-  text-decoration: none;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: .18em;
-  font-weight: 800;
-  font-size: 13px;
-  opacity: .82;
-  transition: opacity .15s, transform .15s;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  display: block;
+  transition: all 0.3s ease;
+  position: relative;
+}
 
+/* Efecto Hover estilo Neón */
+.navbarLink:hover,
+.navbarLink.active {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(76, 201, 240, 0.8), 0 0 20px rgba(76, 201, 240, 0.4);
+  transform: translateX(-5px);
+  /* Pequeño movimiento */
+}
+
+/* SECCIÓN DE USUARIO (Abajo de todo) */
+.closeSessionItem {
+  margin-top: auto;
+  /* IMPORTANTE: Esto empuja este item al fondo del contenedor flex */
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: row;
+  /* Cambié a row normal para mejor orden */
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.navbarIcon {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease;
+}
+
+.iconLogout:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px rgb(76, 202, 240));
+}
+
+.userNameContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 30px;
+}
+
+.userName {
+  color: #a5b4fc;
+  /* Color lavanda suave */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.modalConfirmContainer {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(5, 7, 12, 0.6);
+  backdrop-filter: blur(3px);
+
+  transition: opacity 0.4s ease;
+  z-index: 30;
+
+
+}
+
+.modalConfirmBox {
+  background-color: red;
+  height: 300px;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  min-width: 200px;
+  max-width: 400px;
+  box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
+  animation: slideDownFade 0.4s ease forwards;
+  background: rgba(50, 15, 177, 0.774);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Borde sutil */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  /* Sombra profunda para darle volumen */
+   z-index: 31;
+
+}
+
+.modalConfirmTitle {
+  color: white;
+  font-size: xx-large;
+  font-size: clamp(20px, 2vw, 30px);
+  
+}
+
+.btnCancel{
+  background-color: red;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-family: "1";
+  font-weight: bold;
+  margin: 10px;
+  cursor: pointer;
+}
+.btnConfirm{
+   background-color: green;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-family: "1";
+  font-weight: bold;
+  margin: 10px;
+  cursor: pointer;
 }
 
 /* Mis cursos*/
@@ -192,10 +353,11 @@
   min-height: 100vh;
   width: 100%;
   /* Aquí pon la URL de tu imagen de fondo de mariposas/cosmos */
-  background-image: url('../src/assets/fondos/fondo-rosa.jfif'); 
+  background-image: url('../src/assets/fondos/fondo-rosa.jfif');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Efecto parallax simple */
+  background-attachment: fixed;
+  /* Efecto parallax simple */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -217,13 +379,15 @@
 
 .content-wrapper {
   position: relative;
-  z-index: 1; /* Para que el contenido flote sobre el overlay */
+  z-index: 1;
+  /* Para que el contenido flote sobre el overlay */
   width: 100%;
   max-width: 1200px;
 }
 
 .page-title {
-  font-family: '1', sans-serif; /* O tu fuente principal */
+  font-family: '1', sans-serif;
+  /* O tu fuente principal */
   font-size: 3rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -246,8 +410,10 @@
 
 /* --- Tarjeta Glassmorphism --- */
 .card-course {
-  background: rgba(255, 255, 255, 0.05); /* Muy transparente */
-  backdrop-filter: blur(10px); /* El efecto de vidrio */
+  background: rgba(255, 255, 255, 0.05);
+  /* Muy transparente */
+  backdrop-filter: blur(10px);
+  /* El efecto de vidrio */
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
@@ -298,7 +464,8 @@
 }
 
 .card-btn {
-  margin-top: auto; /* Empuja el botón al fondo */
+  margin-top: auto;
+  /* Empuja el botón al fondo */
   display: inline-block;
   text-align: center;
   padding: 10px 20px;
@@ -368,6 +535,7 @@
   font-size: small;
   font-weight: bold;
   color: white;
+  font-family: "1";
 
 }
 
@@ -437,6 +605,11 @@
   font-family: "1";
   font-weight: 500;
 
+}
+
+.formInput:focus {
+  outline: none;
+  box-shadow: 0 0 5px #4f7cff;
 }
 
 .formInputButton {
@@ -533,7 +706,7 @@
   font-family: "1";
 }
 
-.inputRegister{
+.inputRegister {
   height: 50px;
 }
 
@@ -556,29 +729,35 @@
 }
 
 .modalRecovery {
-  background-color: #171f52;
-  height: 400px;
-  width: 400px;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 15px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+  padding: 20px;
+  border-radius: 20px;
   box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
   animation: slideDownFade 0.4s ease forwards;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Borde sutil */
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  /* Sombra profunda para darle volumen */
 
 }
 
 .iconContainerRecovery {
   width: 100%;
   text-align: start;
-  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  margin-bottom: 50px;
 
 }
 
@@ -588,10 +767,20 @@
 
 }
 
+.formRecoveryContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .titleRecovery {
   color: white;
   font-size: larger;
   font-weight: bold;
+  font-family: "1";
 }
 
 .formRecovery {

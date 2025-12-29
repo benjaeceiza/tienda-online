@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userRegister } from "../../services/register";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,10 +14,12 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
   const { hideLoader } = useLoading()
-  const { setUser } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
-  hideLoader();
+ useEffect(() => {
+    hideLoader();
+  }, []);
 
   const submitUser = (e) => {
 
@@ -25,11 +27,10 @@ const Register = () => {
 
     userRegister(nombre, apellido, email, password)
       .then((res) => {
-        if (res.includes("✅")) {
+        if (res?.token) {
+          login(res.token);
           navigate("/");
-          setUser({ email });
-
-
+          
         } else {
           setMensaje(res);
         }
