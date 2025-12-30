@@ -1,36 +1,40 @@
 import { useLoading } from "../../context/LoadingContext";
-
+import ig from "../../assets/iconos/instagram.png";
+import fb from "../../assets/iconos/facebook.png";
+import waContact from "../../assets/iconos/wtsContact.png";
+import yt from "../../assets/iconos/youtube.png";
+import { useEffect } from "react";
 const Contacto = () => {
 
   const { hideLoader } = useLoading();
-  hideLoader();
+
+  useEffect(() => {
+    hideLoader();
+  }, []);
 
   return (
     <>
-      <main>
+      <main className="mainContact">
         <div className="contactContainer">
           <div className="sectionContainer">
             <section className="socialMediaSection">
               <div className="listContainer">
-                <h2>Contacto</h2>
-                <ul className="contactList">
-                  <li>Correo elecetronico</li>
-                  <li>Numero de telefono</li>
-                </ul>
-              </div>
-              <div className="listContainer">
                 <h2>Nuestras Redes</h2>
                 <ul className="socialMediaList">
-                  <li>icono 1</li>
-                  <li>icono 2</li>
-                  <li>icono 3</li>
-                  <li>icono 4</li>
+                  <li><img className="iconSocialList" src={ig} alt="Instagram" /></li>
+                  <li><img className="iconSocialList" src={fb} alt="Facebook" /></li>
+                  <li><img className="iconSocialList" src={yt} alt="YouTube" /></li>
                 </ul>
+              </div>
+              <div className="buttonWtsContainer">
+                <button className="wtsButton">
+                  <img src={waContact} alt="WhatsApp" /> WhatsApp
+                </button>
               </div>
             </section>
             <section className="formContactSection">
               <div className="titleFormContainer glass">
-                <h2 className="titleForm">Formulario de contacto</h2>
+                <h2 className="titleForm">Envianos un mensaje</h2>
                 <form className="formContact">
                   <div className="formRow">
                     <input className="contactFormInput" type="text" placeholder="Nombre"

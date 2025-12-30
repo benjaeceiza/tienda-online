@@ -1,17 +1,21 @@
 // components/RouteLoader.jsx
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useLoading } from "../context/LoadingContext";
 
 export default function RouteLoader() {
   const location = useLocation();
+  const [ruta, setRuta] = useState(location.pathname);
   const { showLoader } = useLoading();
 
   useEffect(() => {
-    // Muestra loader apenas cambia la ruta
-    showLoader();
 
+    if(location.pathname !== ruta) {
+      showLoader();
+      setRuta(location.pathname);
+    }
     
+
   }, [location]);
 
   return null;

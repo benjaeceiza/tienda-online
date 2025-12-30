@@ -136,80 +136,84 @@ const Recovery = ({ setRecovery }) => {
             <img src={flecha} alt="Volver" onClick={() => setRecovery(false)} />
           </div>
 
-          {/* ================= TITULO ================= */}
-          <h4 className="titleRecovery">
-            {step === "email" && "Ingrese el correo de la cuenta"}
-            {step === "code" && "Ingresá el código recibido"}
-            {step === "password" && "Ingresá la nueva contraseña"}
-          </h4>
+          <div className="formRecoveryContainer">
+            {/* ================= TITULO ================= */}
+            <h4 className="titleRecovery">
+              {step === "email" && "Ingrese el correo de la cuenta"}
+              {step === "code" && "Ingresá el código recibido"}
+              {step === "password" && "Ingresá la nueva contraseña"}
+            </h4>
 
-          {/* ================= STEP EMAIL ================= */}
-          {step === "email" && (
-            <form className="formAuth formRecovery" onSubmit={checkEmail}>
-              <label className="labelForm">Correo Electrónico</label>
-              <input
-                className="formInput"
-                type="email"
-                placeholder="Correo"
-                required
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+            {/* ================= STEP EMAIL ================= */}
+            {step === "email" && (
+              <form className="formAuth formRecovery" onSubmit={checkEmail}>
+                <label className="labelForm">Correo Electrónico</label>
+                <input
+                  className="formInput"
+                  type="email"
+                  placeholder="Correo"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
 
-              <input
-                className="formInputButton"
-                type="submit"
-                disabled={loading}
-                value={loading ? "Enviando..." : "Enviar código"}
-              />
-            </form>
-          )}
+                <input
+                  className="formInputButton"
+                  type="submit"
+                  disabled={loading}
+                  value={loading ? "Enviando..." : "Enviar código"}
+                />
+              </form>
+            )}
 
-          {/* ================= STEP CODE ================= */}
-          {step === "code" && (
-            <CodeInput length={5} onComplete={verifyCode} />
-          )}
+            {/* ================= STEP CODE ================= */}
+            {step === "code" && (
+              <CodeInput length={5} onComplete={verifyCode} />
+            )}
 
-          {/* ================= STEP PASSWORD ================= */}
-          {step === "password" && (
-            <form className="formAuth " onSubmit={resetPassword}>
-              <label className="labelForm">Nueva contraseña</label>
-              <input
-                className="formInput"
-                type="password"
-                placeholder="Nueva contraseña"
-                required
-                minLength={6}
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              <label className="labelForm">Repite la contraseña</label>
-              <input
-                className="formInput"
-                type="password"
-                placeholder="Nueva contraseña"
-                required
-                minLength={6}
-                onChange={(e) => setRepPassword(e.target.value)}
-              />
+            {/* ================= STEP PASSWORD ================= */}
+            {step === "password" && (
+              <form className="formAuth " onSubmit={resetPassword}>
+                <label className="labelForm">Nueva contraseña</label>
+                <input
+                  className="formInput"
+                  type="password"
+                  placeholder="Nueva contraseña"
+                  required
+                  minLength={6}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <label className="labelForm">Repite la contraseña</label>
+                <input
+                  className="formInput"
+                  type="password"
+                  placeholder="Nueva contraseña"
+                  required
+                  minLength={6}
+                  onChange={(e) => setRepPassword(e.target.value)}
+                />
 
-              {
-                newPassword != repPassword
-                  ?
-                  <p onClick={() => setErrorMessage("Las contraseñas no coinciden")} className="formInputButton">Cambiar contraseña</p>
-                  :
-                  <input
-                    className="formInputButton"
-                    type="submit"
-                    disabled={loading}
-                    value={loading ? "Guardando..." : "Cambiar contraseña"}
-                  />
-              }
-            </form>
-          )}
+                {
+                  newPassword != repPassword
+                    ?
+                    <p onClick={() => setErrorMessage("Las contraseñas no coinciden")} className="formInputButton">Cambiar contraseña</p>
+                    :
+                    <input
+                      className="formInputButton"
+                      type="submit"
+                      disabled={loading}
+                      value={loading ? "Guardando..." : "Cambiar contraseña"}
+                    />
+                }
+              </form>
+            )}
 
-          {errorMessage && <p className="messageErrorLogin">{errorMessage}</p>}
+            {errorMessage && <p className="messageErrorLogin">{errorMessage}</p>}
+          </div>
+
+
         </div>
       </section>
     </main>

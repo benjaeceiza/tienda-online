@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
 
     const token = jwt.sign(
       {
-        id: user.id, email: user.email
+        id: user.id, email: user.email, nickname: user.nombre
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
     if (!match) return res.status(404).json({ message: "Email o Contraseña inválido" });
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, nickname: user.nombre },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );

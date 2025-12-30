@@ -92,23 +92,33 @@
 }
 
 
-/* NAVBAR */
-
+/* NAVBAR - Botón Flotante */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 20;
+  /* Asegura que esté siempre arriba */
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+  pointer-events: none;
+  /* Permite clickear a través de la barra vacía */
 }
 
-
 .buttonMenuContainer {
-  width: 50px;
-  height: 50px;
+  pointer-events: auto;
+  /* Reactiva clicks en el botón */
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.562);
+  /* Efecto Vidrio */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(58, 134, 255, 0.3);
+  /* Brillo azul suave */
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,26 +126,40 @@
   margin-top: 30px;
   margin-right: 30px;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.buttonMenuContainer:hover {
+  transform: scale(1.1);
+  background: rgba(58, 134, 255, 0.2);
+  /* Se ilumina al pasar el mouse */
+  border-color: rgba(58, 134, 255, 0.8);
+  box-shadow: 0 0 25px rgba(58, 134, 255, 0.6);
 }
 
 .buttonMenu {
-  width: 35px;
-  height: 35px;
-  margin: 0;
-
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
 }
 
+/* CONTENEDOR DE FONDO OSCURO (Overlay) */
 .navbarListContainer {
   position: fixed;
   top: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: rgba(37, 26, 26, 0.445);
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(5, 7, 12, 0.6);
+  /* Oscurece el resto de la web */
+  backdrop-filter: blur(3px);
+  /* Desenfoca levemente el fondo */
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
+  z-index: 10;
 }
 
 .navbarListContainer.show {
@@ -143,15 +167,28 @@
   pointer-events: auto;
 }
 
+/* EL PANEL LATERAL (Glassmorphism) */
 .navbarList {
-  background-color: #010b3f;
-  height: 100vh;
+  /* Degradado profundo azulado */
+  background: linear-gradient(180deg, rgba(1, 11, 63, 0.9) 0%, rgba(10, 14, 23, 0.95) 100%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  height: 100%;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   list-style: none;
-  transform: translateX(100%);
-  transition: transform 0.35s ease;
+  padding: 40px 20px;
+  /* Padding interno */
 
+  display: flex;
+  flex-direction: column;
+  /* Para ordenar items verticalmente */
+
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Animación suave */
 }
 
 .navbarList.slide-in {
@@ -162,82 +199,288 @@
   transform: translateX(100%);
 }
 
-
+/* ITEMS DEL MENÚ */
 .navbarItem {
-  margin-top: 20px;
+  margin: 15px 0;
   width: 100%;
   text-align: center;
-  margin: 50px 0px;
+  position: relative;
 }
 
-
 .navbarLink {
-  color: white;
-  text-decoration: none;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: .18em;
-  font-weight: 800;
-  font-size: 13px;
-  opacity: .82;
-  transition: opacity .15s, transform .15s;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  display: block;
+  transition: all 0.3s ease;
+  position: relative;
+}
 
+/* Efecto Hover estilo Neón */
+.navbarLink:hover,
+.navbarLink.active {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(76, 201, 240, 0.8), 0 0 20px rgba(76, 201, 240, 0.4);
+  transform: translateX(-5px);
+  /* Pequeño movimiento */
+}
+
+/* SECCIÓN DE USUARIO (Abajo de todo) */
+.closeSessionItem {
+  margin-top: auto;
+  /* IMPORTANTE: Esto empuja este item al fondo del contenedor flex */
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: row;
+  /* Cambié a row normal para mejor orden */
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.navbarIcon {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease;
+}
+
+.iconLogout:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px rgb(76, 202, 240));
+}
+
+.userNameContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 30px;
+}
+
+.userName {
+  color: #a5b4fc;
+  /* Color lavanda suave */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.modalConfirmContainer {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(5, 7, 12, 0.6);
+  backdrop-filter: blur(3px);
+
+  transition: opacity 0.4s ease;
+  z-index: 30;
+
+
+}
+
+.modalConfirmBox {
+  background-color: red;
+  height: 300px;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  min-width: 200px;
+  max-width: 400px;
+  box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
+  animation: slideDownFade 0.4s ease forwards;
+  background: rgba(50, 15, 177, 0.774);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Borde sutil */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  /* Sombra profunda para darle volumen */
+   z-index: 31;
+
+}
+
+.modalConfirmTitle {
+  color: white;
+  font-size: xx-large;
+  font-size: clamp(20px, 2vw, 30px);
+  
+}
+
+.btnCancel{
+  background-color: red;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-family: "1";
+  font-weight: bold;
+  margin: 10px;
+  cursor: pointer;
+}
+.btnConfirm{
+   background-color: green;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-family: "1";
+  font-weight: bold;
+  margin: 10px;
+  cursor: pointer;
 }
 
 /* Mis cursos*/
 
-.title {
-  text-align: center;
-  padding: 30px;
-}
-
-.coursesSection {
-  margin: 1200px;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.cardCourse {
-  width: 33%;
-  height: 400px;
-  margin: 5px 0px;
+/* --- Estilos Generales y Fondo Cosmotelúrico --- */
+.main-container {
+  min-height: 100vh;
+  width: 100%;
+  /* Aquí pon la URL de tu imagen de fondo de mariposas/cosmos */
+  background-image: url('../src/assets/fondos/fondo-rosa.jfif');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Efecto parallax simple */
   position: relative;
-}
-
-.cardBackground {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.cardData {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  padding: 2rem;
   color: white;
-
 }
 
+/* Capa oscura para que el texto resalte sobre el fondo */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(10, 14, 23, 0) 5%, rgba(5, 7, 12, 0.9) 250%);
+  z-index: 0;
+}
 
-.cardButton {
-  padding: 10px 15px;
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  /* Para que el contenido flote sobre el overlay */
+  width: 100%;
+  max-width: 1200px;
+}
+
+.page-title {
+  font-family: '1', sans-serif;
+  /* O tu fuente principal */
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+  margin-bottom: 3rem;
+  /* Efecto de texto brillante */
+  background: linear-gradient(to right, #fff, #a5b4fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- Grilla de Cursos --- */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+}
+
+/* --- Tarjeta Glassmorphism --- */
+.card-course {
+  background: rgba(255, 255, 255, 0.05);
+  /* Muy transparente */
+  backdrop-filter: blur(10px);
+  /* El efecto de vidrio */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-course:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(58, 134, 255, 0.3);
+  border-color: rgba(238, 35, 204, 0.5);
+}
+
+.card-image-container {
+  height: 180px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card-course:hover .card-img {
+  transform: scale(1.1);
+}
+
+.card-data {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-family: "1";
+}
+
+.card-btn {
+  margin-top: auto;
+  /* Empuja el botón al fondo */
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #c73aff 0%, #8338ec 100%);
   color: white;
   text-decoration: none;
+  font-weight: 600;
+  transition: filter 0.3s ease;
+  box-shadow: 0 0 15px rgba(58, 134, 255, 0.4);
+  font-family: "1";
 }
 
-.cardButton:hover {
-  background-color: blue;
-  cursor: pointer;
-  transition: all .3s;
+.card-btn:hover {
+  filter: brightness(1.2);
 }
 
 /* REGISTER */
@@ -252,7 +495,7 @@
   z-index: -1;
 }
 
-.registerSection {}
+
 
 .registerContainer {
   height: 100vh;
@@ -265,9 +508,9 @@
 }
 
 .titleModalContainer {
-  height: 500px;
   width: 100%;
   max-width: 500px;
+  height: 500px;
   margin: auto;
   background-color: #171f52;
   color: white;
@@ -276,6 +519,10 @@
   border-radius: 20px;
   box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
   animation: slideDownFade 0.4s ease forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .linkLogin {
@@ -288,6 +535,7 @@
   font-size: small;
   font-weight: bold;
   color: white;
+  font-family: "1";
 
 }
 
@@ -345,6 +593,7 @@
   color: white;
   font-size: smaller;
   font-weight: bold;
+  font-family: "1";
 }
 
 .formInput {
@@ -353,7 +602,14 @@
   border-radius: 20px;
   padding-left: 10px;
   border: 0;
+  font-family: "1";
+  font-weight: 500;
 
+}
+
+.formInput:focus {
+  outline: none;
+  box-shadow: 0 0 5px #4f7cff;
 }
 
 .formInputButton {
@@ -365,6 +621,7 @@
   margin-top: 15px;
   cursor: pointer;
   border: 2px solid white;
+  font-family: "1";
 }
 
 .formInputButton:hover {
@@ -399,13 +656,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #171f52;
   width: 100%;
   max-width: 500px;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
   animation: slideDownFade 0.4s ease forwards;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Borde sutil */
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  /* Sombra profunda para darle volumen */
 }
 
 .closeModalContainer {
@@ -426,16 +690,24 @@
   transition: all .3s;
   margin: 5px;
   cursor: pointer;
+  font-family: "1";
+  font-weight: bold;
 }
 
 .notAccountLink:hover {
   color: rgb(170, 170, 170);
   transition: all .3s;
+
 }
 
 .registerLink {
   text-decoration: underline;
   margin-left: 10px;
+  font-family: "1";
+}
+
+.inputRegister {
+  height: 50px;
 }
 
 .messageErrorLogin {
@@ -457,29 +729,35 @@
 }
 
 .modalRecovery {
-  background-color: #171f52;
-  height: 400px;
-  width: 400px;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 15px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+  padding: 20px;
+  border-radius: 20px;
   box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
   animation: slideDownFade 0.4s ease forwards;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Borde sutil */
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  /* Sombra profunda para darle volumen */
 
 }
 
 .iconContainerRecovery {
   width: 100%;
   text-align: start;
-  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  margin-bottom: 50px;
 
 }
 
@@ -489,10 +767,20 @@
 
 }
 
+.formRecoveryContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .titleRecovery {
   color: white;
   font-size: larger;
   font-weight: bold;
+  font-family: "1";
 }
 
 .formRecovery {
@@ -871,153 +1159,331 @@
 
 /*       CONTACTO    */
 
-.contactContainer {
-  height: 100vh;
-  width: 100%;
-  background-image: url("./assets/fondos/fondo-violeta.jpg");
+
+/* Importamos una fuente similar a la de tus imágenes (puedes usar la que ya tengas global) */
+
+
+/* --- Contenedor Principal con el Fondo Espacial --- */
+.mainContact {
+  /* REEMPLAZA ESTA URL CON LA RUTA A TU IMAGEN DE FONDO (Ej: /assets/fondo-espacio.jpg) */
+  background-image: url('../src/assets/fondos/fondo-violeta.jpg');
+  /* <--- ¡ACÁ! */
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-attachment: fixed;
+  /* Para que el fondo quede fijo al hacer scroll */
+
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  /* Capa oscura superpuesta para mejorar la lectura si el fondo es muy brillante */
+  position: relative;
+}
+
+/* Opcional: Una capa oscura encima de la imagen si el texto no se lee bien */
+.mainContact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.144);
+  /* Ajusta la opacidad (0.4) según necesites */
+  z-index: 0;
+}
+
+/* --- Contenedor del contenido (para que quede por encima de la capa oscura) --- */
+.contactContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .sectionContainer {
-  height: 100vh;
-  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 50px;
+  align-items: flex-start;
 }
 
+/* --- Títulos Generales (Estilo "SANACION COSMOTELURICA") --- */
+h2 {
+  font-weight: 900;
+  /* Bien negrita */
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  text-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+  /* Pequeño resplandor azul */
+}
+
+/* ================= SECCIÓN IZQUIERDA: Datos y Redes ================= */
 .socialMediaSection {
-  width: 50%;
-  height: 100vh;
+  min-width: 300px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
-.listContainer {
- height: 250px;
-  width: 100%;
-  max-width: 400px;
-  background-color: blue;
-  text-align: center;
-}
-
+/* Listas de texto */
 .contactList {
   list-style: none;
-  margin-top: 20px;
+  padding: 0;
+  margin-bottom: 40px;
 }
 
-.socialMediaList {
-  list-style: none;
+.contactList li {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  opacity: 0.9;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  width: 200px;
-  margin: 20px auto;
+  gap: 10px;
+}
 
+/* Lista de Iconos de Redes */
+.socialMediaList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 
 }
 
+.socialMediaList li {
+  /* Círculos tipo "burbuja de energía" */
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-weight: bold;
+  /* Efecto de brillo interno */
+  box-shadow: inset 0 0 10px rgba(0, 123, 255, 0.2);
+}
+
+.socialMediaList li:hover {
+  background: rgba(0, 123, 255, 0.2);
+  /* Azul al pasar el mouse */
+  border-color: #00a8ff;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 0 25px #00a8ff, inset 0 0 15px #00a8ff;
+  /* Glow intenso */
+}
+
+.iconSocialList {
+  width: 30px;
+  height: 30px;
+}
+
+
+.buttonWtsContainer {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wtsButton {
+  background-color: #4caf50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  width: 160px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  margin: auto;
+  cursor: pointer;
+  transition: all .3s;
+
+}
+
+.wtsButton:hover {
+  background-color: #45a049;
+  box-shadow: 0 0 15px #07c511;
+  transform: translateY(-3px);
+  transition: all .3s;
+}
+
+.wtsButton img {
+  width: 40px;
+}
+
+/* ================= SECCIÓN DERECHA: Formulario (El Vidrio) ================= */
 .formContactSection {
-  width: 50%;
+  min-width: 350px;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
- 
+  align-items: center;
+
 }
 
+/* Efecto GLASSMORPHISM para el contenedor del formulario */
 .glass {
-  background: rgba(94, 17, 94, 0.407);
-  /* transparencia */
+  background: rgba(255, 255, 255, 0.07);
+  /* Muy transparente */
   backdrop-filter: blur(12px);
+  /* Desenfoca el fondo espacial detrás */
   -webkit-backdrop-filter: blur(12px);
-  /* Safari */
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-}
-
-.titleFormContainer {
-  padding: 20px;
-  border-radius: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Borde sutil */
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  /* Sombra profunda para darle volumen */
 }
 
 .titleForm {
+  font-size: 1.8rem;
   text-align: center;
-  margin: 10px 0px 20px 0px;
-  color: white;
-}
-
-.formContact {
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  max-width: 500px;
-  margin: auto;
-  height: 400px;
-
-}
-
-.contactFormInput {
-  height: 40px;
-  border-radius: 10px;
+  margin-bottom: 35px;
 }
 
 .formContact {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 25px;
 }
 
 .formRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  display: flex;
+  gap: 25px;
 }
 
+/* Estilos de los Inputs y Textarea */
 .contactFormInput,
 .contactFormTextarea {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  outline: none;
+  background: rgba(0, 0, 0, 0.2);
+  /* Fondo semi-oscuro para que resalte el texto */
+  border: none;
+  /* Línea inferior brillante estilo "neon" */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 15px;
+  color: white;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  border-radius: 8px 8px 0 0;
+  /* Bordes redondeados solo arriba */
 }
 
 .contactFormTextarea {
-  min-height: 120px;
   resize: vertical;
+  min-height: 120px;
 }
 
+/* Efecto al hacer click (Focus) en los inputs */
+.contactFormInput:focus,
+.contactFormTextarea:focus {
+  outline: none;
+  background: rgba(194, 18, 194, 0.1);
+  /* Leve fondo azul */
+  border-bottom-color: #d63384;
+  /* Rosa neón */
+  box-shadow: 0 4px 10px -5px rgba(214, 51, 132, 0.5);
+}
+
+/* Color del placeholder (el texto de ayuda) */
+.contactFormInput::placeholder,
+.contactFormTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Botón de Enviar */
 .contactFormButton {
-  align-self: flex-start;
-  /* queda independiente */
-  padding: 12px 18px;
-  border-radius: 8px;
+  padding: 15px 40px;
+  background: linear-gradient(45deg, #a800ea, #a515c2);
+  /* Degradado azul cósmico */
   border: none;
-  background-color: purple;
+  border-radius: 50px;
   color: white;
-  font-size: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
-  transition: all .3s;
+  transition: all 0.4s ease;
+  align-self: flex-start;
+  /* Alineado a la izquierda */
+  box-shadow: 0 5px 20px rgba(171, 0, 251, 0.4);
 }
 
 .contactFormButton:hover {
-  background-color: rgb(93, 2, 93);
-  transition: all .3s;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(209, 0, 251, 0.8);
+  /* Glow intenso al hover */
 }
 
-/* Responsive */
-@media (max-width: 640px) {
+/* --- Responsive para celulares --- */
+@media (max-width: 1100px) {
+
+  .formContactSection {
+    margin: auto;
+    width: 100%;
+  }
+
+  .titleFormContainer {
+    width: 80%;
+    min-width: 300px;
+  }
+
+  .sectionContainer {
+    flex-direction: column-reverse;
+  }
+
   .formRow {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .socialMediaSection {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin: auto;
+  }
+
+  .contactList li {
+    justify-content: center;
+  }
+
+  .glass {
+    padding: 25px;
+  }
+
+  h2 {
+    font-size: 2rem;
   }
 }
+
 
 
 
@@ -1100,4 +1566,11 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+
+
+@font-face {
+  font-family: "1";
+  src: url("../src/assets/tipografias/Montserrat-VariableFont_wght.ttf");
 }

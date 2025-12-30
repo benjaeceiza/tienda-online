@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import fondoMeditaciones from "../../assets/fondos/intermedio.png";
 import fondoNaturaleza from "../../assets/fondos/naturaleza.jpg";
 import { useLoading } from "../../context/LoadingContext";
@@ -6,6 +7,7 @@ import { useLoading } from "../../context/LoadingContext";
 const Cursos = () => {
 
    const {hideLoader} = useLoading();
+
 
     return (
         <>
