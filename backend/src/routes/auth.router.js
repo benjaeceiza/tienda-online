@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
     if (!user) return res.status(404).json({ message: "Email o Contraseña inválido" });
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(401).json({ message: "Email o Contraseña inválido" });
+    if (!match) return res.status(404).json({ message: "Email o Contraseña inválido" });
 
     const token = jwt.sign(
       { id: user._id, email: user.email },
