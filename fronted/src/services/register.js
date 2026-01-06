@@ -1,8 +1,10 @@
 export const userRegister = async (nombre, apellido, email, password) => {
+
+  
   const data = { nombre, apellido, email, password };
 
   try {
-    const res = await fetch("http://localhost:8080/api/auth/register", {
+    const res = await fetch("http://localhost:8080/api/auth/admin/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

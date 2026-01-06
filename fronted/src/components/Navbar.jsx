@@ -35,13 +35,23 @@ const Navbar = () => {
         : null
       }
       <nav className="navbar">
-        {/* Botón Flotante */}
-        <div
-          className="buttonMenuContainer"
-          onClick={() => setIsVisible(true)}
-        >
-          <img className="buttonMenu" src={buttonMenu} alt="menu" />
+
+        <div className="buttonNavContainerSession">
+          {!user
+            ?
+            <NavLink to={"/login"}><button className="buttonIniciarSesionHome">Iniciar Sesion</button></NavLink>
+            :
+            ""
+          }
+          {/* Botón Flotante */}
+          <div
+            className="buttonMenuContainer"
+            onClick={() => setIsVisible(true)}
+          >
+            <img className="buttonMenu" src={buttonMenu} alt="menu" />
+          </div>
         </div>
+
 
         {/* Overlay oscuro (Fondo) */}
         <div
@@ -107,7 +117,8 @@ const Navbar = () => {
                     alt="Cerrar sesion"
                     onClick={() => {
                       setShowModal(true);
-                      setIsVisible(false); }}
+                      setIsVisible(false);
+                    }}
                     style={{ cursor: "pointer" }}
                     className="navbarIcon iconLogout"
                     title="Cerrar Sesión"

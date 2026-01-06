@@ -2,6 +2,7 @@ import { Router } from "express";
 import { cursoModelo } from "../models/course.model.js";
 import { authMiddleware } from "../middleware/auth.js";
 import { usuarioModelo } from "../models/user.model.js";
+import { processPayment } from "../controller/payment.controller.js";
 
 export const router = Router();
 
@@ -35,3 +36,5 @@ router.patch("/:courseId", authMiddleware, async (req, res) => {
 
 })
 
+
+router.post("/process_payment", processPayment);

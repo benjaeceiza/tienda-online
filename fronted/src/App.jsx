@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import { useLoading } from "./context/LoadingContext";
 import LoadingScreen from "./components/LoadingScreen";
 import RouteLoader from "./components/RouteLoader";
+import Checkout from "./utils/payments/Checkout";
 
 export default function App() {
   const { isVisible, isExiting } = useLoading();
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/mis-cursos" element={<MisCursos />} />
             <Route path="/curso/:cid" element={<Curso />} />
             <Route path="/contacto" element={<Contacto />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
           <Footer />
         </BrowserRouter>

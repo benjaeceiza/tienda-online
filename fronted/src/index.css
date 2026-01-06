@@ -101,8 +101,31 @@
   /* Asegura que esté siempre arriba */
   display: flex;
   justify-content: flex-end;
-  pointer-events: none;
+
   /* Permite clickear a través de la barra vacía */
+}
+
+.buttonNavContainerSession {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 250px;
+
+}
+
+.buttonIniciarSesionHome {
+  background-color: transparent;
+  border: 0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 10px;
+  border-radius: 20px;
+  color: white;
+  font-family: "1";
+  font-weight: bold;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  
 }
 
 .buttonMenuContainer {
@@ -312,7 +335,7 @@
   /* Borde sutil */
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   /* Sombra profunda para darle volumen */
-   z-index: 31;
+  z-index: 31;
 
 }
 
@@ -320,10 +343,10 @@
   color: white;
   font-size: xx-large;
   font-size: clamp(20px, 2vw, 30px);
-  
+
 }
 
-.btnCancel{
+.btnCancel {
   background-color: red;
   border: 0;
   padding: 10px 20px;
@@ -334,8 +357,9 @@
   margin: 10px;
   cursor: pointer;
 }
-.btnConfirm{
-   background-color: green;
+
+.btnConfirm {
+  background-color: green;
   border: 0;
   padding: 10px 20px;
   border-radius: 10px;
