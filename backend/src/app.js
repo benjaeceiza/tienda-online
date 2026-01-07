@@ -10,12 +10,12 @@ import cors from "cors";
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 dotenv.config();
 const PORT = process.env.PORT;
 
 
-app.use(express.json());
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);

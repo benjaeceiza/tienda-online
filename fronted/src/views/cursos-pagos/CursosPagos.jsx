@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import ContactoFlotante from "../../components/ContactoFlotante";
 import ModalLogin from "../../components/ModalLogin";
 import { useLoading } from "../../context/LoadingContext";
+import { pagar } from "../../services/payMercadoPago";
 
 const CursosPagos = () => {
   const [cursos, setCursos] = useState([]);
@@ -95,7 +96,19 @@ const CursosPagos = () => {
               ) : (
                 <p
                   className="coursePrice"
-                  onClick={() => comprarCurso(cursoSeleccionado._id)}
+                  style={{ cursor: "pointer" }} // Agregale esto para que parezca botón
+                  onClick={() => {
+                    // 1. Validamos si el usuario existe
+                    if (!user) {
+                      setIsVisible(true); // Si no está logueado, abrimos el modal de Login
+                      return;
+                    }
+
+                    // 2. Si está logueado, procedemos al pago
+                    // IMPORTANTE: Pasale 'cursoSeleccionado' entero, no solo el ID,  
+                    // así la función pagar puede sacar el precio y el título.
+                    pagar(user.id, cursoSeleccionado);
+                  }}
                 >
                   COMPRAR ${cursoSeleccionado?.precio} ARS
                 </p>

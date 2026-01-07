@@ -14,7 +14,7 @@ const Cursos = () => {
             <section className="coursesContainerHome">
                 <div className="coursesCardContainer">
                     <div className="textCoursesHome">
-                        <h2 className="titleCourseHome">Meditaciones.</h2>
+                        <h2 className="titleCourseHome">Rituales.</h2>
                         <p className="subtitleCourseHome">La meditación no es una técnica nueva, es antigua; lo nuevo es lo que se genera al realizar estas meditaciones en cada uno de nosotros</p>
                     </div>
                     <div className="btnWrapper">
@@ -32,7 +32,7 @@ const Cursos = () => {
                 </div>
                 <div className="coursesCardContainer">
                     <div className="textCoursesHome">
-                        <h2 className="titleCourseHome">CURSOS.</h2>
+                        <h2 className="titleCourseHome">Artesanias<br></br> magicas.</h2>
                         <p className="subtitleCourseHome">La meditación no es una técnica nueva, es antigua; lo nuevo es lo que se genera al realizar estas meditaciones en cada uno de nosotros</p>
                     </div>
                     <div className="btnWrapper">

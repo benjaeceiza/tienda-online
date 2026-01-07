@@ -91,17 +91,18 @@ const Navbar = () => {
               </NavLink>
             </li>
 
+            <li className="navbarItem">
+              <NavLink to="/contacto" className="navbarLink" onClick={() => setIsVisible(false)}>
+                Contacto
+              </NavLink>
+            </li>
+
             {/* --- Lógica de Usuario Logueado --- */}
             {user ? (
               <>
                 <li className="navbarItem">
                   <NavLink to="/mis-cursos" className="navbarLink" onClick={() => setIsVisible(false)}>
                     Mis cursos
-                  </NavLink>
-                </li>
-                <li className="navbarItem">
-                  <NavLink to="/contacto" className="navbarLink" onClick={() => setIsVisible(false)}>
-                    Contacto
                   </NavLink>
                 </li>
 
@@ -128,20 +129,15 @@ const Navbar = () => {
             ) : (
               /* --- Lógica de Invitado --- */
               <>
-                <li className="navbarItem">
-                  <NavLink to="/login" className="navbarLink" onClick={() => setIsVisible(false)}>
+
+                <li className="sessionItem">
+                  <NavLink to="/login" className="navbarLink navbarSessionLink" onClick={() => setIsVisible(false)}>
                     Iniciar Sesión
                   </NavLink>
-                </li>
-                <li className="navbarItem">
-                  <NavLink to="/register" className="navbarLink" onClick={() => setIsVisible(false)}>
+                  <NavLink to="/register" className="navbarLink navbarSessionLink" onClick={() => setIsVisible(false)}>
                     Registrarse
                   </NavLink>
-                </li>
-                <li className="navbarItem">
-                  <NavLink to="/contacto" className="navbarLink" onClick={() => setIsVisible(false)}>
-                    Contacto
-                  </NavLink>
+
                 </li>
               </>
             )}

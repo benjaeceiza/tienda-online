@@ -18,7 +18,7 @@ const ModalLogin = ({ setIsVisible }) => {
 
         userLogin(email, password)
             .then((res) => {
-                if (res.includes("success")) {
+                if (res.token) {
                     setUser({ email });
                     setIsVisible(false);
                     window.location.reload();

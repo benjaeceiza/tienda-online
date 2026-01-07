@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { getCourse } from "../../services/getCourse";
 import { useEffect, useState } from "react";
+import { useLoading } from "../../context/LoadingContext";
 
 
 const Curso = () => {
@@ -8,8 +9,10 @@ const Curso = () => {
     const { cid } = useParams();
     const [curso, setCurso] = useState({})
     const [error,setError] = useState(null);
+    const {hideLoader} = useLoading();
 
     useEffect(() => {
+        hideLoader();
         getCourse(cid)
             .then(data => setCurso(data || {}))
             .catch(err => setError(err))
