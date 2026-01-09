@@ -395,11 +395,13 @@
 /* Mis cursos*/
 
 /* --- Estilos Generales y Fondo Cosmotelúrico --- */
+
+
 .main-container {
   min-height: 100vh;
   width: 100%;
   /* Aquí pon la URL de tu imagen de fondo de mariposas/cosmos */
-  background-image: url('../src/assets/fondos/fondo-rosa.jfif');
+  background-image: url('../src/assets/fondos/fondodibujos.jpg  ');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -410,6 +412,44 @@
   align-items: center;
   padding: 2rem;
   color: white;
+  padding-top: 50px;
+}
+
+.main-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.459);
+  /* Negro con 50% de opacidad */
+  z-index: 1;
+  /* Asegura que esté debajo del texto */
+}
+
+
+.titleMisCursos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.titleMisCursos h1 {
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 44px);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+}
+
+.titleMisCursos p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 70ch;
+  font-size: clamp(14px, 1.6vw, 16px);
 }
 
 /* Capa oscura para que el texto resalte sobre el fondo */
@@ -447,87 +487,425 @@
 }
 
 /* --- Grilla de Cursos --- */
+
+:root {
+  --fg: #ffffff;
+  --muted: rgba(255, 255, 255, .78);
+  --card: rgba(176, 77, 189, 0.349);
+  --card2: rgba(112, 44, 139, 0.58);
+  --stroke: rgba(255, 255, 255, .12);
+  --shadow: 0 18px 50px rgba(112, 72, 116, 0.45);
+  --maxw: 1200px;
+  --radius: 18px;
+  --radius2: 14px;
+  --pad: clamp(16px, 2.2vw, 26px);
+}
+
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+  margin-top: 8px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+  margin-top: 8px;
   width: 100%;
 }
 
-/* --- Tarjeta Glassmorphism --- */
-.card-course {
-  background: rgba(255, 255, 255, 0.05);
-  /* Muy transparente */
-  backdrop-filter: blur(10px);
-  /* El efecto de vidrio */
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  overflow: hidden;
-  transition: all 0.4s ease;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-.card-course:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(58, 134, 255, 0.3);
-  border-color: rgba(238, 35, 204, 0.5);
-}
-
-.card-image-container {
-  height: 180px;
-  width: 100%;
+.card {
+  grid-column: span 6;
+  border-radius: var(--radius);
+  border: 2px solid rgb(131, 113, 125);
+  background: linear-gradient(180deg, var(--card), var(--card2));
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
   overflow: hidden;
   position: relative;
+  min-height: 250px;
 }
 
-.card-img {
+.card-inner {
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+}
+
+.card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: .02em;
+}
+
+.card p {
+  margin: 0;
+  color: rgba(255, 255, 255, .78);
+  font-size: 14px;
+}
+
+
+
+/* “Thumb” */
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  border-radius: var(--radius2);
+  border: 1px solid rgba(255, 255, 255, .10);
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+
+.thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--thumb) center / cover no-repeat;
+  transform: translateZ(0);
+  filter: saturate(1.02) contrast(1.03);
+}
+
+.thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .15), rgba(0, 0, 0, .45));
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .10);
+  background: rgba(255, 255, 255, .05);
+  font-size: 12px;
+  color: rgba(255, 255, 255, .85);
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: rgba(255, 255, 255, .08);
+  color: rgba(255, 255, 255, .95);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, .12);
+  border-color: rgba(255, 255, 255, .20);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .card {
+    grid-column: span 12;
+  }
+
+}
+
+/* CONTENIDO CURSOS */
+
+
+.encabezadoContenidoCurso {
+  position: relative;
+  width: 100%;
+  height: 350px;
+
+}
+
+.bgHeaderContenidoCursos {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  filter: brightness(80%);
 }
 
-.card-course:hover .card-img {
-  transform: scale(1.1);
-}
-
-.card-data {
-  padding: 1.5rem;
+.sectionContenido {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
 }
 
-.card-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #fff;
-  font-family: "1";
+
+.buttonGoBackContainer {
+  margin-right: auto;
+  z-index: 20;
+  text-align: start;
 }
 
-.card-btn {
-  margin-top: auto;
-  /* Empuja el botón al fondo */
-  display: inline-block;
-  text-align: center;
-  padding: 10px 20px;
-  border-radius: 50px;
-  background: linear-gradient(90deg, #c73aff 0%, #8338ec 100%);
+.buttonGoBack {
+  margin-top: 50px;
+  margin-left: 50px;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 2px rgba(255, 255, 255, 0.534) solid;
   color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: filter 0.3s ease;
-  box-shadow: 0 0 15px rgba(58, 134, 255, 0.4);
+  height: 30px;
+  width: 80px;
+  text-transform: uppercase;
+  font-weight: 800;
   font-family: "1";
+  font-size: xx-small;
+  cursor: pointer;
+
 }
 
-.card-btn:hover {
-  filter: brightness(1.2);
+.courseTitleContenido {
+  margin-top: 50px;
+  font-size: clamp(42px, 4vw, 120px);
+  text-transform: uppercase;
+  color: white;
+  font-weight: 800;
+  filter: drop-shadow(0px 0px 10px rgb(0, 0, 0));
 }
+
+.courseLayout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  /* Video ocupa el resto, Sidebar fijo de 350px */
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  color: white;
+  /* Asumiendo tema oscuro */
+
+}
+
+.bgColorContenido {
+  padding: 50px 0px;
+  background: linear-gradient(180deg, rgba(1, 11, 63, 0.9) 0%, rgba(10, 14, 23, 0.95) 100%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+}
+
+/* --- VIDEO Y CONTENIDO --- */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* Aspect Ratio 16:9 */
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.unit-title {
+  font-family: "1", sans-serif;
+  /* Tu fuente */
+  margin-top: 20px;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+/* Tabs */
+.tabs-header {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid #333;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: #888;
+  padding: 10px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  font-family: "1", sans-serif;
+}
+
+.tab-btn.active {
+  color: #c73aff;
+  /* Tu naranja */
+  font-weight: bold;
+}
+
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #c73aff;
+}
+
+/* Contenido de texto (Ex PDF) */
+.text-content {
+  line-height: 1.6;
+  color: #ccc;
+  font-size: 1.05rem;
+}
+
+.tip-box {
+  background: rgba(239, 137, 55, 0.1);
+  /* Naranja muy suave */
+  border-left: 4px solid #c73aff;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+
+/* BARRA LATERAL DE UNIDADES */
+:root {
+  --panel-bg: rgba(12, 20, 16, .60);
+  --panel-border: rgba(255, 255, 255, .55);
+  --panel-shadow: 0 10px 40px rgba(0, 0, 0, .35);
+
+  --btn-stroke: rgba(255, 255, 255, .45);
+}
+
+
+/* --- SIDEBAR (PLAYLIST) --- */
+.sidebar-playlist {
+  height: fit-content;
+  max-height: 80vh;
+  /* Que no sea más alto que la pantalla */
+  overflow-y: auto;
+  /* Scroll interno si hay muchas unidades */
+  border: 1px solid #333;
+  --pad: clamp(12px, 1.6vw, 18px);
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(4px) saturate(1.02);
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  background: #1a1a1a;
+  z-index: 10;
+}
+
+.progress-bar {
+  background: #333;
+  height: 6px;
+  border-radius: 3px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.fill {
+  background: linear-gradient(45deg, #a800ea, #a515c2);
+  height: 100%;
+}
+
+/* Items de la lista */
+.unit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding: var(--pad);
+}
+
+.unit-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #222;
+  transition: background 0.2s;
+}
+
+.unit-item:hover {
+  background: #252525;
+}
+
+.unit-item.active-unit {
+  background: #2a2a2a;
+  border-left: 4px solid #a515c2;
+  /* Borde naranja indicador */
+}
+
+.unit-item.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.unit-icon {
+  margin-right: 15px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.unit-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.unit-name {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #eee;
+}
+
+.unit-meta {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 4px;
+}
+
+
 
 /* REGISTER */
 
@@ -650,6 +1028,7 @@
   border: 0;
   font-family: "1";
   font-weight: 500;
+  margin-top: 20px;
 
 }
 
@@ -668,6 +1047,20 @@
   cursor: pointer;
   border: 2px solid white;
   font-family: "1";
+
+}
+
+.formInputButtonFake {
+  padding: 8px 12px;
+  border-radius: 25px;
+  border: 0;
+  font-weight: bold;
+  font-size: smaller;
+  margin-top: 15px;
+  cursor: pointer;
+  border: 2px solid white;
+  font-family: "1";
+  cursor: not-allowed;
 }
 
 .formInputButton:hover {
@@ -750,10 +1143,55 @@
   text-decoration: underline;
   margin-left: 10px;
   font-family: "1";
+
+
 }
 
+.nameLastNameContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.inputNameRegister {
+  width: 49%;
+  background-image: url("../src/assets/iconos/cuenta.png");
+  background-repeat: no-repeat;
+  background-size: 10%;
+  background-position: 90%;
+}
+
+.inputIcon {
+  background-repeat: no-repeat;
+  background-size: 5%;
+  background-position: 95%;
+}
+
+.inputEmailRegister {
+  background-image: url("../src/assets/iconos/correo-blue.png");
+}
+
+.inputPasswordRegister {
+  background-image: url("../src/assets/iconos/candado-blue.png");
+
+}
+
+.inputEmailLogin {
+  background-image: url("../src/assets/iconos/correo-purple.png");
+}
+
+.inputPasswordLogin {
+  background-image: url("../src/assets/iconos/candado-purple.png");
+
+}
+
+
+
+
+
 .inputRegister {
-  height: 50px;
+  height: 40px;
+  margin-top: 10px;
 }
 
 .messageErrorLogin {
@@ -958,7 +1396,7 @@
 .titleCourseHome {
   color: white;
   margin: 0px 0px 0.25em;
-  font-size: clamp(42px, 5vw, 120px);
+  font-size: clamp(42px, 4vw, 120px);
   line-height: 0.92;
   letter-spacing: 0.04em;
   font-weight: 900;
@@ -1064,8 +1502,27 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 100px;
+  padding: 50px 100px;
 
+}
+
+.subtitleCoursesContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 40px;
+}
+
+.subtitleCoursesCategoria {
+  color: white;
+  padding: 5px 10px;
+  border: 2px solid rgba(255, 255, 255, 0.644);
+  border-radius: 20px;
+  margin-left: 10px;
+  font-family: "1";
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: small;
 }
 
 
@@ -1098,6 +1555,7 @@
 .videoTitleContainer {
   width: 100%;
   max-width: 600px;
+  min-width: 400px;
   height: 500px;
   border: 2px solid white;
   padding: 20px;
@@ -1123,11 +1581,20 @@
 
 }
 
-.courseVideo {
+
+
+.courseVideointroduccionContainer {
   height: 300px;
   width: 100%;
   border: solid white 2px;
   border-radius: 20px;
+
+}
+
+.videoIntroduccion {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
 }
 
 .coursePrice {
@@ -1146,13 +1613,18 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  max-width: 600px;
-  justify-content: space-between;
+  max-width: 800px;
+  justify-content: flex-start;
+
 }
 
 .buttonNameContainer {
   text-align: center;
   transition: all .3s;
+  margin-left: 20px;
+  margin-top: 20px;
+  width: 100px;
+
 }
 
 .buttonNameContainer:hover {
@@ -1164,10 +1636,10 @@
 /* SVG que gira */
 .ring-courses {
   position: absolute;
-  top: -32px;
-  left: -32px;
-  width: 140px;
-  height: 140px;
+  top: -25px;
+  left: -24px;
+  width: 110px;
+  height: 110px;
   transform-origin: center;
   animation: spin 15s linear infinite;
   z-index: 1;
@@ -1186,16 +1658,17 @@
   position: relative;
   z-index: 2;
   cursor: pointer;
-  height: 75px;
-  width: 75px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   font-weight: 600;
   filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+
 }
 
 .buttonTitleCourse {
   color: white;
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: .12em;
   white-space: nowrap;
@@ -1530,7 +2003,30 @@ h2 {
   }
 }
 
+/* PAY SECTION */
 
+.messagePayContainer {
+  background-image: url("../src/assets/fondos/inicio.png");
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.messagePayContainer h1 {
+  color: white;
+  font-family: "1";
+  font-size: clamp(18px, 2vw, 50px);
+}
+
+.btnCheckout {
+  margin-top: 40px;
+}
 
 
 /* FOOTER */
@@ -1570,14 +2066,14 @@ h2 {
 
 }
 
-.footerItemInformation{
+.footerItemInformation {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   width: 200px;
 
   margin-top: 10px;
- 
+
 }
 
 .footerItemInformation img {
@@ -1600,7 +2096,7 @@ h2 {
 .titleFooterContainer {
   width: 30%;
   text-align: center;
-  height: 150px;
+  height: auto;
   min-width: 200px;
 
 }
@@ -1624,14 +2120,14 @@ h2 {
 
 .informatioFooterContainer {
   width: 30%;
-  height: 150px;
+  height: auto;
   min-width: 200px;
 
 }
 
 
 .linksViewsFooter {
-  height: 150px;
+  height: auto;
   width: 30%;
   min-width: 200px;
 }
@@ -1742,22 +2238,63 @@ h2 {
 
 
 
-@media(max-width: 750px) {
-  .footer {
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .courseLayout {
+    grid-template-columns: 1fr;
+    /* Una sola columna */
+
+  }
+
+  .sidebar-playlist {
+    max-height: none;
+    /* Quitamos limite de altura */
+    order: 2;
+    /* Opcional: Si querés que la lista quede abajo */
+
+  }
+
+  /* 1. Cambiamos la dirección de fila a columna */
+  .upperFooter {
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    gap: 30px;
+    /* Espacio entre secciones */
   }
 
+  /* 2. Hacemos que cada sección ocupe todo el ancho */
+  .titleFooterContainer,
   .informatioFooterContainer,
   .linksViewsFooter {
-    border: none;
-    margin: 20px 0px;
-    width: 80%;
+    width: 100%;
+    height: auto;
+    /* Importante: quitamos la altura fija para que no se corte */
+    margin-bottom: 20px;
   }
 
+  /* 3. TRUCO: Movemos el Título arriba de todo */
   .titleFooterContainer {
-    width: 80%;
-    margin-bottom: 20px;
+    order: -1;
+    /* Esto lo manda al principio visualmente */
+  }
+
+  /* 4. Ajustamos la parte de abajo (Copyright y redes) */
+  .underFooter {
+    flex-direction: column-reverse;
+    /* Pone las redes arriba y el texto abajo */
+    gap: 15px;
+  }
+
+  .textUnderFooter {
+    width: 90%;
+    /* Ancho casi total */
+    margin-bottom: 10px;
+    font-size: 12px;
+    /* Un poco más chico en mobile */
+  }
+
+  .footerListMedia {
+    width: 100%;
+    margin: 10px 0;
   }
 }

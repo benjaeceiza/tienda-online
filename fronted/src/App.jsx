@@ -3,8 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./views/home/Home";
 import Login from "./views/login/Login";
 import Register from "./views/register/Register";
-import CursosPagos from "./views/cursos-pagos/CursosPagos";
-import CursosGratuitos from "./views/cursos-gratuitos/CursosGratuitos";
+import Cursos from "./views/cursos/Cursos";
 import MisCursos from "./views/mis-cursos/MisCursos";
 import { AuthProvider } from "./context/AuthContext";
 import Curso from "./views/detalle-curso/Curso";
@@ -32,8 +31,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/cursos-pagos" element={<CursosPagos />} />
-            <Route path="/cursos-gratuitos" element={<CursosGratuitos />} />
+            <Route path="/cursos/:categoria" element={<Cursos />} />
             <Route path="/mis-cursos" element={<MisCursos />} />
             <Route path="/curso/:cid" element={<Curso />} />
             <Route path="/contacto" element={<Contacto />} />

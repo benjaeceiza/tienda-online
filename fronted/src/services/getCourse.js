@@ -3,10 +3,9 @@ const API_URL = "http://localhost:8080/api";
 export const getCourse = async (cid) => {
   const token = localStorage.getItem("token");
 
-  
 
   try {
-    const res = await fetch(`${API_URL}/courses/${cid}`, {
+    const res = await fetch(`${API_URL}/courses/contenido/${cid}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: token ? `Bearer ${token}` : "",

@@ -43,12 +43,11 @@ const ModalLogin = ({ setIsVisible }) => {
                     </div>
                     <h2 className="modalTitle">Iniciar sesión</h2>
                     <form className="formAuth" id="loginForm" onSubmit={submitUser}>
-                        <label className="labelForm">Correo Electronico</label>
-                        <input className="formInput" type="email" name="email" id="email" placeholder="Correo" required autoComplete="email" onChange={(e) => setEmail(e.target.value)} />
-                        <label className="labelForm">Contraseña</label>
-                        <input className="formInput" type="password" name="password" id="password" placeholder="Contraseña" autoComplete="current-password" required onChange={(e) => setPassword(e.target.value)} />
+                       
+                        <input className="formInput inputEmailLogin inputIcon" type="email" name="email" id="email" placeholder="Correo" required autoComplete="email" onChange={(e) => setEmail(e.target.value)} />
+                        <input className="formInput inputPasswordLogin inputIcon" type="password" name="password" id="password" placeholder="Contraseña" autoComplete="current-password" required onChange={(e) => setPassword(e.target.value)} />
                         <p className="messageErrorLogin">{mensaje}</p>
-                        <input className="formInputButton" type="submit" value="Iniciar Sesion" />
+                        <input className="formInputButton" type="submit" value="Iniciar sesión" />
                     </form>
                     <Link className="notAccountLink">Olvidé mi Contraseña</Link>
                     <Link className="notAccountLink" to={"/register"}>¿No tienes una cuenta?<span className="registerLink">Registrarse</span></Link>

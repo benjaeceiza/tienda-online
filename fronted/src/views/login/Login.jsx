@@ -57,18 +57,20 @@ const Login = () => {
             <h2 className="modalTitle">Iniciar sesión</h2>
 
             <form className="formAuth" onSubmit={submitUser}>
-              <label className="labelForm">Correo Electronico</label>
+
               <input
-                className="formInput"
+                className="formInput inputEmailLogin inputIcon"
                 type="email"
+                placeholder="Correo "
                 required
                 autoComplete="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <label className="labelForm">Contraseña</label>
+  
               <input
-                className="formInput"
+                className="formInput inputPasswordLogin inputIcon"
+                placeholder="Contraseña"
                 type="password"
                 required
                 autoComplete="current-password"

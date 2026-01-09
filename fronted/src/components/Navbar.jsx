@@ -70,18 +70,18 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="navbarItem">
-              <NavLink to="/cursos-gratuitos" className="navbarLink" onClick={() => setIsVisible(false)}>
+              <NavLink to="/cursos/eric barone" className="navbarLink" onClick={() => setIsVisible(false)}>
                 Eric Barone
               </NavLink>
             </li>
             <li className="navbarItem">
-              <NavLink to="/cursos-pagos" className="navbarLink" onClick={() => setIsVisible(false)}>
+              <NavLink to="/cursos/rituales" className="navbarLink" onClick={() => setIsVisible(false)}>
                 Rituales
               </NavLink>
             </li>
             {/* Nota: Tenías links repetidos apuntando a /cursos-pagos, revisa las rutas */}
             <li className="navbarItem">
-              <NavLink to="/artesanias" className="navbarLink" onClick={() => setIsVisible(false)}>
+              <NavLink to="/cursos/artesanias magicas" className="navbarLink" onClick={() => setIsVisible(false)}>
                 Artesanias Mágicas
               </NavLink>
             </li>

@@ -1,29 +1,23 @@
 import { Link } from "react-router-dom";
 
 const CardCourse = ({ cursos }) => {
+    
     return (
         <>
             {cursos.map((c) => (
-                <article key={c.course._id || c._id} className="card-course">
-                    <div className="card-image-container">
-                        <img 
-                            className="card-img" 
-                            src={c.course.thumbnail} 
-                            alt={`Portada del curso ${c.course.nombre}`} 
-                        />
-                    </div>
-                    
-                    <div className="card-data">
-                        <h2 className="card-title">{c.course.nombre}</h2>
-                        {/* Si tienes descripción, descomenta esto */}
-                        {/* <p className="card-description">{c.course.description}</p> */}
-                        
-                        <Link 
-                            to={"/curso/" + c.course._id} 
-                            className="card-btn"
-                        >
-                            Ingresar al curso
-                        </Link>
+                <article className="card" key={c.course?._id || Math.random() }>
+                    <div className="card-inner">
+                        <div className="card-head">
+                            <h3>{c.course?.nombre}</h3>
+                            <p>{c.course.descripcion}</p>
+                        </div>
+
+                        <img className="thumb bgCoursesContainer" src={c.course?.thumbnail} aria-label="Imagen del curso"/>
+
+                        <div className="actions">
+                            <span className="badge">Acceso: Activo</span>
+                            <Link to={"/curso/"+c.course?._id} className="btn">IR A CURSO</Link>
+                        </div>
                     </div>
                 </article>
             ))}

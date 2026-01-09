@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLoading } from "../../context/LoadingContext";
 
@@ -31,14 +31,35 @@ export const Approved = () => {
     }, [paymentId]);
 
     if (!paymentId) {
-        return <h1>⏳ Esperando confirmación del pago...</h1>;
+
+        return (
+            <>
+                <div className="messagePayContainer">
+                    <h1>⏳ Esperando confirmación del pago...</h1>
+                </div>
+            </>
+        );
     }
 
     if (status === "approved") {
-        return <h1>✅ Pago aprobado, curso habilitado</h1>;
+        return (
+            <>
+                <div className="messagePayContainer">
+                    <h1>✅ Pago aprobado, curso habilitado</h1>
+                    <Link to={"/mis-cursos"} className="btn btnCheckout">Ir a mis cursos</Link>
+                </div>
+            </>
+        );
     }
 
-    return <h1>⏳ Validando pago...</h1>;
+
+    return (
+        <>
+            <div className="messagePayContainer">
+                <h1>⏳ Validando pago...</h1>
+            </div>
+        </>
+    );
 }
 
 

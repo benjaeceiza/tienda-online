@@ -24,35 +24,28 @@ router.get("/", async (req, res) => {
 })
 
 
-// trae todos los cursos gratuitos
-router.get("/free", async (req, res) => {
+// trae los cursos por categoria
+router.get("/:categoria", async (req, res) => {
+
+    const { categoria } = req.params;
     try {
-        const courses = await cursoModelo.find({ tipo: "Gratuito" });
+
+        const courses = await cursoModelo.find({ categoria: categoria });
         res.status(201).json({ message: "Success", courses });
+
     } catch (error) {
+
         res
             .status(500)
             .json({ message: "Error al consultar cursos", error: error.message });
     }
-});
+})
 
-
-// trae todo los cursos pagos
-router.get("/paid", async (req, res) => {
-    try {
-        const courses = await cursoModelo.find({ tipo: "Pago" });
-        res.status(201).json({ message: "Success", courses });
-    } catch (error) {
-        res
-            .status(500)
-            .json({ message: "Error al consultar cursos", error: error.message });
-    }
-});
 
 
 
 // trae un curso en especifico
-router.get("/:cid", async (req, res) => {
+router.get("/contenido/:cid", async (req, res) => {
 
     try {
         const { cid } = req.params;
@@ -62,7 +55,7 @@ router.get("/:cid", async (req, res) => {
         const course = await cursoModelo.findById(cid);
         if (!course) res.status(404).json({ error: "Curso no encontrado" });
 
-        if (course.tipo === "gratuito") {
+        if (course.tipo === "Gratuito") {
             return res.status(201).json(course);
         }
 
@@ -76,6 +69,8 @@ router.get("/:cid", async (req, res) => {
         } catch (err) {
             return res.status(401).json({ message: "Token inválido o expirado" });
         }
+
+       
 
         //  Verificamos que el usuario tenga el curso
         const hasCourse = user.courses.some(c => c.course._id.toString() === cid);
