@@ -18,8 +18,8 @@ const Curso = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
         hideLoader();
+
         getCourse(cid)
             .then(data => setCurso(data || {}))
             .catch(err => setError(err))

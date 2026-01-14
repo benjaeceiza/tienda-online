@@ -1,5 +1,5 @@
 
-import fondoMeditaciones from "../../assets/fondos/intermedio.png";
+
 import fondoNaturaleza from "../../assets/fondos/fondo_taller.jpg";
 import fondoEricBarone from "../../assets/fondos/eric-barone.png";
 import { useLoading } from "../../context/LoadingContext";
@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 const Cursos = () => {
 
     const { hideLoader } = useLoading();
-
-
+    const fondoRituales = "https://i.postimg.cc/q7csYRNP/fondo_rituales.png";
+    const fondoArtesanias = "https://i.postimg.cc/CKCGt1Rt/fondo_artesanias.png";
     return (
         <>
             <section className="coursesContainerHome">
@@ -30,7 +30,7 @@ const Cursos = () => {
                         </svg>
                         <button className="btnHome">Ver<br></br>Cursos</button>
                     </div></Link>
-                    <img className="bgCourseHome" src={fondoMeditaciones} alt="fondoCurso" onLoad={hideLoader} />
+                    <img className="bgCourseHome" src={fondoRituales} alt="fondoCurso" onLoad={hideLoader} />
                 </div>
                 <div className="coursesCardContainer">
                     <div className="textCoursesHome">
@@ -48,7 +48,7 @@ const Cursos = () => {
                         </svg>
                         <button className="btnHome">Ver<br></br>Cursos</button>
                     </div></Link>
-                    <img className="bgCourseHome" src={fondoNaturaleza} alt="fondoCurso" />
+                    <img className="bgCourseHome" src={fondoArtesanias} alt="fondoCurso" />
                 </div>
                 <div className="coursesCardContainer">
                     <div className="textCoursesHome">

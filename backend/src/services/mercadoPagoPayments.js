@@ -39,6 +39,8 @@ export const desbloquearCurso = async ({ paymentId, userId, cursoId }) => {
       $addToSet: {
         courses: { course: cursoId }
       }
+
+      
     });
 
 

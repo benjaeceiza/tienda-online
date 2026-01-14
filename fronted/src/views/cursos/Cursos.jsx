@@ -14,11 +14,15 @@ const Cursos = () => {
   const [usuarioCursos, setUsuarioCursos] = useState([]);
   const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
-
+  const [fondoCurso, setFondoCurso] = useState("");
   const { user } = useAuth();
   const { hideLoader } = useLoading();
-
   const { categoria } = useParams();
+
+  const fondoArtesanias = "https://i.postimg.cc/CKCGt1Rt/fondo_artesanias.png";
+  const fondoRituales = "https://i.postimg.cc/q7csYRNP/fondo_rituales.png";
+  const fondoEricBarone = "https://i.postimg.cc/7hjJb8Cg/eric-barone.png";
+  const fondoSistemaSanacion = "https://i.postimg.cc/x89Nzygs/inicio.png";
 
 
 
@@ -45,6 +49,11 @@ const Cursos = () => {
 
 
 
+    categoria === "artesanias magicas" && setFondoCurso(fondoArtesanias);
+    categoria === "rituales" && setFondoCurso(fondoRituales);
+    categoria === "eric barone" && setFondoCurso(fondoEricBarone);
+    categoria === "sistema de sanacion cosmotelurica" && setFondoCurso(fondoSistemaSanacion);
+
   }, [categoria]);
 
 
@@ -58,10 +67,10 @@ const Cursos = () => {
     <>
       <main className="bgCourseContainer">
 
-        {/* 💙 IMAGEN COMO ELEMENTO REAL DEL DOM */}
+       
         {cursoSeleccionado && (
           <img
-            src={cursoSeleccionado.thumbnail}
+            src={fondoCurso}
             alt="background"
             className="bgCourseImage"
             onLoad={hideLoader} // SE OCULTA EL LOADER SOLO CUANDO ESTA IMAGEN CARGA

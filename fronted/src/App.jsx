@@ -12,8 +12,10 @@ import Footer from "./components/Footer";
 import { useLoading } from "./context/LoadingContext";
 import LoadingScreen from "./components/LoadingScreen";
 import RouteLoader from "./components/RouteLoader";
-import Checkout from "./utils/payments/Checkout";
 import Approved from "./views/pay/Approved";
+import LoginRoute from "./components/LoginRoute";
+import HaveCourseRoute from "./components/haveCourseRoute";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   const { isVisible, isExiting } = useLoading();
@@ -25,6 +27,7 @@ export default function App() {
 
       <AuthProvider>
         <BrowserRouter>
+          <ScrollToTop/>
           <RouteLoader />
           <Navbar />
           <Routes>
@@ -32,10 +35,9 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/cursos/:categoria" element={<Cursos />} />
-            <Route path="/mis-cursos" element={<MisCursos />} />
-            <Route path="/curso/:cid" element={<Curso />} />
+            <Route path="/mis-cursos" element={<LoginRoute><MisCursos /></LoginRoute>} />
+            <Route path="/curso/:cid" element={<HaveCourseRoute><Curso /></HaveCourseRoute>} />
             <Route path="/contacto" element={<Contacto />} />
-            <Route path="/checkout" element={<Checkout />} />
             <Route path="/pago-exitoso" element={<Approved />} />
             <Route path="/pago-fallido" element={<h1>Pago fallido</h1>} />
           </Routes>

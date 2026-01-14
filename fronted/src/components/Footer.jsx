@@ -1,50 +1,68 @@
-import { Link } from "react-router-dom";
+
+import { Link } from "react-router-dom"; // Asumo que usas react-router
+
+// Importación de imágenes
 import fc from "../assets/iconos/facebook.png";
 import yt from "../assets/iconos/youtube.png";
-import wts from "../assets/iconos/wts.png";
 import ig from "../assets/iconos/instagram.png";
-import email from "../assets/iconos/telefono.png";
-import telefono from "../assets/iconos/correo-electronico.png";
+// Ojo: en tus imports tenías cruzados telefono y email, revisa los nombres de tus archivos
+// import email from "../assets/iconos/telefono.png"; 
+// import telefono from "../assets/iconos/correo-electronico.png";
 
 const Footer = () => {
-
     return (
-        <>
-            <footer className="footer">
-                <div className="upperFooter"> 
-                    <div className="informatioFooterContainer">
-                        <ul className="footerListInformation">
-                            <li className="footerItemInformation"><img src={email} alt="Email" /><p>sanaciones@gmail.com</p></li>
-                            <li className="footerItemInformation"><img src={telefono} alt="Telefono" /><p>300 123 4567</p></li>
-                        </ul>
-                    </div>
-                    <div className="titleFooterContainer">
-                        <h3 className="titleFooter">SANACIONES COSMOSTELURICAS</h3>
+        <footer className="footer-container">
+            <div className="footer-wrapper">
 
+                {/* Columna Izquierda: Contacto */}
+                {/* En móvil, queremos que esto vaya SEGUNDO */}
+                <div className="footer-column contact-col">
+                    <h3 className="footer-heading">Hablemos</h3>
+                    <div className="contact-item">
+                        <span className="icon">✉️</span>
+                        <a href="mailto:sanaciones@gmail.com">sanaciones@gmail.com</a>
                     </div>
-                    <div className="linksViewsFooter">
-                        <ul className="footerListViews">
-                            <li className="footerItemView"><Link to={"/"} className="footerLinkView">Inicio</Link></li>
-                            <li className="footerItemView"><Link to={"/cursos-gratuitos"} className="footerLinkView">Cursos Gratuitos</Link></li>
-                            <li className="footerItemView"><Link to={"/cursos-pagos"} className="footerLinkView">Cursos Pagos</Link></li>
-                            <li className="footerItemView"><Link to={"/contacto"} className="footerLinkView">Contacto</Link></li>
-                        </ul>
+                    <div className="contact-item">
+                        <span className="icon">📱</span>
+                        <span>300 123 4567</span>
                     </div>
-
                 </div>
-                <div className="underFooter">
-                    <p className="textUnderFooter">Powered by BE</p>
-                    <p className="textUnderFooter">© 2024 Sanaciones Cosmosteluricas. Todos los derechos reservados.</p>
-                    <ul className="footerListMedia">
-                        <li className="footerItemMedia"><Link to={""}className="footerItemMediaLink" ><img className="iconItemMedia" src={ig} alt="Instagram" /></Link></li>
-                        <li className="footerItemMedia"><Link to={""}className="footerItemMediaLink" ><img className="iconItemMedia" src={fc} alt="Facebook" /></Link></li>
-                        <li className="footerItemMedia"><Link to={""}className="footerItemMediaLink" ><img className="iconItemMedia" src={wts} alt="Whatsapp" /></Link></li>
-                        <li className="footerItemMedia"><Link to={""}className="footerItemMediaLink" ><img className="iconItemMedia" src={yt} alt="Youtube" /></Link></li>
+
+                {/* Columna Central: La Marca */}
+                {/* En móvil, queremos que esto vaya PRIMERO */}
+                <div className="footer-column brand-col">
+                    <h2 className="brand-title">SANACION<br />COSMOTELURICA</h2>
+                    <span className="brand-line"></span>
+                </div>
+
+                {/* Columna Derecha: Navegación */}
+                {/* En móvil, queremos que esto vaya TERCERO */}
+                <div className="footer-column links-col">
+                    <h3 className="footer-heading">Navegación</h3>
+                    <ul className="footer-links">
+                        <li><Link to="/">Inicio</Link></li>
+                        <li><Link to="/cursos/sistema de sanacion cosmotelurica">Sistema de sanación cosmotelurica</Link></li>
+                        <li><Link to="/cursos/rituales">Rituales</Link></li>
+                        <li><Link to="/cursos/artesanias magicas">Artesanías mágicas</Link></li>
+                        <li><Link to="/cursos/eric barone">Eric Barone</Link></li>
                     </ul>
                 </div>
-            </footer>
-        </>
-    )
-}
+            </div>
 
-export default Footer;  
+            {/* Barra Inferior */}
+            <div className="footer-bottom">
+                <span className="powered-by">Powered by BE</span>
+                <p>© 2026 Sanación Cosmotelúrica. Todos los derechos reservados.</p>
+                <div className="social-links">
+                    <a href="#" className="social-icon"><img src={ig} alt="Instagram" className="social-img" /></a>
+                    <a href="#" className="social-icon"><img src={yt} alt="Youtube" className="social-img" /></a>
+                    <a href="#" className="social-icon"><img src={fc} alt="Facebook" className="social-img" /></a>
+                    {/* Si quieres WhatsApp aquí también */}
+                    {/* <a href="#" className="social-icon"><img src={wts} alt="WhatsApp" className="social-img"/></a> */}
+                </div>
+            </div>
+        </footer>
+    );
+};
+
+export default Footer;
