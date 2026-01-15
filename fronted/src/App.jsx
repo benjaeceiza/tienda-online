@@ -16,6 +16,7 @@ import Approved from "./views/pay/Approved";
 import LoginRoute from "./components/LoginRoute";
 import HaveCourseRoute from "./components/haveCourseRoute";
 import ScrollToTop from "./components/ScrollToTop";
+import Checkout from "./views/checkout/Checkout";
 
 export default function App() {
   const { isVisible, isExiting } = useLoading();
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/mis-cursos" element={<LoginRoute><MisCursos /></LoginRoute>} />
             <Route path="/curso/:cid" element={<HaveCourseRoute><Curso /></HaveCourseRoute>} />
             <Route path="/contacto" element={<Contacto />} />
+            <Route path="/payment/:uid/:cid" element={<Checkout />} />
             <Route path="/pago-exitoso" element={<Approved />} />
             <Route path="/pago-fallido" element={<h1>Pago fallido</h1>} />
           </Routes>

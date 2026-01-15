@@ -9,7 +9,7 @@ const CardCourse = ({ cursos }) => {
                     <div className="card-inner">
                         <div className="card-head">
                             <h3>{c.course?.nombre}</h3>
-                            <p>{c.course.descripcion}</p>
+                            <p>{c.course?.descripcion}</p>
                         </div>
 
                         <img className="thumb bgCoursesContainer" src={c.course?.thumbnail} aria-label="Imagen del curso"/>

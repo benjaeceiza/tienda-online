@@ -1,6 +1,6 @@
 
 
-import fondoNaturaleza from "../../assets/fondos/fondo_taller.jpg";
+
 import fondoEricBarone from "../../assets/fondos/eric-barone.png";
 import { useLoading } from "../../context/LoadingContext";
 import { Link } from "react-router-dom";

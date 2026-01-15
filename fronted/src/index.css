@@ -92,81 +92,152 @@
 }
 
 
-/* NAVBAR - Botón Flotante */
-.navbar {
+/* =========================================
+   HEADER PRINCIPAL (BARRA FIJA)
+   ========================================= */
+
+.headerMain {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  z-index: 20;
-  /* Asegura que esté siempre arriba */
-  display: flex;
-  justify-content: flex-end;
+  height: 80px;
+  /* Altura fija para el header */
+  z-index: 100;
+  /* Siempre encima de todo */
 
-  /* Permite clickear a través de la barra vacía */
+  display: flex;
+  justify-content: space-between;
+  /* Logo a la izq, Botones a la der */
+  align-items: center;
+
+  padding: 0 30px;
+  /* Espacio a los costados */
+  box-sizing: border-box;
+
+  /* ESTÉTICA GLASS / COSMOTELÚRICA */
+  background: rgba(0, 0, 0, 0.212);
+  /* Negro semi-transparente */
+  backdrop-filter: blur(10px);
+  /* El efecto borroso detrás */
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* Línea sutil abajo */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.buttonNavContainerSession {
+/* --- SECCIÓN LOGO (IZQUIERDA) --- */
+.logoContainer {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  width: 250px;
-
 }
 
+.logoText {
+  color: white;
+  font-family: "1";
+  /* Tu fuente */
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+  cursor: pointer;
+  /* Efecto de brillo en el logo */
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+/* --- SECCIÓN ACCIONES (DERECHA) --- */
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* Espacio entre el botón de login y la hamburguesa */
+}
+
+/* Botón Iniciar Sesión (Rediseñado para encajar en el header) */
 .buttonIniciarSesionHome {
   background-color: transparent;
-  border: 0;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 8px 18px;
   border-radius: 20px;
   color: white;
   font-family: "1";
+  font-size: 0.8rem;
   font-weight: bold;
-  margin-right: 20px;
-  margin-bottom: 5px;
   cursor: pointer;
-
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  /* Que no se rompa el texto */
 }
 
-.buttonMenuContainer {
-  pointer-events: auto;
-  /* Reactiva clicks en el botón */
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  /* Efecto Vidrio */
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 15px rgba(58, 134, 255, 0.3);
-  /* Brillo azul suave */
+.buttonIniciarSesionHome:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
 
+/* Botón Hamburguesa (Ajustado para el header) */
+.buttonMenuContainer {
+  width: 45px;
+  /* Un poco más chico para encajar mejor */
+  height: 45px;
+  border-radius: 50%;
+
+  /* Mantenemos tu estilo original de vidrio */
+  background: #b14064;
+  border: 1px solid #b14064;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
-  margin-right: 30px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s ease;
+
+  /* Quitamos los márgenes viejos porque Flexbox ya lo acomoda */
+  margin: 0;
 }
 
 .buttonMenuContainer:hover {
   transform: scale(1.1);
-  background: rgba(58, 134, 255, 0.2);
-  /* Se ilumina al pasar el mouse */
-  border-color: rgba(58, 134, 255, 0.8);
-  box-shadow: 0 0 25px rgba(58, 134, 255, 0.6);
+  border-color: #b14064;
+  box-shadow: 0 0 15px #b14064;
 }
 
 .buttonMenu {
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
 }
 
-/* CONTENEDOR DE FONDO OSCURO (Overlay) */
+
+/* =========================================
+   RESPONSIVE (CELULARES)
+   ========================================= */
+
+@media (max-width: 768px) {
+  .headerMain {
+    padding: 0 15px;
+    /* Menos padding en celular */
+    height: 70px;
+  }
+
+  .logoText {
+    font-size: 1.2rem;
+    /* Logo un poco más chico */
+  }
+
+  .buttonIniciarSesionHome {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    /* Texto más chico */
+  }
+
+  .actionsContainer {
+    gap: 10px;
+    /* Menos espacio entre botones */
+  }
+}
+
+/* CONTENEDOR DE FONDO OSCURO (sidebar) */
 .navbarListContainer {
   position: fixed;
   top: 0;
@@ -182,18 +253,19 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
-  z-index: 10;
+  z-index: 150;
 }
 
 .navbarListContainer.show {
   opacity: 1;
   pointer-events: auto;
+
 }
 
 /* EL PANEL LATERAL (Glassmorphism) */
 .navbarList {
   /* Degradado profundo azulado */
-   background: linear-gradient(180deg, #f186a8 0%, #eb8eab 100%);
+  background: linear-gradient(180deg, #f186a8 0%, #eb8eab 100%);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -203,15 +275,13 @@
   max-width: 320px;
   list-style: none;
   padding: 40px 20px;
-  /* Padding interno */
-
   display: flex;
   flex-direction: column;
   /* Para ordenar items verticalmente */
-
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  /* Animación suave */
+
+
 }
 
 .navbarList.slide-in {
@@ -413,7 +483,7 @@
   align-items: center;
   padding: 2rem;
   color: white;
-  padding-top: 50px;
+  padding: 100px 50px;
 }
 
 .main-container::before {
@@ -1303,205 +1373,292 @@
 
 
 /* HOME */
-
-
-.headerHome {
+/* =========================================
+   HERO SECTION (La Portada Principal)
+   ========================================= */
+.heroSection {
   position: relative;
+  width: 100%;
   height: 100vh;
-  padding: 0px 20px;
+  /* Ocupa toda la pantalla */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 1;
+  padding: 0 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Para que la mariposa no estire la pantalla */
+
+  /* IMAGEN DE FONDO */
   background-image: url("../src/assets/fondos/inicio.png");
+  /* Ajusta tu ruta si es necesario */
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   background-attachment: fixed;
-  z-index: -4;
-  gap: clamp(18px, 2.4vw, 28px);
-  transition: transform .12s
+
 }
 
-.headerHome::before {
-  content: '';
+/* Capa oscura para que se lea el texto */
+.heroOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.205);
-  /* Negro con 50% de opacidad */
-  z-index: 1;
-  /* Asegura que esté debajo del texto */
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+/* Textos (Z-Index alto para estar sobre la capa oscura) */
+.beforeTitle,
+.titleHome,
+.subtitleHome {
+  position: relative;
+  z-index: 2;
+  color: white;
+  filter: drop-shadow(0px 0px 10px black);
 }
 
 .beforeTitle {
-  margin: 0;
   text-transform: uppercase;
   letter-spacing: .28em;
-  color: #fff;
-  transform: translateY(calc(-1 * clamp(14px, 2.2vh, 26px)));
   font-weight: 600;
   font-family: "1";
-  opacity: .95;
-  font-size: .9rem;
-  z-index: 1;
-  filter: drop-shadow(0px 0px 10px black);
-
+  font-size: clamp(0.7rem, 2vw, 1rem);
+  margin-bottom: 10px;
 }
 
 .titleHome {
-
-  line-height: .95;
-  font-size: clamp(35px, 8vw, 90px);
+  line-height: 0.95;
+  font-size: clamp(40px, 9vw, 90px);
+  /* Responsive Typography */
   font-weight: 900;
   letter-spacing: .03em;
   text-transform: uppercase;
-  color: white;
-  filter: drop-shadow(0px 0px 10px black);
-  z-index: 1;
-
+  margin: 0;
 }
 
 .subtitleHome {
-  max-width: 900px;
-  margin: auto;
-  margin-top: clamp(28px, 3.2vw, 44px);
-  margin-bottom: clamp(8px, 2vh, 20px);
-  color: #fff;
-  font-size: clamp(16px, 1.4vw, 20px);
-  filter: drop-shadow(0px 0px 10px black);
-  z-index: 1;
+  max-width: 800px;
+  margin-top: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   font-family: "1";
+  line-height: 1.5;
 }
 
+/* Mariposa */
 .headerMariposa {
   position: absolute;
-  bottom: 0;
+  bottom: -50px;
+  /* Un poco escondida abajo para efecto profundidad */
   width: 100%;
+  max-width: 600px;
   height: auto;
-  max-height: 700px;
-  max-width: 700px;
-  z-index: 0;
-
+  z-index: 1;
+  /* Entre el fondo y el texto */
+  opacity: 0.9;
+  pointer-events: none;
 }
 
+/* Degradado inferior (Rosa) */
+.heroGradientBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, transparent, #f186a8);
+  /* Color de transición */
+  z-index: 3;
+  pointer-events: none;
+}
+
+
+/* =========================================
+   SECCIONES DE CURSOS (Home)
+   ========================================= */
+
+.coursesContainerHome {
+  width: 100%;
+  background-color: #000;
+  /* Fondo base por si no carga imagen */
+}
 
 .coursesCardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
   position: relative;
-  height: 100vh;
   width: 100%;
-  padding: 20px;
-  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 50px;
+  /* Padding generoso */
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
+/* Imagen de fondo de cada sección */
 .bgCourseHome {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  inset: 0;
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  height: 100vh;
-  width: 100%;
-
-
+  z-index: 0;
+  filter: brightness(0.7);
+  /* Oscurecer imagen para leer texto */
 }
 
+/* Contenedor de Texto e Info */
 .textCoursesHome {
-  z-index: 1;
+
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  /* Ocupa espacio disponible */
+  max-width: 600px;
+  text-align: left;
+  max-height: 200px;
 }
 
 .titleCourseHome {
   color: white;
-  margin: 0px 0px 0.25em;
-  font-size: clamp(42px, 4vw, 120px);
-  line-height: 0.92;
-  letter-spacing: 0.04em;
+  margin: 0 0 0.25em;
+  font-size: clamp(50px, 6vw, 100px);
+  line-height: 0.9;
   font-weight: 900;
   text-transform: uppercase;
-  text-shadow: rgba(0, 0, 0, 0.45) 0px 2px 24px;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
 }
 
 .subtitleCourseHome {
-  margin: 0px;
   color: white;
-  max-width: 640px;
-  font-size: clamp(14px, 1.35vw, 18px);
-  line-height: 1.65;
-  opacity: 0.95;
-  text-shadow: rgba(0, 0, 0, 0.45) 0px 1px 12px;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.6;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
 }
 
-
-/* BOTON */
-
+/* Contenedor del Botón (Círculo giratorio) */
+/* Lo envolvemos en un Link para que todo el bloque sea clickeable si quieres */
 .btnWrapper {
   position: relative;
-  display: inline-block;
-  width: fit-content;
-  height: fit-content;
-  margin: 20px 10px;
+  z-index: 2;
+  margin-left: 50px;
+  /* Separación del texto */
+  flex-shrink: 0;
+  /* Que no se achique */
+  transition: transform 0.3s ease;
+}
+
+.btnWrapper:hover {
+  transform: scale(1.1);
 }
 
 .btnHome {
-  padding: 10px;
+  padding: 0;
   background: transparent;
   border: 2px solid white;
   color: white;
-  font-size: small;
-  border-radius: 10px;
-  position: relative;
-  z-index: 2;
+  font-size: 0.9rem;
+  border-radius: 50%;
   cursor: pointer;
   height: 100px;
   width: 100px;
-  border-radius: 50%;
-  font-weight: 600;
-  filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-/* SVG que gira */
+/* SVG Animado */
 .ring {
   position: absolute;
-  top: -20px;
-  left: -20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Centrado perfecto */
   width: 140px;
   height: 140px;
-  transform-origin: center;
-  animation: spin 15s linear infinite;
-  z-index: 1;
-  filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+  pointer-events: none;
 }
-
 
 .dashed-circle {
   fill: none;
   stroke: white;
-  stroke-width: 1;
+  stroke-width: 1.5;
   stroke-linecap: round;
+  stroke-dasharray: 20 10 5 10;
+  transform-origin: center;
+  animation: spin 20s linear infinite;
+}
 
-  /* rayitas largas y cortas intercaladas */
-  stroke-dasharray: 20 10 8 10;
-  /* largo 20 - espacio 6 - largo 8 - espacio 6 - (se repite) */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   RESPONSIVE (MÓVILES Y TABLETS)
+   ========================================= */
+
+@media (max-width: 900px) {
+
+  /* HERO en Móvil */
+  .heroSection {
+    background-attachment: scroll;
+
+  }
+
+  .headerMariposa {
+    max-width: 80%;
+    bottom: 0;
+  }
+
+  /* SECCIONES DE CURSOS en Móvil */
+  .coursesCardContainer {
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-evenly;
+    padding: 80px 20px;
+    gap: 40px;
+    /* Espacio entre texto y botón */
+  }
+
+  .textCoursesHome {
+    text-align: center;
+    /* Centrar texto */
+    max-width: 100%;
+  }
+
+  .btnWrapper {
+    margin-left: 0;
+    /* Quitar margen lateral */
+  }
 }
 
 
 /* COURSES SELECTION */
 
+/* =========================================
+   ESTILOS BASE (ESCRITORIO)
+   ========================================= */
+
 .bgCourseContainer {
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  /* Cambiado de height a min-height para permitir scroll si hace falta */
+  /* Quitamos overflow: hidden global para evitar cortes en pantallas chicas */
+  overflow-x: hidden;
 }
-
-
 
 .bgCourseImage {
   position: absolute;
@@ -1510,32 +1667,39 @@
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  /* queda atrás del contenido */
   filter: brightness(90%);
-
-
+  /* Agregamos position fixed para que el fondo no se corte al scrollear en mobile */
+  position: fixed;
 }
-
-
 
 .dataCoursesContainter {
   position: relative;
   z-index: 2;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  /* Permite crecer */
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 50px 100px;
+  justify-content: center;
+  /* Centrado verticalmente */
+  padding: 100px 100px;
+  box-sizing: border-box;
+  /* Importante para que el padding no rompa el ancho */
+}
 
+.titleSubtitleCoursesContainer {
+  margin-bottom: 20px;
 }
 
 .subtitleCoursesContainer {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   filter: drop-shadow(0px 0px 5px black);
+
+
+  /* Para que la categoría baje si no entra */
 }
 
 .subtitleCoursesCategoria {
@@ -1545,12 +1709,12 @@
   border-radius: 20px;
   margin-left: 10px;
   font-family: "1";
+  /* Asumo que es tu fuente personalizada */
   text-transform: uppercase;
   font-weight: 800;
   font-size: small;
   filter: drop-shadow(0px 0px 5px black);
 }
-
 
 .subtitleCourses {
   text-transform: uppercase;
@@ -1558,6 +1722,7 @@
   opacity: .9;
   font-weight: 800;
   color: white;
+  margin: 0;
 }
 
 .titleCourses {
@@ -1571,50 +1736,51 @@
   color: white;
 }
 
-
 .contentVisualContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
+/* --- TARJETA DEL VIDEO Y DESCRIPCIÓN --- */
 .videoTitleContainer {
   width: 100%;
   max-width: 600px;
-  min-width: 400px;
-  height: 500px;
+  /* Eliminamos min-width fijo para que no rompa en celulares */
+  min-height: 500px;
+  /* Cambiado de height fijo a min-height */
+  height: auto;
   border: 2px solid white;
-  padding: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-between;
+  /* Mejor distribución */
   border-radius: 20px;
-  background-color: rgba(0, 0, 0, 0.514);
-}
-
-.titleVideo {
-  margin: .1rem 0;
-  font-size: clamp(18px, 2vw, 24px);
-  color: white;
-
+  background-color: rgba(0, 0, 0, 0.65);
+  /* Un poco más oscuro para legibilidad */
+  box-sizing: border-box;
+  backdrop-filter: blur(5px);
+  /* Efecto vidrio si el navegador lo soporta */
 }
 
 .subtitleVideo {
-  margin: 0 0 .55rem;
+  margin: 0 0 1rem;
   color: white;
   line-height: 1.55;
-
+  font-size: 0.95rem;
 }
-
-
 
 .courseVideointroduccionContainer {
   height: 300px;
+  /* Altura base para escritorio */
   width: 100%;
   border: solid white 2px;
   border-radius: 20px;
-
+  margin-bottom: 20px;
+  overflow: hidden;
+  /* Para que el iframe respete el border-radius */
 }
 
 .videoIntroduccion {
@@ -1624,55 +1790,82 @@
 }
 
 .coursePrice {
+  display: block;
+  /* Asegura comportamiento de botón */
   background-color: white;
   border-radius: 20px;
-  width: 200px;
-  height: 30px;
+  width: 100%;
+  /* Ocupar ancho disponible del contenedor padre */
+  max-width: 250px;
   text-align: center;
-  padding: 10px;
-  font-size: small;
+  padding: 12px;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+  color: black;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  align-self: center;
+  /* Centrar el botón */
 }
 
+.coursePrice:hover {
+  transform: scale(1.05);
+}
+
+/* --- BOTONES CIRCULARES INFERIORES --- */
 .buttonsCoursesContainer {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   max-width: 800px;
   justify-content: flex-start;
+  margin-top: 30px;
+  gap: 15px;
 
 }
 
 .buttonNameContainer {
   text-align: center;
   transition: all .3s;
-  margin-left: 20px;
-  margin-top: 20px;
   width: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+
 
 }
 
 .buttonNameContainer:hover {
   transform: translateY(-5%);
-  transition: all .3s;
 }
 
-
-/* SVG que gira */
 .ring-courses {
   position: absolute;
   top: -25px;
-  left: -24px;
+  left: -40%;
+  /* Centrado relativo al padre */
+
+  /* Corrección del centrado */
   width: 110px;
   height: 110px;
-  transform-origin: center;
   animation: spin 15s linear infinite;
   z-index: 1;
   filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
 }
 
+@keyframes spin {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
 
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
 
 .btnCourses {
   padding: 10px;
@@ -1680,15 +1873,16 @@
   border: 1px solid white;
   color: white;
   font-size: small;
-  border-radius: 10px;
+  border-radius: 50%;
   position: relative;
   z-index: 2;
   cursor: pointer;
   height: 60px;
   width: 60px;
-  border-radius: 50%;
   font-weight: 600;
   filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
+
+
 
 }
 
@@ -1697,9 +1891,102 @@
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: .12em;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
   opacity: .9;
-  margin-top: 10px;
+  margin-top: 20px;
+  width: 100%;
+  filter: drop-shadow(0px 0px 4px black);
+
+}
+
+/* =========================================
+   RESPONSIVE (TABLETS Y MÓVILES)
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .dataCoursesContainter {
+    padding: 80px 40px;
+    /* Reducimos padding lateral */
+    justify-content: flex-start;
+    /* Que empiece desde arriba */
+    height: auto;
+    /* Permitir scroll */
+  }
+
+  .titleCourses {
+    font-size: 50px;
+    /* Ajuste manual para tablets */
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Contenedor Principal */
+  .bgCourseContainer {
+    height: auto;
+    overflow-y: auto;
+    /* Habilitar scroll vertical */
+  }
+
+  .dataCoursesContainter {
+    padding: 100px 20px 100px 20px;
+    /* Padding inferior grande para el botón flotante */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Todo centrado */
+  }
+
+  /* Títulos */
+  .titleSubtitleCoursesContainer {
+    width: 100%;
+    text-align: center;
+
+  }
+
+  .subtitleCoursesContainer {
+    justify-content: center;
+    /* Centrar subtítulos */
+    flex-direction: column;
+    /* Uno abajo del otro en móvil */
+    gap: 10px;
+  }
+
+  .subtitleCoursesCategoria {
+    margin-left: 0;
+
+
+    /* Quitar margen izquierdo al apilar */
+  }
+
+  /* Contenedor del Video/Tarjeta */
+  .videoTitleContainer {
+    width: 100%;
+    min-width: unset;
+    /* IMPORTANTE: Quitar restricción de ancho mínimo */
+    height: auto;
+    /* Altura automática según contenido */
+    padding: 20px;
+  }
+
+  .courseVideointroduccionContainer {
+    height: 200px;
+    /* Video más chico en celular */
+  }
+
+  /* Botones Circulares */
+  .buttonsCoursesContainer {
+    justify-content: center;
+    /* Botones centrados */
+    margin-top: 40px;
+  }
+
+  .buttonNameContainer {
+    margin: 10px;
+    /* Espaciado uniforme */
+  }
 }
 
 /*       CONTACTO    */
@@ -2030,6 +2317,288 @@ h2 {
   }
 }
 
+
+/* CHECKOUT */
+
+
+/* Contenedor Principal */
+.checkout-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px 20px 50px;
+  /* Padding top para que no lo tape el Navbar */
+  box-sizing: border-box;
+  background-color: #050505;
+  /* Fondo oscuro base */
+  color: white;
+  font-family: "1", sans-serif;
+  /* Tu fuente */
+  display: flex;
+  justify-content: center;
+}
+
+/* Fondo decorativo (opcional) */
+.checkout-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 10%, #2a1b3d 0%, #000000 70%);
+  z-index: 0;
+}
+
+.checkout-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.checkout-title {
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.btn-volver {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color 0.3s;
+}
+
+.btn-volver:hover {
+  color: white;
+}
+
+/* --- GRID LAYOUT --- */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Dos columnas iguales */
+  gap: 40px;
+  align-items: start;
+}
+
+/* --- ESTILO VIDRIO (GLASS) --- */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Sección de Pagos */
+.section-title {
+  margin-top: 0;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.payment-desc {
+  color: #ccc;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn-payment {
+  display: flex;
+  flex-direction: row;
+  /* CAMBIO: Fila para poner ícono al lado del texto */
+  align-items: center;
+  /* Centrar verticalmente */
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Nuevo estilo para el ícono */
+.payment-icon {
+  width: 50px;
+  /* Tamaño del logo */
+  height: 50px;
+  /* Asegura que sea cuadrado/proporcional */
+  object-fit: contain;
+  /* Para que no se deforme */
+  margin-right: 15px;
+  /* Espacio entre ícono y texto */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  /* Sombrita para resaltar */
+}
+
+/* Nuevo contenedor para el texto (Título + Subtítulo) */
+.payment-text-group {
+  display: flex;
+  flex-direction: column;
+  /* El texto sí va uno abajo del otro */
+}
+
+/* Ajustes menores para los colores de texto */
+.payment-label {
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.payment-sub {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+/* Estilo Botón Mercado Pago */
+.mp-btn {
+  background: #009ee3;
+  /* Azul MP */
+  color: white;
+}
+
+.mp-btn:hover {
+  background: #0081b9;
+  transform: translateY(-2px);
+}
+
+/* Estilo Botón PayPal */
+.pp-btn {
+  background: #ffc439;
+  /* Amarillo PayPal o #003087 para azul */
+  color: #2c2e2f;
+}
+
+.pp-btn:hover {
+  background: #f4bb33;
+  transform: translateY(-2px);
+}
+
+.payment-label {
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.payment-sub {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.security-note {
+  margin-top: 30px;
+  text-align: center;
+  color: #777;
+}
+
+/* Sección Resumen (Derecha) */
+.course-card-checkout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.category-tag {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  color: #ddd;
+}
+
+.course-title {
+  font-size: 2rem;
+  margin: 0 0 20px 0;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #fff, #aaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.course-desc {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  flex-grow: 1;
+  /* Empuja el precio hacia abajo */
+}
+
+.price-container {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-label {
+  font-size: 1rem;
+  color: #aaa;
+}
+
+.price-amount {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Loading */
+.checkout-loading {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #050505;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    /* Una sola columna */
+  }
+
+  /* Invertir orden en móvil: Primero Resumen (Card), luego Pago */
+  /* Si quieres ver primero el pago, borra esto. Si quieres ver qué compras primero, déjalo. */
+  .summary-section {
+    order: -1;
+  }
+}
+
 /* PAY SECTION */
 
 .messagePayContainer {
@@ -2141,7 +2710,7 @@ h2 {
   gap: 10px;
   margin-bottom: 15px;
   color: white;
-  
+
 }
 
 .footer-links {
@@ -2162,7 +2731,7 @@ h2 {
   transition: all 0.3s ease;
   font-family: "1";
   font-weight: 600;
-  
+
 }
 
 .footer-links a:hover,
@@ -2189,7 +2758,7 @@ h2 {
   font-family: "1";
   font-size: small;
   font-weight: 600;
-   color: white;
+  color: white;
   filter: drop-shadow(0px 0px 2px #303030);
 }
 
@@ -2206,7 +2775,7 @@ h2 {
   filter: brightness(0) invert(1);
   /* Vuelve los iconos BLANCOS. Quítalo si quieres su color original */
 
-  
+
 }
 
 .social-icon:hover .social-img {
@@ -2229,7 +2798,7 @@ h2 {
   font-weight: bold;
   font-size: 0.8rem;
   font-family: "1";
-  
+
 }
 
 /* =========================================

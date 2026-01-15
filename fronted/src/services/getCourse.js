@@ -1,8 +1,8 @@
 const API_URL = "http://localhost:8080/api";
 
 export const getCourse = async (cid) => {
-  const token = localStorage.getItem("token");
 
+  const token = localStorage.getItem("token");
 
   try {
     const res = await fetch(`${API_URL}/courses/contenido/${cid}`, {
@@ -26,4 +26,25 @@ export const getCourse = async (cid) => {
     console.error("Error al obtener el curso:", error);
     throw error;
   }
+};
+
+
+
+export const getCourseSell = async (cid) => {
+
+  try {
+    const res = await fetch(`${API_URL}/courses/detalle/${cid}`);
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || `Error ${res.status}`);
+    }
+
+    return await res.json();
+
+  } catch (error) {
+    console.error("Error al obtener el curso:", error);
+    throw error;
+  }
+
 };

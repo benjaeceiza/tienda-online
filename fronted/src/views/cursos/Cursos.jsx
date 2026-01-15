@@ -3,7 +3,7 @@ import { getPaidCourses } from "../../services/getPaidCourses";
 import { useAuth } from "../../context/AuthContext";
 import { getUserCourses } from "../../services/getUserCourses";
 import ButtonsCourses from "./ButtonsCourses";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ContactoFlotante from "../../components/ContactoFlotante";
 import ModalLogin from "../../components/ModalLogin";
 import { useLoading } from "../../context/LoadingContext";
@@ -23,7 +23,8 @@ const Cursos = () => {
   const fondoRituales = "https://i.postimg.cc/q7csYRNP/fondo_rituales.png";
   const fondoEricBarone = "https://i.postimg.cc/7hjJb8Cg/eric-barone.png";
   const fondoSistemaSanacion = "https://i.postimg.cc/x89Nzygs/inicio.png";
-
+  
+  const navigate = useNavigate();
 
 
 
@@ -73,7 +74,7 @@ const Cursos = () => {
             src={fondoCurso}
             alt="background"
             className="bgCourseImage"
-            onLoad={hideLoader} // SE OCULTA EL LOADER SOLO CUANDO ESTA IMAGEN CARGA
+            onLoad={hideLoader} 
           />
         )}
 
@@ -129,7 +130,8 @@ const Cursos = () => {
                         // 2. Si está logueado, procedemos al pago
                         // IMPORTANTE: Pasale 'cursoSeleccionado' entero, no solo el ID,  
                         // así la función pagar puede sacar el precio y el título.
-                        pagar(user.id, cursoSeleccionado);
+     
+                        navigate(`/payment/${user.id}/${cursoSeleccionado._id}`);
                       }}
                     >
                       COMPRAR ${cursoSeleccionado?.precio} ARS
