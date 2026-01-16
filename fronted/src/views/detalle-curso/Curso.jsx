@@ -2,11 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCourse } from "../../services/getCourse";
 import { useEffect, useState } from "react";
 import { useLoading } from "../../context/LoadingContext";
-import { FaPlay, FaCheckCircle, FaLock, FaFileAlt } from "react-icons/fa";
+import { FaPlay, FaCheckCircle, FaLock } from "react-icons/fa";
 
 
 const Curso = () => {
-
     const { cid } = useParams();
     const [curso, setCurso] = useState();
     const [error, setError] = useState(null);
@@ -19,14 +18,13 @@ const Curso = () => {
 
     useEffect(() => {
         hideLoader();
-
+        // Simulación de carga
         getCourse(cid)
             .then(data => setCurso(data || {}))
-            .catch(err => setError(err))
-    }, [cid])
+            .catch(err => setError(err));
+    }, [cid, hideLoader]);
 
-
-    // Datos simulados (esto vendría de tu DB)
+    // Datos simulados
     const cursoF = {
         titulo: "Limpieza Energética Avanzada",
         unidades: [
@@ -37,48 +35,48 @@ const Curso = () => {
         ],
         contenidoActual: {
             titulo: "Herramientas necesarias",
-            descripcion: `En esta unidad aprenderemos a diferenciar las distintas herramientas para la limpieza. 
-      
-      Es fundamental comprender que no todas las hierbas funcionan para los mismos propósitos. A continuación detallamos la lista de materiales que vas a necesitar para la práctica... (Aquí iría todo el texto que antes tenías en el PDF, renderizado bonito en HTML).`,
+            descripcion: "Descripción del contenido...",
         }
     };
 
-
-
     return (
-        <>
-            <header className="encabezadoContenidoCurso">
-                <img className="bgHeaderContenidoCursos" src={curso?.thumbnail} alt="Fondo" onLoad={() => hideLoader()} />
-                <div className="sectionContenido">
-                    <div className="buttonGoBackContainer">
-                        <button className="buttonGoBack" onClick={() => navigate(-1)}>Volver</button>
-                    </div>
-                    <h1 className="courseTitleContenido">{curso?.nombre}</h1>
+        <div className="curso-page-container">
+            {/* HEADER */}
+            <header className="curso-header">
+                <div className="header-bg-overlay"></div>
+                <img className="header-img" src={curso?.thumbnail || "https://via.placeholder.com/1500x500"} alt="Fondo" />
+                
+                <div className="header-content">
+                    <button className="btn-back" onClick={() => navigate(-1)}>← Volver</button>
+                    <h1 className="course-title">{curso?.nombre || "Cargando..."}</h1>
                 </div>
             </header>
-            <div className="bgColorContenido">
-                <div className="courseLayout">
+
+            {/* CONTENIDO PRINCIPAL */}
+            <div className="course-body">
+                <div className="layout-grid">
+                    
+                    {/* COLUMNA IZQUIERDA: Video + Info */}
                     <main className="main-content">
-                        <div className="video-container">
+                        <div className="video-wrapper">
                             <iframe
-                                src="https://www.youtube.com/embed/etCvDtguRzk?si=jj_KYaZp_RDySOg3" // Tu URL aquí
+                                src="https://www.youtube.com/embed/etCvDtguRzk?si=jj_KYaZp_RDySOg3"
                                 title="Video Player"
-                                frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             ></iframe>
                         </div>
 
-                        <div className="info-panel">
-                            <h1 className="unit-title">{cursoF.contenidoActual.titulo}</h1>
+                        <div className="content-panel">
+                            <h2 className="unit-current-title">{cursoF.contenidoActual.titulo}</h2>
 
-                            {/* TABS DE NAVEGACIÓN */}
-                            <div className="tabs-header">
+                            {/* TABS */}
+                            <div className="tabs-container">
                                 <button
                                     className={`tab-btn ${activeTab === "apuntes" ? "active" : ""}`}
                                     onClick={() => setActiveTab("apuntes")}
                                 >
-                                    Apuntes de la Clase
+                                    Contenido
                                 </button>
                                 <button
                                     className={`tab-btn ${activeTab === "comentarios" ? "active" : ""}`}
@@ -88,27 +86,41 @@ const Curso = () => {
                                 </button>
                             </div>
 
+                            {/* CONTENIDO DEL TAB */}
                             <div className="tab-content">
                                 {activeTab === "apuntes" && (
-                                    <div className="text-content">
-                                        {/* Aquí renderizas el HTML de tu base de datos */}
-                                        <p>{cursoF.contenidoActual.descripcion}</p>
-                                        <div className="tip-box">
-                                            <strong>Nota importante:</strong> Recuerda siempre limpiar tus herramientas antes de usarlas.
+                                    <>
+                                        {/* VISOR PDF */}
+                                        <div className="pdf-viewer-container">
+                                            <iframe
+                                                src={"https://res.cloudinary.com/dmnksm3th/image/upload/v1768573184/anexo-1_tn2kvl.pdf#toolbar=0&navpanes=0&scrollbar=0"}
+                                                title="Visor del PDF"
+                                            />
                                         </div>
-                                    </div>
+                                        <div className="pdf-fallback">
+                                            <a
+                                                href={"https://res.cloudinary.com/dmnksm3th/image/upload/v1768573184/anexo-1_tn2kvl.pdf"}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                ¿No carga? Abrir PDF en pestaña nueva ↗
+                                            </a>
+                                        </div>
+                                    </>
                                 )}
-                                {activeTab === "comentarios" && <p>Aquí iría la sección de comentarios...</p>}
+                                {activeTab === "comentarios" && <p>Aquí irían los comentarios...</p>}
                             </div>
                         </div>
-                    </main >
+                    </main>
 
-                    {/* COLUMNA DERECHA: Playlist / Temario */}
+                    {/* COLUMNA DERECHA: Playlist (Sidebar) */}
                     <aside className="sidebar-playlist">
                         <div className="sidebar-header">
                             <h3>Contenido del curso</h3>
-                            <p className="progress-text">30% Completado</p>
-                            <div className="progress-bar"><div className="fill" style={{ width: "30%" }}></div></div>
+                            <div className="progress-info">
+                                <span>30% Completado</span>
+                                <div className="progress-bar"><div className="fill" style={{ width: "30%" }}></div></div>
+                            </div>
                         </div>
 
                         <ul className="unit-list">
@@ -116,24 +128,25 @@ const Curso = () => {
                                 <li
                                     key={uni.id}
                                     className={`unit-item ${uni.estado === "actual" ? "active-unit" : ""} ${uni.estado === "candado" ? "locked" : ""}`}
-                                    onClick={() => setActiveUnit(index)}
+                                    onClick={() => uni.estado !== "candado" && setActiveUnit(index)}
                                 >
-                                    <div className="unit-icon">
-                                        {uni.estado === "visto" && <FaCheckCircle color="#4caf50" />}
-                                        {uni.estado === "actual" && <FaPlay color="#a515c2" />}
-                                        {uni.estado === "candado" && <FaLock color="#666" />}
+                                    <div className="unit-status-icon">
+                                        {uni.estado === "visto" && <FaCheckCircle className="icon-success" />}
+                                        {uni.estado === "actual" && <FaPlay className="icon-play" />}
+                                        {uni.estado === "candado" && <FaLock className="icon-lock" />}
                                     </div>
-                                    <div className="unit-info">
-                                        <span className="unit-name">Unidad {index + 1}: {uni.titulo}</span>
-                                        <span className="unit-meta">{uni.duracion} min</span>
+                                    <div className="unit-details">
+                                        <span className="u-title">Unidad {index + 1}: {uni.titulo}</span>
+                                        <span className="u-time">{uni.duracion} min</span>
                                     </div>
                                 </li>
                             ))}
                         </ul>
                     </aside>
+
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

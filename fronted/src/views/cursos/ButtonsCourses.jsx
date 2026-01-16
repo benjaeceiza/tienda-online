@@ -9,7 +9,7 @@ const ButtonsCourses = ({ cursos, setCursoSeleccionado }) => {
             {
                 cursos.map(c => (
                     <div key={c._id} className="buttonNameContainer" onClick={() => setCursoSeleccionado(c)}>
-                        <div className="btnWrapper">
+                        <div className="btnWrapperCourses">
                             <svg className="ring-courses" viewBox="0 0 120 120">
                                 <circle
                                     cx="60"

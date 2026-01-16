@@ -3,7 +3,7 @@ import { userLogin } from "../../services/login";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useLoading } from "../../context/LoadingContext";
-import fondo from "../../assets/fondos/fondo-violeta.jpg";
+import fondo from "../../assets/fondos/inicio.png";
 import Recovery from "../recovery-password/Recovery";
 
 const Login = () => {
@@ -34,8 +34,8 @@ const Login = () => {
       if (res?.token) {
         login(res.token);   // 🔥 ESTO actualiza el navbar
         navigate("/");
-     
-        
+
+
       } else {
         setMensaje(res || "Credenciales incorrectas");
       }
@@ -46,9 +46,9 @@ const Login = () => {
   };
 
   return (
-    <main>
-      <img className="bgLogin" src={fondo} alt="fondo" />
+    <main >
 
+      <img className="bgRegister" src={fondo} alt="fondo" />
       {recovery ? (
         <Recovery setRecovery={setRecovery} />
       ) : (
@@ -67,7 +67,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-  
+
               <input
                 className="formInput inputPasswordLogin inputIcon"
                 placeholder="Contraseña"

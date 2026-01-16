@@ -54,10 +54,10 @@ router.get("/contenido/:cid", async (req, res) => {
         const authHeader = req.headers.authorization;
         let user = null;
 
-        
+
         const course = await cursoModelo.findById(cid);
 
-    
+
         if (!course) res.status(404).json({ error: "Curso no encontrado" });
 
         if (course.tipo === "Gratuito") {
@@ -74,7 +74,7 @@ router.get("/contenido/:cid", async (req, res) => {
             return res.status(401).json({ message: "Token inválido o expirado" });
         }
 
-       
+
 
         //  Verificamos que el usuario tenga el curso
         const hasCourse = user.courses.some(c => c.course._id.toString() === cid);
@@ -90,6 +90,17 @@ router.get("/contenido/:cid", async (req, res) => {
     }
 })
 
+router.get("/categoria/freeCourses", async (req, res) => {
+    const tipo = "Gratuito";
+    try {
+        const courses = await cursoModelo.find({ tipo: tipo });
+        res.status(201).json({ message: "Success", courses });
+    } catch (error) {
+        res.status(500).json({ message: "Error al consultar cursos por categoría", error: error.message });
+    }
+});
+
+
 
 // Ruta PÚBLICA: Trae info básica del curso (nombre, precio, categoria, descripcion)
 // No requiere token ni validación de usuario
@@ -100,7 +111,7 @@ router.get("/detalle/:cid", async (req, res) => {
         // .select() es la magia: solo trae los campos que pones dentro.
         // Mongoose siempre trae el _id por defecto (lo cual te sirve para el botón de comprar).
         const course = await cursoModelo.findById(cid)
-                                        .select("nombre precio categoria descripcion");
+            .select("nombre precio categoria descripcion");
 
         if (!course) {
             return res.status(404).json({ error: "Curso no encontrado" });
