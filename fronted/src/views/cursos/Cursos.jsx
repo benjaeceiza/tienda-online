@@ -23,7 +23,7 @@ const Cursos = () => {
   const fondoRituales = "https://i.postimg.cc/q7csYRNP/fondo_rituales.png";
   const fondoEricBarone = "https://i.postimg.cc/7hjJb8Cg/eric-barone.png";
   const fondoSistemaSanacion = "https://i.postimg.cc/x89Nzygs/inicio.png";
-  
+
   const navigate = useNavigate();
 
 
@@ -53,12 +53,13 @@ const Cursos = () => {
     categoria === "artesanias magicas" && setFondoCurso(fondoArtesanias);
     categoria === "rituales" && setFondoCurso(fondoRituales);
     categoria === "eric barone" && setFondoCurso(fondoEricBarone);
-    categoria === "sistema de sanacion cosmotelurica" && setFondoCurso(fondoSistemaSanacion);
+    categoria === "sistema de sanacion en camilla" && setFondoCurso(fondoSistemaSanacion);
 
   }, [categoria]);
 
 
-
+  
+  
 
   const yaComprado =
     cursoSeleccionado &&
@@ -68,13 +69,13 @@ const Cursos = () => {
     <>
       <main className="bgCourseContainer">
 
-       
-        {cursoSeleccionado && (
+
+        {fondoCurso && (
           <img
             src={fondoCurso}
             alt="background"
             className="bgCourseImage"
-            onLoad={hideLoader} 
+            onLoad={hideLoader}
           />
         )}
 
@@ -91,7 +92,7 @@ const Cursos = () => {
 
           <div className="contentVisualContainer">
             <div className="videoTitleContainer">
-           
+
               <p className="subtitleVideo">{cursoSeleccionado?.descripcion}</p>
 
               <div className="courseVideointroduccionContainer"><iframe className="videoIntroduccion" src={cursoSeleccionado?.videoIntroduccion} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe></div>
@@ -101,12 +102,12 @@ const Cursos = () => {
               {
                 //pregunta si es gratuito o pago
                 cursoSeleccionado?.tipo === "Gratuito" ?
-                   <Link
-                      to={`/curso/${cursoSeleccionado._id}`}
-                      className="coursePrice"
-                    >
-                      Ver curso
-                    </Link>
+                  <Link
+                    to={`/curso/${cursoSeleccionado._id}`}
+                    className="coursePrice"
+                  >
+                    Ver curso
+                  </Link>
                   :
                   yaComprado ? (
                     <Link
@@ -130,7 +131,7 @@ const Cursos = () => {
                         // 2. Si está logueado, procedemos al pago
                         // IMPORTANTE: Pasale 'cursoSeleccionado' entero, no solo el ID,  
                         // así la función pagar puede sacar el precio y el título.
-     
+
                         navigate(`/payment/${user.id}/${cursoSeleccionado._id}`);
                       }}
                     >
@@ -142,13 +143,12 @@ const Cursos = () => {
 
             </div>
           </div>
-
-          <div className="buttonsCoursesContainer">
-            <ButtonsCourses
-              cursos={cursos}
-              setCursoSeleccionado={setCursoSeleccionado}
-            />
-          </div>
+        </div>
+        <div className="buttonsCoursesContainer">
+          <ButtonsCourses
+            cursos={cursos}
+            setCursoSeleccionado={setCursoSeleccionado}
+          />
         </div>
 
         <ContactoFlotante />

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import Home from "./views/home/Home";
 import Login from "./views/login/Login";
 import Register from "./views/register/Register";
@@ -17,6 +17,7 @@ import LoginRoute from "./components/LoginRoute";
 import HaveCourseRoute from "./components/haveCourseRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import Checkout from "./views/checkout/Checkout";
+import NavbarDesktop from "./components/navbar/NavbarDesktop";
 
 export default function App() {
   const { isVisible, isExiting } = useLoading();
@@ -30,7 +31,8 @@ export default function App() {
         <BrowserRouter>
           <ScrollToTop/>
           <RouteLoader />
-          <Navbar />
+          <NavbarDesktop/>
+          <Navbar/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

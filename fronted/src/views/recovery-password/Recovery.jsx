@@ -147,7 +147,6 @@ const Recovery = ({ setRecovery }) => {
             {/* ================= STEP EMAIL ================= */}
             {step === "email" && (
               <form className="formAuth formRecovery" onSubmit={checkEmail}>
-                <label className="labelForm">Correo Electrónico</label>
                 <input
                   className="formInput"
                   type="email"
@@ -175,7 +174,6 @@ const Recovery = ({ setRecovery }) => {
             {/* ================= STEP PASSWORD ================= */}
             {step === "password" && (
               <form className="formAuth " onSubmit={resetPassword}>
-                <label className="labelForm">Nueva contraseña</label>
                 <input
                   className="formInput"
                   type="password"
@@ -185,11 +183,10 @@ const Recovery = ({ setRecovery }) => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
-                <label className="labelForm">Repite la contraseña</label>
                 <input
                   className="formInput"
                   type="password"
-                  placeholder="Nueva contraseña"
+                  placeholder="Confirma contraseña"
                   required
                   minLength={6}
                   onChange={(e) => setRepPassword(e.target.value)}

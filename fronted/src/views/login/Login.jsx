@@ -47,7 +47,6 @@ const Login = () => {
 
   return (
     <main >
-
       <img className="bgRegister" src={fondo} alt="fondo" />
       {recovery ? (
         <Recovery setRecovery={setRecovery} />
