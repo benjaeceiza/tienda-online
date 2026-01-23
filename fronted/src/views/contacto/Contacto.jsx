@@ -9,7 +9,9 @@ const Contacto = () => {
   const { hideLoader } = useLoading();
 
   useEffect(() => {
-    hideLoader();
+   setTimeout(() => {
+     hideLoader();
+   }, 1000);
   }, []);
 
   return (

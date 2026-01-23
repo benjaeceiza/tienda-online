@@ -97,7 +97,7 @@ const Navbar = () => {
                 <NavLink to="/mis-cursos" className="navbarLink" onClick={() => setIsVisible(false)}>Mis cursos</NavLink>
               </li>
               <li className="closeSessionItem">
-                <div className="userNameContainer">
+                <div className="userNameContainerMob">
                   <img src={userIcon} className="navbarIcon" alt="User" />
                   <p className="userName">{user?.nickname || userLog?.nickname}</p>
                 </div>

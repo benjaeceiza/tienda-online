@@ -96,7 +96,7 @@
 .navbar-desktop {
   width: 100%;
   height: 70px;
-  background: #eb8eab;
+  background: #bca7fa;
   /* Negro semi-transparente */
   display: flex;
   justify-content: space-between;
@@ -140,7 +140,7 @@
 
 .nav-link-desktop:hover,
 .nav-link-desktop.active {
-  color: #ad043a;
+  color: #8152c9;
 }
 
 /* Cursor pointer para el texto "Cursos" que no es un link real */
@@ -354,6 +354,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background-color: rgba(5, 7, 12, 0.6);
   /* Oscurece el resto de la web */
   backdrop-filter: blur(3px);
@@ -375,7 +376,7 @@
 /* EL PANEL LATERAL (Glassmorphism) */
 .navbarList {
   /* Degradado profundo azulado */
-  background: linear-gradient(180deg, #f186a8 0%, #eb8eab 100%);
+ background-color: #64adf1;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -427,7 +428,7 @@
 .navbarLink:hover,
 .navbarLink.active {
 
-  color: #b14064;
+  color: #007cf0;
   transform: translateX(-5px);
   /* Pequeño movimiento */
 }
@@ -446,7 +447,6 @@
   font-size: 0.9rem;
   font-weight: 800;
   margin: 0;
-  background: #b14064;
   margin-top: 10px;
   padding: 10px 15px;
   border-radius: 30px;
@@ -454,7 +454,7 @@
 }
 
 .navbarSessionLink:hover {
-  color: #b14064;
+  color: #007cf0;
   background-color: white;
   transition: all 0.3s ease;
 }
@@ -478,19 +478,31 @@
   width: 28px;
   height: 28px;
   transition: transform 0.3s ease;
-  filter: drop-shadow(0px 0px 4px #b14064);
+ 
 }
 
+.iconLogout {
+  cursor: pointer;
+}
 .iconLogout:hover {
   transform: scale(1.1);
-  filter: drop-shadow(0 0 10px #ec0000);
+   
 }
 
 .userNameContainer {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #b14064;
+  background: #8152c9;
+  padding: 8px 15px;
+  border-radius: 30px;
+}
+
+.userNameContainerMob {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #2b93f5;
   padding: 8px 15px;
   border-radius: 30px;
 }
@@ -1938,11 +1950,11 @@
   /* Permite crecer */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   /* Centrado verticalmente */
   padding: 0px 50px;
   box-sizing: border-box;
-  margin-top: 20px;
+  
 
   /* Importante para que el padding no rompa el ancho */
 
@@ -2099,7 +2111,7 @@
   justify-content: flex-start;
   margin-top: 30px;
   gap: 15px;
-  background-color: #ad0137;
+  background-color: #9c76d6;
   border: 2px solid white;
   padding: 30px 20px;
   border-radius: 20px;
@@ -2271,7 +2283,7 @@
 
 /* --- Contenedor Principal con el Fondo Espacial --- */
 .mainContact {
-  background-color: #eb8eab;
+  background-color: #bca7fa;
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -2310,7 +2322,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 25px;
-  color: #b14064;
+  color: #8152c9;
   font-family: "1";
 
   /* Pequeño resplandor azul */
@@ -2364,7 +2376,7 @@
   transition: all 0.4s ease;
   font-weight: bold;
   /* Efecto de brillo interno */
-  background-color: #b14064;
+  background-color: #8152c9;
 }
 
 .socialMediaList li:hover {
@@ -2372,7 +2384,7 @@
   /* Azul al pasar el mouse */
   border-color: #00a8ff;
   transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 0 25px #b14064, inset 0 0 15px #b14064;
+  box-shadow: 0 0 25px #8152c9, inset 0 0 15px #8152c9;
   /* Glow intenso */
 }
 
@@ -2457,7 +2469,7 @@
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 35px;
-  color: #b14064;
+  color: #8152c9;
   text-transform: uppercase;
   font-family: "1";
   font-weight: 900;
@@ -2479,7 +2491,7 @@
 .contactFormInput,
 .contactFormTextarea {
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: #8969b9;
   /* Fondo semi-oscuro para que resalte el texto */
   border: none;
   /* Línea inferior brillante estilo "neon" */
@@ -2489,7 +2501,7 @@
   font-family: inherit;
   transition: all 0.3s ease;
   border-radius: 8px 8px 0 0;
-  border-bottom: 2px solid #b14064;
+  border-bottom: 2px solid #8152c9;
   /* Bordes redondeados solo arriba */
 }
 
@@ -2505,10 +2517,10 @@
   outline: none;
   background: rgba(194, 18, 194, 0.1);
   /* Leve fondo azul */
-  border-bottom-color: #d63384;
+  border-bottom-color: #8152c9;
   /* Rosa neón */
-  box-shadow: 0 4px 10px -5px rgba(214, 51, 132, 0.5);
-  color: #b14064;
+
+  color: #8152c9;
 }
 
 /* Color del placeholder (el texto de ayuda) */
@@ -2520,7 +2532,7 @@
 /* Botón de Enviar */
 .contactFormButton {
   padding: 15px 40px;
-  background-color: #b14064;
+  background-color: #8152c9;
   /* Degradado azul cósmico */
   border: none;
   border-radius: 50px;
@@ -2538,7 +2550,7 @@
 
 .contactFormButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px #b14064;
+  box-shadow: 0 10px 30px #8152c9;
   /* Glow intenso al hover */
 }
 
@@ -2615,7 +2627,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #eb8eab;
+  background-color: #bca7fa;
   z-index: 0;
 }
 
@@ -2632,6 +2644,9 @@
   margin-bottom: 30px;
   text-align: center;
   letter-spacing: 2px;
+  color: #8152c9;
+  font-family: "1";
+  font-weight: bold;
 }
 
 .btn-volver {
@@ -2919,7 +2934,7 @@
 
 /* --- Estilos Generales --- */
 .footer-container {
-  background: linear-gradient(180deg, #f186a8 0%, #eb8eab 100%);
+  background-color: #bca7fa;
 
   /* Violeta oscuro místico */
   color: #ffffff;
