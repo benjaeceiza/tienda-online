@@ -201,6 +201,19 @@
   background-color: #e68900;
 }
 
+.nav-item-close{
+  display: flex;
+  align-items: center;
+}
+
+.iconClose{
+  cursor: pointer;
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+
+}
+
 
 /* =========================================
    HEADER PRINCIPAL (BARRA FIJA) NAVBAR MOBILE

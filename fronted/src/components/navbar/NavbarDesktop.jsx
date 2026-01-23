@@ -6,11 +6,15 @@ import { NavLink } from 'react-router-dom';
 import { getUser } from "../../services/getUser";
 import { useAuth } from '../../context/AuthContext';
 import userIcon from "../../assets/iconos/avatar.png";
+import salir from "../../assets/logos/logout.png";
+import ModalConfirm from "../ModalConfirm";
 
 const NavbarDesktop = () => {
     const { user } = useAuth();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userLog, setUserLog] = useState({});
+    const [isVisible, setIsVisible] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const cursosOptions = [
         { label: "Rituales", path: "/cursos/rituales" },
@@ -30,73 +34,78 @@ const NavbarDesktop = () => {
     }, [user]);
 
     return (
-        <nav className="navbar-desktop">
-            {/* Lado Izquierdo: Logo */}
-            <div className="navbar-logo-desktop">
-                <NavLink to={"/"}><h2 className="logoText">SC</h2></NavLink>
-            </div>
+        <>
 
-            {/* Lado Derecho: Menú */}
-            <ul className="navbar-links-desktop">
+            {showModal ? <ModalConfirm setShowModal={setShowModal} /> : null}
+            <nav className="navbar-desktop">
+                {/* Lado Izquierdo: Logo */}
+                <div className="navbar-logo-desktop">
+                    <NavLink to={"/"}><h2 className="logoText">SC</h2></NavLink>
+                </div>
 
-                {/* Dropdown de Cursos */}
-                <li
-                    className="nav-item-desktop dropdown-desktop"
-                    onMouseEnter={() => setDropdownOpen(true)}
+                {/* Lado Derecho: Menú */}
+                <ul className="navbar-links-desktop">
 
-                >
-                    <span className="nav-link-desktop cursor-pointer">
-                        Cursos ▾
-                    </span>
+                    {/* Dropdown de Cursos */}
+                    <li
+                        className="nav-item-desktop dropdown-desktop"
+                        onMouseEnter={() => setDropdownOpen(true)}
 
-                    {dropdownOpen && (
-                        <ul className="dropdown-menu-desktop" onMouseLeave={() => setDropdownOpen(false)}>
-                            {cursosOptions.map((option, index) => (
-                                <li key={index} className="dropdown-item-desktop">
-                                    <NavLink className='nav-link-desktop' to={option.path}>{option.label}</NavLink>
+                    >
+                        <span className="nav-link-desktop cursor-pointer">
+                            Cursos ▾
+                        </span>
+
+                        {dropdownOpen && (
+                            <ul className="dropdown-menu-desktop" onMouseLeave={() => setDropdownOpen(false)}>
+                                {cursosOptions.map((option, index) => (
+                                    <li key={index} className="dropdown-item-desktop">
+                                        <NavLink className='nav-link-desktop' to={option.path}>{option.label}</NavLink>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </li>
+
+                    <li className="nav-item">
+                        <NavLink to={"/contacto"} className="nav-link-desktop">Alicia tete</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to={"/contacto"} className="nav-link-desktop">Contacto</NavLink>
+                    </li>
+
+                    {
+                        user ?
+                            <>
+                                <li className='nav-item'>
+                                    <NavLink to={"/mis-cursos"} className="nav-link-desktop">Mis Cursos</NavLink>
                                 </li>
-                            ))}
-                        </ul>
-                    )}
-                </li>
-
-                <li className="nav-item">
-                    <NavLink to={"/contacto"} className="nav-link-desktop">Alicia tete</NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink to={"/contacto"} className="nav-link-desktop">Contacto</NavLink>
-                </li>
-
-                {
-                    user ?
-                        <>
-                            <li className='nav-item'>
-                                <NavLink to={"/mis-cursos"} className="nav-link-desktop">Mis Cursos</NavLink>
-                            </li>
-                            <li >
-                                <div className="userNameContainer">
-                                    <img src={userIcon} className="navbarIcon" alt="User" />
-                                    <p className="userName">{user?.nickname || userLog?.nickname}</p>
-                                </div>
-                            </li>
-                        </>
-                        :
-                        ""
-                }
-                {
-                    !user ?
-                        <>
-                            <li className="nav-item">
-                                <NavLink to={"/login"} className="nav-link-desktop">Iniciar Sesión</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to={"/register"} className="nav-link-desktop btn-register">Registrarse</NavLink>
-                            </li>
-                        </>
-                        : ""
-                }
-            </ul>
-        </nav>
+                                <li className='nav-item-close'>
+                                    <div className="userNameContainer">
+                                        <img src={userIcon} className="navbarIcon" alt="User" />
+                                        <p className="userName">{user?.nickname || userLog?.nickname}</p>
+                                    </div>
+                                    <img src={salir} alt="Cerrar sesion" onClick={() => { setShowModal(true); setIsVisible(false); }} className=" iconClose" />
+                                </li>
+                            </>
+                            :
+                            ""
+                    }
+                    {
+                        !user ?
+                            <>
+                                <li className="nav-item">
+                                    <NavLink to={"/login"} className="nav-link-desktop">Iniciar Sesión</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink to={"/register"} className="nav-link-desktop btn-register">Registrarse</NavLink>
+                                </li>
+                            </>
+                            : ""
+                    }
+                </ul>
+            </nav>
+        </>
     );
 };
 
