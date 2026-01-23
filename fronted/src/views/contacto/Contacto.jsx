@@ -19,7 +19,7 @@ const Contacto = () => {
           <div className="sectionContainer">
             <section className="socialMediaSection">
               <div className="listContainer">
-                <h2>Nuestras Redes</h2>
+                <h2 className="titleContact">Nuestras Redes</h2>
                 <ul className="socialMediaList">
                   <li><img className="iconSocialList" src={ig} alt="Instagram" /></li>
                   <li><img className="iconSocialList" src={fb} alt="Facebook" /></li>
@@ -33,7 +33,7 @@ const Contacto = () => {
               </div>
             </section>
             <section className="formContactSection">
-              <div className="titleFormContainer glass">
+              <div className="titleFormContainer">
                 <h2 className="titleForm">Envianos un mensaje</h2>
                 <form className="formContact">
                   <div className="formRow">

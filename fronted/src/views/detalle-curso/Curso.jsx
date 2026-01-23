@@ -2,73 +2,84 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCourse } from "../../services/getCourse";
 import { useEffect, useState } from "react";
 import { useLoading } from "../../context/LoadingContext";
-import { FaPlay, FaCheckCircle, FaLock } from "react-icons/fa";
-
+import { FaPlay, FaFilePdf, FaList, FaCheckCircle } from "react-icons/fa";
 
 const Curso = () => {
     const { cid } = useParams();
-    const [curso, setCurso] = useState();
+    const [curso, setCurso] = useState(null); // Inicializar en null para manejar la carga
     const [error, setError] = useState(null);
     const { hideLoader } = useLoading();
-
     const [activeTab, setActiveTab] = useState("apuntes");
-    const [activeUnit, setActiveUnit] = useState(0);
+    const [activeUnitIndex, setActiveUnitIndex] = useState(0); // Usamos el índice del array
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        hideLoader();
-        // Simulación de carga
         getCourse(cid)
-            .then(data => setCurso(data || {}))
-            .catch(err => setError(err));
+            .then(data => {
+                setCurso(data || {});
+                hideLoader();
+            })
+            .catch(err => {
+                setError(err);
+                hideLoader();
+            });
     }, [cid, hideLoader]);
 
-    // Datos simulados
-    const cursoF = {
-        titulo: "Limpieza Energética Avanzada",
-        unidades: [
-            { id: 0, titulo: "Introducción a la energía", duracion: "10:05", estado: "visto", tipo: "video" },
-            { id: 1, titulo: "Herramientas necesarias", duracion: "15:20", estado: "actual", tipo: "video" },
-            { id: 2, titulo: "Técnicas de protección", duracion: "12:00", estado: "candado", tipo: "video" },
-            { id: 3, titulo: "Cierre y conclusiones", duracion: "08:45", estado: "candado", tipo: "video" },
-        ],
-        contenidoActual: {
-            titulo: "Herramientas necesarias",
-            descripcion: "Descripción del contenido...",
-        }
-    };
+    // LÓGICA: Obtener la unidad actual basada en el índice seleccionado
+    // Si curso o temario no existen aún, usamos un objeto vacío para evitar errores
+    const temario = curso?.temario || [];
+    const unidadActual = temario[activeUnitIndex] || {};
+
+    // Helper para saber si hay video
+    const tieneVideo = unidadActual?.video && unidadActual.video.length > 0;
+    // Helper para saber si hay PDF
+    const tienePdf = unidadActual?.pdf && unidadActual.pdf.length > 0;
 
     return (
         <div className="curso-page-container">
             {/* HEADER */}
             <header className="curso-header">
                 <div className="header-bg-overlay"></div>
-                <img className="header-img" src={curso?.thumbnail || "https://via.placeholder.com/1500x500"} alt="Fondo" />
-                
+                <img
+                    className="header-img"
+                    src={curso?.thumbnail || "https://via.placeholder.com/1500x500"}
+                    alt="Fondo"
+                />
+
                 <div className="header-content">
                     <button className="btn-back" onClick={() => navigate(-1)}>← Volver</button>
-                    <h1 className="course-title">{curso?.nombre || "Cargando..."}</h1>
+                    <h1 className="course-title-header">{curso?.nombre || "Cargando curso..."}</h1>
                 </div>
             </header>
 
             {/* CONTENIDO PRINCIPAL */}
             <div className="course-body">
                 <div className="layout-grid">
-                    
-                    {/* COLUMNA IZQUIERDA: Video + Info */}
+
+                    {/* COLUMNA IZQUIERDA: Reproductor + Pestañas */}
                     <main className="main-content">
-                        <div className="video-wrapper">
-                            <iframe
-                                src="https://www.youtube.com/embed/etCvDtguRzk?si=jj_KYaZp_RDySOg3"
-                                title="Video Player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
+                        {tieneVideo ? (
+                            <div className="video-wrapper">
+                                <iframe
+                                    src={unidadActual.video}
+                                    title={unidadActual.titulo}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        ) : (
+                            ""
+                        )}
+
 
                         <div className="content-panel">
-                            <h2 className="unit-current-title">{cursoF.contenidoActual.titulo}</h2>
+                            <h2 className="unit-current-title">
+                                {unidadActual?.title || "Selecciona una unidad"}
+                            </h2>
+                            <p className="unit-description">
+                                {unidadActual?.descripcion || ""}
+                            </p>
 
                             {/* TABS */}
                             <div className="tabs-container">
@@ -76,78 +87,96 @@ const Curso = () => {
                                     className={`tab-btn ${activeTab === "apuntes" ? "active" : ""}`}
                                     onClick={() => setActiveTab("apuntes")}
                                 >
-                                    Contenido
+                                    Apuntes / Recursos
                                 </button>
-                                <button
-                                    className={`tab-btn ${activeTab === "comentarios" ? "active" : ""}`}
-                                    onClick={() => setActiveTab("comentarios")}
-                                >
-                                    Comentarios
-                                </button>
+                                
                             </div>
 
                             {/* CONTENIDO DEL TAB */}
                             <div className="tab-content">
                                 {activeTab === "apuntes" && (
                                     <>
-                                        {/* VISOR PDF */}
-                                        <div className="pdf-viewer-container">
-                                            <iframe
-                                                src={"https://res.cloudinary.com/dmnksm3th/image/upload/v1768573184/anexo-1_tn2kvl.pdf#toolbar=0&navpanes=0&scrollbar=0"}
-                                                title="Visor del PDF"
-                                            />
-                                        </div>
-                                        <div className="pdf-fallback">
-                                            <a
-                                                href={"https://res.cloudinary.com/dmnksm3th/image/upload/v1768573184/anexo-1_tn2kvl.pdf"}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                ¿No carga? Abrir PDF en pestaña nueva ↗
-                                            </a>
-                                        </div>
+                                        {tienePdf ? (
+                                            <>
+                                                <div className="pdf-viewer-container">
+                                                    <iframe
+                                                        
+                                                        src={`${unidadActual.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
+                                                        title="Visor del PDF"
+                                                    />
+                                                </div>
+                                                <div className="pdf-fallback">
+                                                    <a
+                                                        href={unidadActual.pdf}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
+                                                        ¿No carga? Abrir PDF en pestaña nueva ↗
+                                                    </a>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="no-content-msg">
+                                                <p>Esta unidad no tiene material PDF adjunto.</p>
+                                            </div>
+                                        )}
                                     </>
                                 )}
-                                {activeTab === "comentarios" && <p>Aquí irían los comentarios...</p>}
+                                
                             </div>
                         </div>
                     </main>
 
-                    {/* COLUMNA DERECHA: Playlist (Sidebar) */}
+                    {/* COLUMNA DERECHA: Temario (Sidebar) */}
                     <aside className="sidebar-playlist">
                         <div className="sidebar-header">
-                            <h3>Contenido del curso</h3>
+                            <h3>Temario del curso</h3>
+                            {/* Barra de progreso visual (opcional si tienes lógica de completado) */}
                             <div className="progress-info">
-                                <span>30% Completado</span>
-                                <div className="progress-bar"><div className="fill" style={{ width: "30%" }}></div></div>
+                                <span>Contenido del curso</span>
                             </div>
                         </div>
 
                         <ul className="unit-list">
-                            {cursoF.unidades.map((uni, index) => (
-                                <li
-                                    key={uni.id}
-                                    className={`unit-item ${uni.estado === "actual" ? "active-unit" : ""} ${uni.estado === "candado" ? "locked" : ""}`}
-                                    onClick={() => uni.estado !== "candado" && setActiveUnit(index)}
-                                >
-                                    <div className="unit-status-icon">
-                                        {uni.estado === "visto" && <FaCheckCircle className="icon-success" />}
-                                        {uni.estado === "actual" && <FaPlay className="icon-play" />}
-                                        {uni.estado === "candado" && <FaLock className="icon-lock" />}
-                                    </div>
-                                    <div className="unit-details">
-                                        <span className="u-title">Unidad {index + 1}: {uni.titulo}</span>
-                                        <span className="u-time">{uni.duracion} min</span>
-                                    </div>
-                                </li>
-                            ))}
+                            {temario.length > 0 ? (
+                                temario.map((tema, index) => {
+                                    const isActive = index === activeUnitIndex;
+
+                                    return (
+                                        <li
+                                            key={index}
+                                            className={`unit-item ${isActive ? "active-unit" : ""}`}
+                                            onClick={() => setActiveUnitIndex(index)}
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            <div className="unit-status-icon">
+                                                {/* Icono dinámico según el tipo de contenido */}
+                                                {isActive ? <FaPlay className="icon-play" /> : <FaCheckCircle className="icon-circle" style={{ opacity: 0.3 }} />}
+                                            </div>
+
+                                            <div className="unit-details">
+                                                <span className="u-title">
+                                                    {index + 1}. {tema.title}
+                                                </span>
+                                                <div className="u-meta">
+                                                    {/* Etiquetas pequeñas para saber qué tiene la clase */}
+                                                    {tema.video && <span style={{ fontSize: '0.7rem', marginRight: '5px' }}>🎥 Video</span>}
+                                                    {tema.pdf && <span style={{ fontSize: '0.7rem' }}>📄 PDF</span>}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    );
+                                })
+                            ) : (
+                                <p style={{ padding: '20px' }}>Cargando temario...</p>
+                            )}
                         </ul>
                     </aside>
 
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Curso;

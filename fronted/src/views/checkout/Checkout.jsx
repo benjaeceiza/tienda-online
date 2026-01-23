@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext"; // Para saber quién paga
 import { useLoading } from "../../context/LoadingContext";
 import mpLogo from "../../assets/logos/mercado-pago.png"; // Asegurate de tener logos si querés, sino usa texto
 import paypalLogo from "../../assets/logos/paypal.png"; // Icono de paypal opcional
+import PaypalButton from "../../components/PaypalButton";
 
 
 const Checkout = () => {
@@ -16,7 +17,7 @@ const Checkout = () => {
 
     // 1. Traemos la data del curso con tu NUEVA RUTA pública
     useEffect(() => {
-        fetch(`http://localhost:8080/api/courses/detalle/${cid}`) // Ajusta tu URL base
+        fetch(`http://localhost:8080/api/courses/detalle/${cid}`) 
             .then((res) => res.json())
             .then((data) => {
                 setCurso(data);
@@ -62,12 +63,10 @@ const Checkout = () => {
                                 <span className="payment-sub">Tarjetas, Débito, Efectivo</span>
                             </button>
 
-                            {/* Opción PayPal */}
-                            <button className="btn-payment pp-btn" onClick={handlePayPal}>
-                                <img src={paypalLogo} alt="PayPal" className="payment-icon" />
-                                <span className="payment-label">PayPal</span>
-                                <span className="payment-sub">USD Internacional</span>
-                            </button>
+                            <PaypalButton price={curso?.precio}
+                                courseName={curso?.nombre}
+                                courseId={curso?._id}
+                                userId={user?.id} />
                         </div>
 
                         <div className="security-note">
@@ -80,7 +79,7 @@ const Checkout = () => {
                         <div className="course-card-checkout">
                             <span className="category-tag">{curso?.categoria}</span>
 
-                            <h2 className="course-title">{curso?.nombre}</h2>
+                            <h2 className="course-title-pay">{curso?.nombre}</h2>
 
                             <div className="divider"></div>
 

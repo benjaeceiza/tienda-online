@@ -17,7 +17,7 @@ const NavbarDesktop = () => {
         { label: "Artesanías mágicas", path: "/cursos/artesanias magicas" },
         { label: "Eric Barone", path: "/cursos/eric barone" },
         { label: "Sistema de sanación en camilla", path: "/cursos/sistema de sanacion en camilla" },
-        { label: "Anexos", path: "/cursos/anexos" },
+        { label: "Anexos", path: "/cursos/anexo" },
     ];
 
     useEffect(() => {
@@ -69,12 +69,17 @@ const NavbarDesktop = () => {
 
                 {
                     user ?
-                        <li className='nav-item'>
-                            <div className="userNameContainer">
-                                <img src={userIcon} className="navbarIcon" alt="User" />
-                                <p className="userName">{user?.nickname || userLog?.nickname}</p>
-                            </div>
-                        </li>
+                        <>
+                            <li className='nav-item'>
+                                <NavLink to={"/mis-cursos"} className="nav-link-desktop">Mis Cursos</NavLink>
+                            </li>
+                            <li >
+                                <div className="userNameContainer">
+                                    <img src={userIcon} className="navbarIcon" alt="User" />
+                                    <p className="userName">{user?.nickname || userLog?.nickname}</p>
+                                </div>
+                            </li>
+                        </>
                         :
                         ""
                 }

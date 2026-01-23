@@ -25,25 +25,23 @@ const MisCursos = () => {
         <>
 
             <main className="main-container">
-                <div className="content-wrapper">
-                    <div>
+                {cursos.length > 0 ? (
+                    <div className="content-wrapper">
                         <div className="titleMisCursos">
                             <h1>MIS CURSOS</h1>
                             <p>Acá vas a encontrar los cursos que ya adquiriste. Tocá “IR A CURSO” para entrar directo al contenido.</p>
                         </div>
-                    </div>
-
-                    <section className="courses-grid">
-                        {/* Pasamos los cursos. Si no hay, podrías mostrar un mensaje */}
-                        {cursos.length > 0 ? (
+                        <section className="courses-grid">
                             <CardCourse cursos={cursos} />
-                        ) : (
-                            <p style={{ textAlign: 'center', width: '100%', opacity: 0.7 }}>
-                                Aún no tienes cursos en tu biblioteca estelar.
-                            </p>
-                        )}
-                    </section>
-                </div>
+                        </section>
+                    </div>)
+                    : (
+                        <div className="noCoursesContainer">
+                            <h2 className="noCoursesTitle">No has adquirido ningún curso aún.</h2>
+                            <p className="noCoursesSub">Explorá nuestra tienda y encontrá el curso perfecto para vos.</p>
+                        </div>
+
+                    )}
             </main>
         </>
     );

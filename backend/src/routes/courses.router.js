@@ -63,6 +63,7 @@ router.get("/contenido/:cid", async (req, res) => {
         if (course.tipo === "Gratuito") {
             return res.status(201).json(course);
         }
+      
 
 
         const token = authHeader.split(" ")[1];

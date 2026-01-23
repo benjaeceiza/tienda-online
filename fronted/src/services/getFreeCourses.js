@@ -10,7 +10,6 @@ export const getFreeCourses = async () => {
 
     const result = await res.json();
 
-
     return result.courses;
 
 

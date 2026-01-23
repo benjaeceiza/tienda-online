@@ -498,9 +498,9 @@
 .userName {
   color: white;
   /* Color lavanda suave */
-  font-family: 'Montserrat', sans-serif;
+  font-family: '1', sans-serif;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: bold;
   margin: 0;
 }
 
@@ -579,7 +579,7 @@
 }
 
 
-@media(max-width:600px) {
+@media(max-width:700px) {
   .navbar-desktop {
     display: none;
   }
@@ -622,6 +622,27 @@
   /* Negro con 50% de opacidad */
   z-index: 1;
   /* Asegura que esté debajo del texto */
+}
+
+.noCoursesContainer {
+  height: 50vh;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.noCoursesTitle {
+  font-size: clamp(30px, 3vw, 70px);
+  text-shadow: 0px 0px 10px black;
+}
+
+.noCoursesSub {
+  font-size: clamp(14px, 1.6vw, 16px);
+  text-shadow: 0px 0px 10px black;
+  margin-top: 15px;
 }
 
 
@@ -983,9 +1004,10 @@
 }
 
 .unit-current-title {
-  margin: 0 0 20px 0;
-  font-size: 1.8rem;
-  color: var(--text-dark);
+  text-shadow: none;
+  font-size: clamp(20px, 4vw, 30px);
+  font-family: "1";
+  color: #eb8eab;
 }
 
 /* --- TABS --- */
@@ -1933,7 +1955,7 @@
 .subtitleCoursesContainer {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin-bottom: 20px;
   filter: drop-shadow(0px 0px 5px black);
 
@@ -1973,12 +1995,25 @@
   text-transform: uppercase;
   filter: drop-shadow(0px 0px 5px black);
   color: white;
+  text-align: center;
+  
 }
+
+/* Animación entrada suave de izquierda a derecha */
+.slide-right {
+  opacity: 0;
+  transform: translateX(-50px); /* Empieza desplazado a la izquierda */
+  animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+
+
 
 .contentVisualContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 /* --- TARJETA DEL VIDEO Y DESCRIPCIÓN --- */
@@ -2059,6 +2094,7 @@
 
 .cardButtonsCourses {
   display: flex;
+  flex-direction: column;
   width: fit-content;
   justify-content: flex-start;
   margin-top: 30px;
@@ -2068,6 +2104,23 @@
   padding: 30px 20px;
   border-radius: 20px;
   margin: auto;
+}
+
+.cardButtonsCourses h2 {
+  color: white;
+  font-size: small;
+  border-bottom: 1px solid white;
+  padding: 0px 0px 10px 0px;
+  margin-bottom: 10px;
+  font-family: "1";
+
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttonNameContainer {
@@ -2160,6 +2213,15 @@
 
 }
 
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    /* Termina visible y en su lugar original */
+  }
+}
+
 /* =========================================
    RESPONSIVE (TABLETS Y MÓVILES)
    ========================================= */
@@ -2209,7 +2271,7 @@
 
 /* --- Contenedor Principal con el Fondo Espacial --- */
 .mainContact {
- background-color: #ad043a;
+  background-color: #eb8eab;
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -2217,7 +2279,6 @@
   align-items: center;
   padding: 100px 20px 0px 20px;
   font-family: 'Montserrat', sans-serif;
-  color: white;
   /* Capa oscura superpuesta para mejorar la lectura si el fondo es muy brillante */
   position: relative;
 }
@@ -2230,6 +2291,7 @@
   z-index: 1;
   width: 100%;
   max-width: 1200px;
+
 }
 
 .sectionContainer {
@@ -2241,14 +2303,16 @@
 }
 
 /* --- Títulos Generales (Estilo "SANACION COSMOTELURICA") --- */
-h2 {
+.titleContact {
   font-weight: 900;
   /* Bien negrita */
   font-size: 2.5rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 25px;
-  text-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+  color: #b14064;
+  font-family: "1";
+
   /* Pequeño resplandor azul */
 }
 
@@ -2293,8 +2357,6 @@ h2 {
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2302,15 +2364,15 @@ h2 {
   transition: all 0.4s ease;
   font-weight: bold;
   /* Efecto de brillo interno */
-  box-shadow: inset 0 0 10px rgba(0, 123, 255, 0.2);
+  background-color: #b14064;
 }
 
 .socialMediaList li:hover {
-  background: rgba(0, 123, 255, 0.2);
+
   /* Azul al pasar el mouse */
   border-color: #00a8ff;
   transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 0 25px #00a8ff, inset 0 0 15px #00a8ff;
+  box-shadow: 0 0 25px #b14064, inset 0 0 15px #b14064;
   /* Glow intenso */
 }
 
@@ -2364,6 +2426,15 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
+
+}
+
+.titleFormContainer {
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
 }
 
 /* Efecto GLASSMORPHISM para el contenedor del formulario */
@@ -2379,12 +2450,17 @@ h2 {
   padding: 40px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   /* Sombra profunda para darle volumen */
+
 }
 
 .titleForm {
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 35px;
+  color: #b14064;
+  text-transform: uppercase;
+  font-family: "1";
+  font-weight: 900;
 
 }
 
@@ -2409,17 +2485,18 @@ h2 {
   /* Línea inferior brillante estilo "neon" */
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   padding: 15px;
-  color: white;
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.3s ease;
   border-radius: 8px 8px 0 0;
+  border-bottom: 2px solid #b14064;
   /* Bordes redondeados solo arriba */
 }
 
 .contactFormTextarea {
   resize: vertical;
   min-height: 120px;
+
 }
 
 /* Efecto al hacer click (Focus) en los inputs */
@@ -2431,6 +2508,7 @@ h2 {
   border-bottom-color: #d63384;
   /* Rosa neón */
   box-shadow: 0 4px 10px -5px rgba(214, 51, 132, 0.5);
+  color: #b14064;
 }
 
 /* Color del placeholder (el texto de ayuda) */
@@ -2442,7 +2520,7 @@ h2 {
 /* Botón de Enviar */
 .contactFormButton {
   padding: 15px 40px;
-  background: linear-gradient(45deg, #a800ea, #a515c2);
+  background-color: #b14064;
   /* Degradado azul cósmico */
   border: none;
   border-radius: 50px;
@@ -2455,12 +2533,12 @@ h2 {
   transition: all 0.4s ease;
   align-self: flex-start;
   /* Alineado a la izquierda */
-  box-shadow: 0 5px 20px rgba(171, 0, 251, 0.4);
+
 }
 
 .contactFormButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(209, 0, 251, 0.8);
+  box-shadow: 0 10px 30px #b14064;
   /* Glow intenso al hover */
 }
 
@@ -2470,11 +2548,13 @@ h2 {
   .formContactSection {
     margin: auto;
     width: 100%;
+    height: auto;
   }
 
   .titleFormContainer {
     width: 80%;
     min-width: 300px;
+
   }
 
   .sectionContainer {
@@ -2535,7 +2615,7 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 10%, #b14064 0%, #ad043a 70%);
+  background-color: #eb8eab;
   z-index: 0;
 }
 
@@ -2556,10 +2636,17 @@ h2 {
 
 .btn-volver {
   display: inline-block;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(248, 248, 248);
   text-decoration: none;
   margin-bottom: 20px;
   transition: color 0.3s;
+  border: 2px solid white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  background-color: #b14064;
+  font-family: "1";
+  font-size: small;
 }
 
 .btn-volver:hover {
@@ -2592,7 +2679,7 @@ h2 {
   font-size: 1.5rem;
   margin-bottom: 10px;
   text-shadow: none;
-  color: #e7668f;
+  color: #b14064;
 }
 
 .payment-desc {
@@ -2723,12 +2810,14 @@ h2 {
   font-family: "1";
 }
 
-.course-title {
+.course-title-header {
   font-size: 2rem;
   margin: 0 0 20px 0;
   line-height: 1.1;
-  color: #e7668f;
+  color: #ffffff;
   text-shadow: none;
+  font-family: "1";
+  font-weight: bolder;
 }
 
 .divider {
@@ -2749,7 +2838,7 @@ h2 {
 }
 
 .price-container {
-  background: #eb8eab;
+  background: #b14064;
   padding: 20px;
   border-radius: 15px;
   display: flex;
@@ -2778,6 +2867,12 @@ h2 {
   justify-content: center;
   color: white;
   background: #050505;
+}
+
+.course-title-pay {
+  color: #b14064;
+  font-family: "1";
+
 }
 
 /* --- RESPONSIVE --- */

@@ -81,6 +81,12 @@ const Navbar = () => {
             <NavLink to="/cursos/sistema de sanacion cosmotelurica" className="navbarLink" onClick={() => setIsVisible(false)}>Sist. Sanacion</NavLink>
           </li>
           <li className="navbarItem">
+            <NavLink to="/cursos/anexo" className="navbarLink" onClick={() => setIsVisible(false)}>Anexos</NavLink>
+          </li>
+          <li className="navbarItem">
+            <NavLink to="/alicia-tete" className="navbarLink" onClick={() => setIsVisible(false)}>Alicia tete</NavLink>
+          </li>
+          <li className="navbarItem">
             <NavLink to="/contacto" className="navbarLink" onClick={() => setIsVisible(false)}>Contacto</NavLink>
           </li>
 
