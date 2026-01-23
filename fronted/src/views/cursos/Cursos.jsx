@@ -22,7 +22,7 @@ const Cursos = () => {
   const fondoArtesanias = "https://i.postimg.cc/CKCGt1Rt/fondo_artesanias.png";
   const fondoRituales = "https://i.postimg.cc/q7csYRNP/fondo_rituales.png";
   const fondoEricBarone = "https://i.postimg.cc/7hjJb8Cg/eric-barone.png";
-  const fondoSistemaSanacion = "https://i.postimg.cc/x89Nzygs/inicio.png";
+  const fondoSistemaSanacion = "https://i.postimg.cc/FR9yQ4c7/fondo_intermedio.png";
   const fondoAnexo = "https://i.postimg.cc/JnLNYjq8/fondo-anexo.png";
 
   const navigate = useNavigate();

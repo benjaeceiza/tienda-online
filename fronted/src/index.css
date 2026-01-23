@@ -376,7 +376,7 @@
 /* EL PANEL LATERAL (Glassmorphism) */
 .navbarList {
   /* Degradado profundo azulado */
- background-color: #64adf1;
+  background-color: #64adf1;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -478,15 +478,16 @@
   width: 28px;
   height: 28px;
   transition: transform 0.3s ease;
- 
+
 }
 
 .iconLogout {
   cursor: pointer;
 }
+
 .iconLogout:hover {
   transform: scale(1.1);
-   
+
 }
 
 .userNameContainer {
@@ -1794,6 +1795,10 @@
   text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
 }
 
+.titleSize {
+  font-size: clamp(30px, 6vw, 70px);
+}
+
 .subtitleCourseHome {
   color: white;
   font-size: clamp(16px, 1.5vw, 20px);
@@ -1954,7 +1959,7 @@
   /* Centrado verticalmente */
   padding: 0px 50px;
   box-sizing: border-box;
-  
+
 
   /* Importante para que el padding no rompa el ancho */
 
@@ -2008,13 +2013,14 @@
   filter: drop-shadow(0px 0px 5px black);
   color: white;
   text-align: center;
-  
+
 }
 
 /* Animación entrada suave de izquierda a derecha */
 .slide-right {
   opacity: 0;
-  transform: translateX(-50px); /* Empieza desplazado a la izquierda */
+  transform: translateX(-50px);
+  /* Empieza desplazado a la izquierda */
   animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
@@ -2651,17 +2657,21 @@
 
 .btn-volver {
   display: inline-block;
-  color: rgb(248, 248, 248);
+  backdrop-filter: blur(5px);
+  color: white;
   text-decoration: none;
   margin-bottom: 20px;
   transition: color 0.3s;
-  border: 2px solid white;
-  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 8px 16px;
   border-radius: 20px;
   font-weight: bold;
-  background-color: #b14064;
+  background: rgba(94, 93, 93, 0.192);
   font-family: "1";
   font-size: small;
+  cursor: pointer;
+    margin-bottom: 20px;
+
 }
 
 .btn-volver:hover {
