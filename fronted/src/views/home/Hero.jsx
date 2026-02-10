@@ -1,16 +1,15 @@
-import { Link } from "react-router-dom";
-import mariposa from "../../assets/fondos/mariposainicio.png";
+import logo from "../../assets/logos/logo-transparente.png";
 
 const Hero = () => {
     return (
         <header className="heroSection"> {/* Cambié la clase a heroSection */}
             <div className="heroOverlay"></div> {/* Capa oscura separada */}
 
+            <img className="logo-inicio" src={logo} alt="" />
             <p className="beforeTitle">Bioenergía en equilibrio terrenal y cósmico</p>
-            <h1 className="titleHome">SANACION COSMOTELURICA.</h1>
+            <h1 className="titleHome">SANACIÓN COSMOTELÚRICA.</h1>
             <p className="subtitleHome">
-                Esta compleja estructura que es el hombre tiene un combustible especial:
-                la bioenergía que es vehiculizada por la kundalini.
+                Sanación energética que une Cosmos, Tierra y Conciencia.
             </p>
             {/* Degradado inferior para unir con la siguiente sección */}
             <div className="heroGradientBottom" />

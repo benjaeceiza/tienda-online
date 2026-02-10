@@ -8,6 +8,8 @@ import { useAuth } from '../../context/AuthContext';
 import userIcon from "../../assets/iconos/avatar.png";
 import salir from "../../assets/logos/logout.png";
 import ModalConfirm from "../ModalConfirm";
+import ModalUser from '../modal-user/ModalUser';
+import logo from "../../assets/logos/logo-tete.png";
 
 const NavbarDesktop = () => {
     const { user } = useAuth();
@@ -15,13 +17,14 @@ const NavbarDesktop = () => {
     const [userLog, setUserLog] = useState({});
     const [isVisible, setIsVisible] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const {logout} = useAuth()
 
     const cursosOptions = [
         { label: "Rituales", path: "/cursos/rituales" },
         { label: "Artesanías mágicas", path: "/cursos/artesanias magicas" },
         { label: "Eric Barone", path: "/cursos/eric barone" },
         { label: "Sistema de sanación en camilla", path: "/cursos/sistema de sanacion en camilla" },
-        { label: "Anexos", path: "/cursos/anexo" },
+        { label: "Anexos", path: "/cursos/anexos" },
     ];
 
     useEffect(() => {
@@ -35,12 +38,16 @@ const NavbarDesktop = () => {
 
     return (
         <>
-
-            {showModal ? <ModalConfirm setShowModal={setShowModal} /> : null}
+              <ModalUser
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                user={user}
+                onLogout={logout}
+            />
             <nav className="navbar-desktop">
                 {/* Lado Izquierdo: Logo */}
                 <div className="navbar-logo-desktop">
-                    <NavLink to={"/"}><h2 className="logoText">SC</h2></NavLink>
+                    <NavLink to={"/"}><img className='logo-navbar' src={logo} alt='logo'/></NavLink>
                 </div>
 
                 {/* Lado Derecho: Menú */}
@@ -68,7 +75,7 @@ const NavbarDesktop = () => {
                     </li>
 
                     <li className="nav-item">
-                        <NavLink to={"/contacto"} className="nav-link-desktop">Alicia tete</NavLink>
+                        <NavLink to={"/alicia-tete"} className="nav-link-desktop">Alicia tete</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink to={"/contacto"} className="nav-link-desktop">Contacto</NavLink>
@@ -81,11 +88,10 @@ const NavbarDesktop = () => {
                                     <NavLink to={"/mis-cursos"} className="nav-link-desktop">Mis Cursos</NavLink>
                                 </li>
                                 <li className='nav-item-close'>
-                                    <div className="userNameContainer">
+                                    <div className="userNameContainer" onClick={() => setShowModal(true)}>
                                         <img src={userIcon} className="navbarIcon" alt="User" />
                                         <p className="userName">{user?.nickname || userLog?.nickname}</p>
                                     </div>
-                                    <img src={salir} alt="Cerrar sesion" onClick={() => { setShowModal(true); setIsVisible(false); }} className=" iconClose" />
                                 </li>
                             </>
                             :

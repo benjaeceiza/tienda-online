@@ -66,35 +66,35 @@ const Navbar = () => {
 
           {/* Links Públicos */}
           <li className="navbarItem">
-            <NavLink to="/" className="navbarLink" onClick={() => setIsVisible(false)}>Inicio</NavLink>
+            <NavLink to="/" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Inicio</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/cursos/eric barone" className="navbarLink" onClick={() => setIsVisible(false)}>Eric Barone</NavLink>
+            <NavLink to="/cursos/rituales" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Rituales</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/cursos/rituales" className="navbarLink" onClick={() => setIsVisible(false)}>Rituales</NavLink>
+            <NavLink to="/cursos/artesanias magicas" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Artesanias Mágicas</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/cursos/artesanias magicas" className="navbarLink" onClick={() => setIsVisible(false)}>Artesanias Mágicas</NavLink>
+            <NavLink to="/cursos/sistema de sanacion en camilla" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Sist. Sanación en camilla</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/cursos/sistema de sanacion en camilla" className="navbarLink" onClick={() => setIsVisible(false)}>Sist. Sanación en camilla</NavLink>
+            <NavLink to="/cursos/anexo" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Anexos</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/cursos/anexo" className="navbarLink" onClick={() => setIsVisible(false)}>Anexos</NavLink>
+            <NavLink to="/cursos/eric barone" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Eric Barone</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/alicia-tete" className="navbarLink" onClick={() => setIsVisible(false)}>Alicia tete</NavLink>
+            <NavLink to="/alicia-tete" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Alicia tete</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/contacto" className="navbarLink" onClick={() => setIsVisible(false)}>Contacto</NavLink>
+            <NavLink to="/contacto" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Contacto</NavLink>
           </li>
 
           {/* Lógica de Usuario */}
           {user ? (
             <>
               <li className="navbarItem">
-                <NavLink to="/mis-cursos" className="navbarLink" onClick={() => setIsVisible(false)}>Mis cursos</NavLink>
+                <NavLink to="/mis-cursos" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Mis cursos</NavLink>
               </li>
               <li className="closeSessionItem">
                 <div className="userNameContainerMob">
@@ -106,8 +106,8 @@ const Navbar = () => {
             </>
           ) : (
             <li className="sessionItem">
-              <NavLink to="/login" className="navbarLink navbarSessionLink" onClick={() => setIsVisible(false)}>Iniciar Sesión</NavLink>
-              <NavLink to="/register" className="navbarLink navbarSessionLink" onClick={() => setIsVisible(false)}>Registrarse</NavLink>
+              <NavLink to="/login" className="navbarLinkMob navbarSessionLink" onClick={() => setIsVisible(false)}>Iniciar Sesión</NavLink>
+              <NavLink to="/register" className="navbarLinkMob navbarSessionLink" onClick={() => setIsVisible(false)}>Registrarse</NavLink>
             </li>
           )}
 

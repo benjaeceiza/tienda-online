@@ -89,7 +89,7 @@ const Curso = () => {
                                 >
                                     Apuntes / Recursos
                                 </button>
-                                
+
                             </div>
 
                             {/* CONTENIDO DEL TAB */}
@@ -100,12 +100,12 @@ const Curso = () => {
                                             <>
                                                 <div className="pdf-viewer-container">
                                                     <iframe
-                                                        
+
                                                         src={`${unidadActual.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
                                                         title="Visor del PDF"
                                                     />
                                                 </div>
-                                                <div className="pdf-fallback">
+                                                { /*  <div className="pdf-fallback">
                                                     <a
                                                         href={unidadActual.pdf}
                                                         target="_blank"
@@ -113,7 +113,7 @@ const Curso = () => {
                                                     >
                                                         ¿No carga? Abrir PDF en pestaña nueva ↗
                                                     </a>
-                                                </div>
+                                                </div>*/}
                                             </>
                                         ) : (
                                             <div className="no-content-msg">
@@ -122,7 +122,7 @@ const Curso = () => {
                                         )}
                                     </>
                                 )}
-                                
+
                             </div>
                         </div>
                     </main>

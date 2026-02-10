@@ -87,31 +87,36 @@ router.get("/mp/verify/:paymentId", async (req, res) => {
 
 // PAYPAL ROUTES
 
-
-
-
 router.post('/pp/create-order', async (req, res) => {
     const { courseID } = req.body;
 
+    const COTIZACION_DOLAR = 1300; 
+
     try {
-        // 1. Buscamos el precio REAL en la base de datos
         const course = await cursoModelo.findById(courseID);
 
         if (!course) {
             return res.status(404).json({ message: 'Curso no encontrado' });
         }
 
-        // 2. Usamos course.price (o como se llame tu campo de precio en la DB)
+        // 2. CONVERSIÓN DE MONEDA
+        // Precio en Base de Datos (ARS) / Cotización = Precio en USD
+        const precioEnPesos = course.precio; 
+        let precioEnDolares = precioEnPesos / COTIZACION_DOLAR;
+        
+        // 3. FORMATEO (PayPal exige string con 2 decimales, ej: "43.48")
+        const precioFinalPayPal = precioEnDolares.toFixed(2);
+
         const request = new paypal.orders.OrdersCreateRequest();
         request.prefer("return=representation");
 
         request.requestBody({
             intent: 'CAPTURE',
             purchase_units: [{
-                description: course.nombre, // Usamos el nombre real de la DB
+                description: course.nombre, 
                 amount: {
-                    currency_code: 'USD',
-                    value: course.precio.toString()
+                    currency_code: 'USD', // PayPal cobra en Dólares
+                    value: precioFinalPayPal // Aquí va el precio convertido (ej: "43.48")
                 }
             }]
         });

@@ -3,47 +3,70 @@ import { useAuth } from "../../context/AuthContext";
 import { getUserCourses } from "../../services/getUserCourses";
 import CardCourse from "./CardCourse";
 import { useLoading } from "../../context/LoadingContext";
-
+import FondoMisCursos from "./FondoMisCursos"; // Importamos el fondo nuevo
 
 const MisCursos = () => {
     const { user } = useAuth();
     const [cursos, setCursos] = useState([]);
     const { hideLoader } = useLoading();
+    
+    // Estados de carga sincronizados
+    const [dataReady, setDataReady] = useState(false);
+    const [imgReady, setImgReady] = useState(false);
 
+    // 1. Cargar Datos
     useEffect(() => {
         if (!user) return;
         const token = localStorage.getItem("token");
 
         getUserCourses(token)
-            .then(data => setCursos(data.courses || []))
+            .then(data => {
+                setCursos(data.courses || []);
+            })
             .catch(err => console.error(err))
-            .finally(() => hideLoader());
+            .finally(() => {
+                setDataReady(true); // Datos listos (hayan o no cursos)
+            });
 
     }, [user]);
 
-    return (
-        <>
+    // 2. Efecto para ocultar Loader cuando AMBOS estén listos
+    useEffect(() => {
+        if (dataReady && imgReady ) {
+            hideLoader();
+        }
+    }, [dataReady, imgReady, hideLoader]);
 
-            <main className="main-container">
+    return (
+        <main className="mis-cursos-layout">
+            
+            {/* Componente de Fondo que avisa cuando carga */}
+            <FondoMisCursos onImageLoad={() => setImgReady(true)} />
+
+            <div className="mis-cursos-container">
                 {cursos.length > 0 ? (
-                    <div className="content-wrapper">
-                        <div className="titleMisCursos">
+                    <>
+                        <div className="header-mis-cursos">
                             <h1>MIS CURSOS</h1>
-                            <p>Acá vas a encontrar los cursos que ya adquiriste. Tocá “IR A CURSO” para entrar directo al contenido.</p>
+                            <p>Tu biblioteca de sanación y conocimiento. Accedé a tu contenido aquí.</p>
+                            <div className="divider-glow"></div>
                         </div>
-                        <section className="courses-grid">
+
+                        <section className="grid-cursos">
                             <CardCourse cursos={cursos} />
                         </section>
-                    </div>)
-                    : (
-                        <div className="noCoursesContainer">
-                            <h2 className="noCoursesTitle">No has adquirido ningún curso aún.</h2>
-                            <p className="noCoursesSub">Explorá nuestra tienda y encontrá el curso perfecto para vos.</p>
+                    </>
+                ) : (
+                    <div className="empty-state">
+                        <div className="empty-card">
+                            <h2>Aún no tienes cursos activos</h2>
+                            <p>Explorá nuestra tienda para comenzar tu camino.</p>
+                            <button className="btn-explorar">Ir a la Tienda</button>
                         </div>
-
-                    )}
-            </main>
-        </>
+                    </div>
+                )}
+            </div>
+        </main>
     );
 }
 

@@ -96,7 +96,7 @@
 .navbar-desktop {
   width: 100%;
   height: 70px;
-  background: #bca7fa;
+  background: #ac93f9;
   /* Negro semi-transparente */
   display: flex;
   justify-content: space-between;
@@ -112,6 +112,10 @@
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
+}
+
+.logo-navbar {
+  width: 60px;
 }
 
 /* Links Container */
@@ -201,12 +205,12 @@
   background-color: #e68900;
 }
 
-.nav-item-close{
+.nav-item-close {
   display: flex;
   align-items: center;
 }
 
-.iconClose{
+.iconClose {
   cursor: pointer;
   margin-left: 10px;
   width: 20px;
@@ -437,9 +441,22 @@
   position: relative;
 }
 
+.navbarLinkMob {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  font-size: small;
+  padding: 2px 20px;
+  display: block;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
 /* Efecto Hover estilo Neón */
 .navbarLink:hover,
-.navbarLink.active {
+.navbarLinkMob.active {
 
   color: #007cf0;
   transform: translateX(-5px);
@@ -463,6 +480,7 @@
   margin-top: 10px;
   padding: 10px 15px;
   border-radius: 30px;
+  background-color: #007cf0;
 
 }
 
@@ -510,6 +528,7 @@
   background: #8152c9;
   padding: 8px 15px;
   border-radius: 30px;
+  cursor: pointer;
 }
 
 .userNameContainerMob {
@@ -529,6 +548,250 @@
   font-weight: bold;
   margin: 0;
 }
+
+
+/*MODAL USER */
+
+/* --- FONDO OSCURO (OVERLAY) --- */
+.userModal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Oscuro semi-transparente */
+  backdrop-filter: blur(5px);
+  /* Desenfoque del fondo */
+  z-index: 1000;
+  /* Siempre arriba */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Centrado en pantalla */
+  animation: userModalFadeIn 0.3s ease-out;
+}
+
+/* --- TARJETA DEL MODAL (GLASSMORPHISM) --- */
+.userModal_container {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  background: rgba(30, 30, 40, 0.85);
+  /* Fondo oscuro azulado/violeta */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* Borde sutil */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  padding: 30px;
+  color: white;
+  overflow: hidden;
+  animation: userModalSlideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Botón de cerrar (X) */
+.userModal_closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.userModal_closeBtn:hover {
+  color: white;
+}
+
+/* --- HEADER DEL PERFIL --- */
+.userModal_header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.userModal_avatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #9c27b0, #673ab7);
+  /* Gradiente Violeta */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15px;
+  box-shadow: 0 0 20px rgba(156, 39, 176, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.userModal_name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.userModal_email {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+/* --- ACCIONES --- */
+.userModal_actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.userModal_divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  margin: 5px 0;
+}
+
+/* --- BOTONES --- */
+.userModal_btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Estilo Botón Secundario (Cambiar pass) */
+.userModal_btn_secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.userModal_btn_secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Estilo Botón Logout (Rojo sutil o Violeta oscuro) */
+.userModal_btn_logout {
+  background: transparent;
+  border: 1px solid rgba(255, 100, 100, 0.5);
+  color: #ff8a8a;
+}
+
+.userModal_btn_logout:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff5c5c;
+  border-color: #ff5c5c;
+}
+
+/* --- FORMULARIO DE PASSWORD --- */
+.userModal_title {
+  margin: 0 0 5px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.userModal_subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.userModal_inputGroup {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.userModal_inputGroup label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+  color: #ddd;
+}
+
+.userModal_inputGroup input {
+  width: 100%;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  outline: none;
+  box-sizing: border-box;
+  /* Importante para que no se salga */
+}
+
+.userModal_inputGroup input:focus {
+  border-color: #9c27b0;
+}
+
+.userModal_rowBtns {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.userModal_btn_primary {
+  background: #9c27b0;
+  color: white;
+}
+
+.userModal_btn_primary:hover {
+  background: #7b1fa2;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+}
+
+.userModal_btn_ghost {
+  background: transparent;
+  color: #aaa;
+}
+
+.userModal_btn_ghost:hover {
+  color: white;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes userModalFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes userModalSlideUp {
+  from {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: userModalFadeIn 0.3s ease;
+}
+
 
 .modalConfirmContainer {
   width: 100%;
@@ -615,276 +878,245 @@
   }
 }
 
-/* Mis cursos*/
+/*MIS CURSOS*/
 
-/* --- Estilos Generales y Fondo Cosmotelúrico --- */
-
-
-.main-container {
-  min-height: 100vh;
-  width: 100%;
-  /* Aquí pon la URL de tu imagen de fondo de mariposas/cosmos */
-  background-image: url('https://i.postimg.cc/3NN2dFtH/fondo_mis_cursos.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  /* Efecto parallax simple */
+/* --- LAYOUT PRINCIPAL --- */
+.mis-cursos-layout {
   position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  color: white;
-  padding: 100px 50px;
+  justify-content: center;
+  /* Ajuste para que el navbar no lo tape si es fixed */
+  padding-top: 100px;
+  padding-bottom: 50px;
 }
 
-.main-container::before {
-  content: '';
-  position: absolute;
+/* --- FONDO COMO COMPONENTE --- */
+.fondo-wrapper {
+  position: fixed;
+  /* Fixed para efecto parallax al scrollear */
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  /* Negro con 50% de opacidad */
-  z-index: 1;
-  /* Asegura que esté debajo del texto */
-}
-
-.noCoursesContainer {
-  height: 50vh;
   width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+  z-index: -1;
+  /* Al fondo */
 }
 
-.noCoursesTitle {
-  font-size: clamp(30px, 3vw, 70px);
-  text-shadow: 0px 0px 10px black;
+.fondo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.noCoursesSub {
-  font-size: clamp(14px, 1.6vw, 16px);
-  text-shadow: 0px 0px 10px black;
-  margin-top: 15px;
-}
-
-
-.titleMisCursos {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-
-}
-
-.titleMisCursos h1 {
-  margin: 0;
-  font-size: clamp(28px, 3.4vw, 44px);
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  line-height: 1.05;
-  filter: drop-shadow(0px 0px 10px black);
-  font-weight: bold;
-  font-family: "1";
-}
-
-.titleMisCursos p {
-  margin: 10px 0;
-  color: var(--muted);
-  max-width: 70ch;
-  font-size: clamp(14px, 1.6vw, 16px);
-  filter: drop-shadow(0px 0px 10px black);
-  font-weight: bold;
-  font-family: "1";
-}
-
-/* Capa oscura para que el texto resalte sobre el fondo */
-.overlay {
+.fondo-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(10, 14, 23, 0) 5%, rgba(5, 7, 12, 0.9) 250%);
-  z-index: 0;
+
+  /* Oscurece la imagen para leer texto */
+  z-index: 1;
 }
 
-.content-wrapper {
+/* --- CONTENEDOR DE CONTENIDO --- */
+.mis-cursos-container {
   position: relative;
-  z-index: 1;
-  /* Para que el contenido flote sobre el overlay */
+  z-index: 2;
   width: 100%;
   max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
-.page-title {
-  font-family: '1', sans-serif;
-  /* O tu fuente principal */
+/* --- HEADER --- */
+.header-mis-cursos {
+  text-align: center;
+  color: white;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.header-mis-cursos h1 {
+  text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.801);
   font-size: 3rem;
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+
+  font-family: '1', sans-serif;
+  /* O tu fuente "1" */
+}
+
+.header-mis-cursos p {
+  font-size: 1.1rem;
+  color: #ffffff;
+  text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.801);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.divider-glow {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #9c27b0, transparent);
+  margin: 20px auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 10px #9c27b0;
+}
+
+/* --- GRID DE CURSOS (Responsive Automático) --- */
+.grid-cursos {
+  display: grid;
+  /* Esto hace la magia: crea columnas de min 300px automáticamente */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+/* --- TARJETA (CARD) --- */
+.course-card {
+  background-color: #a080d1;
+  /* Vidrio */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 5px solid rgb(255, 255, 255);
+  box-shadow: 0 0px 10px rgb(4, 4, 4);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(156, 39, 176, 0.3);
+  /* Resplandor violeta */
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.card-thumb-container {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.course-card:hover .card-thumb {
+  transform: scale(1.05);
+}
+
+.status-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #4caf50;
+  /* Verde activo */
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid #4caf50;
+  backdrop-filter: blur(4px);
+}
+
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* Ocupa el espacio restante */
+  color: white;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  /* Empuja el botón hacia abajo */
+}
+
+/* Botón de Acceder */
+.btn-acceder {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
   text-align: center;
-  margin-bottom: 3rem;
-  /* Efecto de texto brillante */
-  background: linear-gradient(to right, #fff, #a5b4fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* --- Grilla de Cursos --- */
-
-:root {
-  --fg: #ffffff;
-  --muted: rgba(255, 255, 255, .78);
-  --card: rgba(176, 77, 189, 0.349);
-  --card2: rgba(112, 44, 139, 0.58);
-  --stroke: rgba(255, 255, 255, .12);
-  --shadow: 0 18px 50px rgba(112, 72, 116, 0.45);
-  --maxw: 1200px;
-  --radius: 18px;
-  --radius2: 14px;
-  --pad: clamp(16px, 2.2vw, 26px);
-}
-
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 18px;
-  margin-top: 8px;
-}
-
-/* Grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 18px;
-  margin-top: 8px;
-  width: 100%;
-}
-
-.card {
-  grid-column: span 6;
-  border-radius: var(--radius);
-  border: 2px solid rgb(255, 255, 255);
-  background: linear-gradient(180deg, #eb8eabbd, #eb8eab9f);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  position: relative;
-  min-height: 250px;
-}
-
-.card-inner {
-  padding: 16px 16px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-}
-
-.card-head {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.card h3 {
-  margin: 0;
-  font-size: 18px;
-  letter-spacing: .02em;
-}
-
-.card p {
-  margin: 0;
-  color: rgba(255, 255, 255, .78);
-  font-size: 14px;
-}
-
-
-
-/* “Thumb” */
-.thumb {
-  width: 100%;
-  aspect-ratio: 16 / 8;
-  border-radius: var(--radius2);
-  border: 1px solid rgba(255, 255, 255, .10);
-  overflow: hidden;
-  position: relative;
-  background: #000;
-}
-
-.thumb::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--thumb) center / cover no-repeat;
-  transform: translateZ(0);
-  filter: saturate(1.02) contrast(1.03);
-}
-
-.thumb::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, .15), rgba(0, 0, 0, .45));
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 2px;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, .10);
-  background: rgba(255, 255, 255, .05);
-  font-size: 12px;
-  color: rgba(255, 255, 255, .85);
-  letter-spacing: .02em;
-  white-space: nowrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, .14);
-  background: rgba(255, 255, 255, .08);
-  color: rgba(255, 255, 255, .95);
+  background: linear-gradient(45deg, #6a0dad, #9c27b0);
+  color: white;
   text-decoration: none;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  transition: transform .15s ease, background .15s ease, border-color .15s ease;
-  white-space: nowrap;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.btn:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, .12);
-  border-color: rgba(255, 255, 255, .20);
+.btn-acceder:hover {
+  background: linear-gradient(45deg, #8152c9, #b355d1);
+  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.5);
+  transform: translateY(-2px);
 }
 
-/* Responsive */
-@media (max-width: 980px) {
-  .card {
-    grid-column: span 12;
+/* --- EMPTY STATE (Cuando no hay cursos) --- */
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+}
+
+.empty-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.empty-card h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.empty-card p {
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* CONTENIDO CURSOS */
@@ -1657,10 +1889,10 @@
   /* Ocupa toda la pantalla */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  padding: 0 20px;
+  padding: 50px 20px;
   box-sizing: border-box;
   overflow: hidden;
   /* Para que la mariposa no estire la pantalla */
@@ -1679,8 +1911,22 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.099);
+  background-color: rgba(0, 0, 0, 0.19);
   z-index: 0;
+}
+
+.logo-inicio {
+  /* clamp(mínimo, ideal, máximo) */
+  width: clamp(100px, 30vw, 200px);
+  height: auto;
+  /* Mantiene la proporción */
+  margin: 50px 20px;
+  background-color: #87878784;
+  border-radius: 50%;
+
+  /* Para asegurarnos que sea un círculo perfecto si la imagen no es cuadrada */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 /* Textos (Z-Index alto para estar sobre la capa oscura) */
@@ -1751,14 +1997,220 @@
   margin-top: 50px;
 }
 
+/* Sección principal */
+.saludo-section {
+  width: 100%;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #fdfbf7 0%, #f4eefc 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.saludo-container {
+  max-width: 1300px;
+  /* Un poco más ancho para que entren los 2 videos */
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Layout general (Texto vs Videos) */
+.saludo-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* Alineado arriba para que no quede raro si el texto es corto */
+  gap: 50px;
+  justify-content: space-between;
+}
+
+/* --- COLUMNA DE TEXTO --- */
+.saludo-text-column {
+  flex: 0.8;
+  /* El texto ocupa un poco menos que los videos */
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: saludoFadeInLeft 1s ease-out;
+}
+
+.saludo-subtitle {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #9c27b0;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.saludo-title {
+  font-size: 3rem;
+  line-height: 1.1;
+  color: #2c1a4d;
+  margin: 0 0 20px 0;
+  font-family: "1";
+}
+
+.saludo-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #9c27b0, #ffd700);
+  margin-bottom: 25px;
+  border-radius: 2px;
+}
+
+.saludo-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* --- COLUMNA DE VIDEOS --- */
+.saludo-video-column {
+  flex: 1.2;
+  /* Los videos tienen más espacio */
+  width: 100%;
+  animation: saludoFadeInRight 1s ease-out;
+}
+
+/* NUEVO: Contenedor Grid para los dos videos */
+.videos-dual-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Dos columnas iguales */
+  gap: 20px;
+  /* Espacio entre videos */
+  width: 100%;
+}
+
+/* Tarjeta individual de video (Estilo Polaroid/Marco) */
+.single-video-card {
+  background: #fff;
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.single-video-card:hover {
+  transform: translateY(-5px);
+  /* Efecto flotante al pasar mouse */
+  box-shadow: 0 15px 35px rgba(156, 39, 176, 0.2);
+}
+
+/* Wrapper para mantener ratio 16:9 o vertical */
+.saludo-video-wrapper {
+  position: relative;
+  width: 100%;
+  /* 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+  padding-bottom: 56.25%;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.saludo-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --- LOADER --- */
+.saludo-video-loader {
+  position: absolute;
+  inset: 0;
+  /* Ocupa todo el wrapper */
+  background-color: #f4eefc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(156, 39, 176, 0.2);
+  border-top: 4px solid #9c27b0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- RESPONSIVE (Móvil y Tablet Vertical) --- */
+@media (max-width: 968px) {
+  .saludo-grid {
+    flex-direction: column;
+    /* Texto arriba, videos abajo */
+    text-align: center;
+  }
+
+  .saludo-text-column {
+    align-items: center;
+    width: 100%;
+  }
+
+  /* En tablet/móvil los videos se ponen uno arriba del otro para que se vean grandes */
+  .videos-dual-container {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    /* Limite de ancho para que no sean gigantes */
+    margin: 0 auto;
+  }
+
+  .saludo-title {
+    font-size: 2.2rem;
+  }
+}
+
+/* Animaciones */
+@keyframes saludoFadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes saludoFadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* =========================================
    SECCIONES DE CURSOS (Home)
    ========================================= */
-
+/* =========================================
+   ESTILOS BASE (DESKTOP)
+   ========================================= */
 .coursesContainerHome {
   width: 100%;
   background-color: #000;
-  /* Fondo base por si no carga imagen */
 }
 
 .coursesCardContainer {
@@ -1766,15 +2218,16 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 50px;
-  /* Padding generoso */
+  /* Centrado vertical */
+  padding: 50px 80px;
   box-sizing: border-box;
   overflow: hidden;
+  gap: 60px;
 }
 
-/* Imagen de fondo de cada sección */
+/* Fondo */
 .bgCourseHome {
   position: absolute;
   inset: 0;
@@ -1782,52 +2235,103 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  filter: brightness(0.7);
-  /* Oscurecer imagen para leer texto */
+  /* Capa más baja */
+  filter: brightness(0.5);
+
+  /* Oscurece para leer mejor */
 }
 
-/* Contenedor de Texto e Info */
-.textCoursesHome {
-
+/* === COLUMNA IZQUIERDA (Agrupa Texto y Botón) === */
+.infoLeftColumn {
   position: relative;
   z-index: 2;
   flex: 1;
-  /* Ocupa espacio disponible */
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  /* Uno abajo del otro */
+  align-items: flex-start;
+  /* Alineado a la izquierda */
+  justify-content: center;
+  gap: 40px;
+  /* Separación entre el texto y el botón */
+}
+
+/* Texto */
+.textCoursesHome {
+  position: relative;
+  /* Indispensable para que el z-index funcione */
+  z-index: 10;
+  /* Un número alto para ganarle al fondo */
   text-align: left;
-  max-height: 200px;
+  /* El resto de tus estilos... */
 }
 
 .titleCourseHome {
   color: white;
-  margin: 0 0 0.25em;
-  font-size: clamp(50px, 6vw, 100px);
-  line-height: 0.9;
+  margin: 0;
+  font-size: clamp(50px, 5vw, 90px);
+  line-height: 0.95;
   font-weight: 900;
   text-transform: uppercase;
   text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
-}
+  position: relative;
+  z-index: 10;
 
-.titleSize {
-  font-size: clamp(30px, 6vw, 70px);
 }
 
 .subtitleCourseHome {
-  color: white;
-  font-size: clamp(16px, 1.5vw, 20px);
+  color: #eee;
+  font-size: clamp(16px, 1.2vw, 20px);
   line-height: 1.6;
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+  margin-top: 15px;
+  max-width: 90%;
 }
 
-/* Contenedor del Botón (Círculo giratorio) */
-/* Lo envolvemos en un Link para que todo el bloque sea clickeable si quieres */
-.btnWrapper {
+/* === COLUMNA DERECHA (Video) === */
+.mediaWrapperHome {
   position: relative;
   z-index: 2;
-  margin-left: 50px;
-  /* Separación del texto */
-  flex-shrink: 0;
-  /* Que no se achique */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+}
+
+/* Estilo "Glass" y 3D para el Video */
+.videoPreviewHome {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+
+
+}
+
+
+
+.iframeHome {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  border: none;
+  background-color: black;
+}
+
+/* === BOTÓN (Estilos Originales + Wrapper) === */
+.btnLinkWrapper {
+  text-decoration: none;
+  margin-left: 20px;
+  /* Un poco corrido a la derecha */
+}
+
+.btnWrapper {
+  position: relative;
   transition: transform 0.3s ease;
 }
 
@@ -1837,7 +2341,8 @@
 
 .btnHome {
   padding: 0;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
   border: 2px solid white;
   color: white;
   font-size: 0.9rem;
@@ -1851,16 +2356,14 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* SVG Animado */
 .ring {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* Centrado perfecto */
   width: 140px;
   height: 140px;
   pointer-events: none;
@@ -1886,738 +2389,1016 @@
   }
 }
 
-/* =========================================
-   RESPONSIVE (MÓVILES Y TABLETS)
-   ========================================= */
-
-@media (max-width: 900px) {
-
-  /* HERO en Móvil */
-  .heroSection {
-    background-attachment: scroll;
-
-  }
-
-  .headerMariposa {
-    max-width: 80%;
-    bottom: 0;
-  }
-
-  /* SECCIONES DE CURSOS en Móvil */
+/* =======================================================
+   RESPONSIVE (MÓVIL Y TABLET)
+   ======================================================= */
+@media (max-width: 1024px) {
   .coursesCardContainer {
     flex-direction: column;
-    text-align: center;
-    justify-content: space-evenly;
-    padding: 80px 20px;
-    gap: 40px;
-    /* Espacio entre texto y botón */
+    padding: 60px 20px;
+    gap: 30px;
+    justify-content: center;
   }
 
+  /* --- TRUCO DE REORDENAMIENTO --- */
+  /* 'display: contents' elimina visualmente la caja .infoLeftColumn 
+     permitiendo que sus hijos (Texto y Botón) se mezclen con el Video */
+  .infoLeftColumn {
+    display: contents;
+  }
+
+  /* ORDEN 1: TEXTO */
   .textCoursesHome {
+    order: 1;
     text-align: center;
-    /* Centrar texto */
-    max-width: 100%;
+    align-items: center;
+    margin-bottom: 10px;
   }
 
-  .btnWrapper {
+  .titleCourseHome {
+    font-size: 50px;
+  }
+
+  /* Ajuste de fuente móvil */
+  .subtitleCourseHome {
+    max-width: 100%;
+    margin-top: 10px;
+  }
+
+  /* ORDEN 2: VIDEO */
+  .mediaWrapperHome {
+    order: 2;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .videoPreviewHome {
+    transform: none;
+    /* Quitamos 3D para evitar bugs en móvil */
+  }
+
+  /* ORDEN 3: BOTÓN */
+  .btnLinkWrapper {
+    order: 3;
     margin-left: 0;
-    /* Quitar margen lateral */
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 }
 
-
-/* COURSES SELECTION */
+/*SELECCION DE CURSOS*/
 
 /* =========================================
-   ESTILOS BASE (ESCRITORIO)
+   1. ESTRUCTURA Y FONDO
    ========================================= */
-
 .bgCourseContainer {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  /* Cambiado de height a min-height para permitir scroll si hace falta */
-  /* Quitamos overflow: hidden global para evitar cortes en pantallas chicas */
-  overflow-x: hidden;
   display: flex;
+  flex-direction: column;
+  /* CAMBIO CLAVE: Permite apilar secciones */
   align-items: center;
-  justify-content: space-between;
-
-
-
+  justify-content: flex-start;
+  /* Empieza desde arriba */
+  padding: 40px;
+  padding-top: 100px;
+  /* Espacio para el header si lo tienes fijo */
+  box-sizing: border-box;
+  overflow-x: hidden;
+  gap: 50px;
+  /* Separación entre el Video General y la Sección de Cursos */
 }
 
 .bgCourseImage {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(90%);
-  /* Agregamos position fixed para que el fondo no se corte al scrollear en mobile */
-  position: fixed;
+  filter: brightness(80%);
 }
 
-.dataCoursesContainter {
-  position: relative;
-  z-index: 2;
-  width: 50%;
-  height: 100vh;
-  min-width: 200px;
-  /* Permite crecer */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* Centrado verticalmente */
-  padding: 0px 50px;
-  box-sizing: border-box;
-
-
-  /* Importante para que el padding no rompa el ancho */
-
-}
-
-.titleSubtitleCoursesContainer {
-  margin-bottom: 20px;
-}
-
-.subtitleCoursesContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  filter: drop-shadow(0px 0px 5px black);
-
-
-  /* Para que la categoría baje si no entra */
-}
-
-.subtitleCoursesCategoria {
-  color: white;
-  padding: 5px 10px;
-  border: 2px solid rgba(255, 255, 255, 0.644);
-  border-radius: 20px;
-  margin-left: 10px;
-  font-family: "1";
-  /* Asumo que es tu fuente personalizada */
-  text-transform: uppercase;
-  font-weight: 800;
-  font-size: small;
-  filter: drop-shadow(0px 0px 5px black);
-}
-
-.subtitleCourses {
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  opacity: .9;
-  font-weight: 800;
-  color: white;
-  margin: 0;
-}
-
-.titleCourses {
-  margin: 0 0 .25em 0;
-  font-size: clamp(38px, 3vw, 82px);
-  line-height: .92;
-  letter-spacing: .04em;
-  font-weight: 900;
-  text-transform: uppercase;
-  filter: drop-shadow(0px 0px 5px black);
-  color: white;
-  text-align: center;
-
-}
-
-/* Animación entrada suave de izquierda a derecha */
-.slide-right {
-  opacity: 0;
-  transform: translateX(-50px);
-  /* Empieza desplazado a la izquierda */
-  animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-
-
-
-.contentVisualContainer {
+/*=========================================NUEVA SECCIÓN: VIDEO GENERAL (HERO)=========================================*/
+.generalVideoSection {
   width: 100%;
+  max-width: 1000px;
+  /* Mismo ancho que el contenedor de abajo */
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  animation: fadeInDown 0.8s ease-out;
 }
 
-/* --- TARJETA DEL VIDEO Y DESCRIPCIÓN --- */
-.videoTitleContainer {
+.generalVideoCard {
   width: 100%;
-  max-width: 600px;
-  /* Eliminamos min-width fijo para que no rompa en celulares */
-  min-height: 300px;
-  /* Cambiado de height fijo a min-height */
-  height: auto;
-  border: 2px solid white;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  /* Mejor distribución */
-  border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.65);
-  /* Un poco más oscuro para legibilidad */
-  box-sizing: border-box;
-  backdrop-filter: blur(5px);
-  /* Efecto vidrio si el navegador lo soporta */
-}
-
-.subtitleVideo {
-  margin: 0 0 1rem;
-  color: white;
-  line-height: 1.55;
-  font-size: 0.95rem;
-}
-
-.courseVideointroduccionContainer {
-  height: 300px;
-  /* Altura base para escritorio */
-  width: 100%;
-  border: solid white 2px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  /* Para que el iframe respete el border-radius */
-}
-
-.videoIntroduccion {
-  width: 100%;
-  height: 100%;
-  border-radius: 18px;
-}
-
-.coursePrice {
-  display: block;
-  /* Asegura comportamiento de botón */
-  background-color: white;
-  border-radius: 20px;
-  width: 100%;
-  /* Ocupar ancho disponible del contenedor padre */
-  max-width: 250px;
+  /* Fondo oscuro transparente */
+  backdrop-filter: blur(10px);
+  /* Efecto vidrio */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  /* Borde sutil */
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
   text-align: center;
-  padding: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  color: black;
-  text-decoration: none;
-  transition: transform 0.2s ease;
-  align-self: center;
-  /* Centrar el botón */
 }
 
-.coursePrice:hover {
-  transform: scale(1.05);
-}
-
-/* --- BOTONES CIRCULARES INFERIORES --- */
-.buttonsCoursesContainer {
-  width: 50%;
-}
-
-.cardButtonsCourses {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  justify-content: flex-start;
-  margin-top: 30px;
-  gap: 15px;
-  background-color: #9c76d6;
-  border: 2px solid white;
-  padding: 30px 20px;
-  border-radius: 20px;
-  margin: auto;
-}
-
-.cardButtonsCourses h2 {
+.generalVideoTitle {
   color: white;
-  font-size: small;
-  border-bottom: 1px solid white;
-  padding: 0px 0px 10px 0px;
-  margin-bottom: 10px;
-  font-family: "1";
-
-}
-
-.buttonsContainer {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-}
-
-.buttonNameContainer {
-  text-align: center;
-  transition: all .3s;
-  width: 100px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
-
-
-
-}
-
-.buttonNameContainer:hover {
-  transform: translateY(-5%);
-}
-
-.btnWrapperCourses {
-  position: relative;
-  /* IMPORTANTE: Hace que el anillo se centre respecto al botón, no a la caja roja */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  /* El mismo ancho que tu botón */
-  height: 60px;
-  /* El mismo alto que tu botón */
-  margin-bottom: 10px;
-  /* Espacio para el texto de abajo */
-}
-
-.ring-courses {
-  position: absolute;
-  top: -25px;
-  left: -40%;
-  /* Centrado relativo al padre */
-
-  /* Corrección del centrado */
-  width: 110px;
-  height: 110px;
-  animation: spin 15s linear infinite;
-  z-index: 1;
-  filter: drop-shadow(0px 2px 2px #000000);
-}
-
-@keyframes spin {
-  from {
-    transform: translateX(-50%) rotate(0deg);
-  }
-
-  to {
-    transform: translateX(-50%) rotate(360deg);
-  }
-}
-
-.btnCourses {
-  padding: 10px;
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-  font-size: small;
-  border-radius: 50%;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  height: 60px;
-  width: 60px;
-  font-weight: 600;
-  filter: drop-shadow(0px 2px 5px rgb(22, 22, 22));
-
-
-
-}
-
-.buttonTitleCourse {
-  color: white;
-  font-size: 10px;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
   text-transform: uppercase;
-  letter-spacing: .12em;
-  white-space: normal;
-  text-align: center;
-  opacity: .9;
-  margin-top: 20px;
-  width: 100%;
-  filter: drop-shadow(0px 0px 4px black);
-
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.generalVideoDivider {
+  width: 60px;
+  height: 4px;
+  background: #ffd700;
+  /* Dorado */
+  margin: 15px auto 25px auto;
+  border-radius: 2px;
+}
 
-@keyframes slideIn {
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
   to {
     opacity: 1;
-    transform: translateX(0);
-    /* Termina visible y en su lugar original */
+    transform: translateY(0);
   }
 }
 
 /* =========================================
-   RESPONSIVE (TABLETS Y MÓVILES)
+   2. CONTENEDOR FLEX PRINCIPAL (Original)
    ========================================= */
-
-@media (max-width: 900px) {
-  .bgCourseContainer {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 0px;
-  }
-
-  .dataCoursesContainter {
-    max-width: none;
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0px 20px;
-    margin-bottom: 20px;
-
-  }
-
-  .buttonsCoursesContainer {
-    width: 100%;
-  }
-
-  .contentVisualContainer {
-    width: 100%;
-  }
-
-  .videoTitleContainer {
-    margin: auto;
-  }
-
-
+.contenedorVideoBotonCursos {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+  gap: 30px;
+  min-height: 500px;
 }
 
-
-/*       CONTACTO    */
-
-
-/* Importamos una fuente similar a la de tus imágenes (puedes usar la que ya tengas global) */
-
-
-/* --- Contenedor Principal con el Fondo Espacial --- */
-.mainContact {
-  background-color: #bca7fa;
-  min-height: 100vh;
+/* =========================================
+   2. CONTENEDOR FLEX PRINCIPAL (La Magia)
+   ========================================= */
+.contenedorVideoBotonCursos {
+  display: flex;
+  flex-direction: row;
+  /* STRETCH: Esto obliga a que la tarjeta de video y la de botones midan IGUAL de alto */
+  align-items: stretch;
+  justify-content: center;
   width: 100%;
+  max-width: 1000px;
+  gap: 30px;
+  /* Espacio entre las dos columnas */
+
+  /* Altura mínima para que se vea imponente en pantallas grandes */
+  min-height: 500px;
+}
+
+/* =========================================
+   3. COLUMNA IZQUIERDA (VIDEO)
+   ========================================= */
+.columnLeft {
+  flex: 3;
+  /* Ocupa el 75% del ancho disponible */
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+}
+
+/* TARJETA DEL VIDEO (Estilo Glassmorphism) */
+.videoCard {
+  height: 100%;
+  /* Se estira para llenar la columna */
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  padding: 30px;
+  box-sizing: border-box;
+
+  /* Distribución interna */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* TÍTULO ADENTRO DE LA TARJETA */
+.titleHeaderInside {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+.categoryBadge .value {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: #ddd;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.courseTitle {
+  margin: 10px 0 0 0;
+  font-size: clamp(1.5rem, 2.5vw, 2.8rem);
+  color: white;
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* VIDEO WRAPPER (Mantiene 16:9) */
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* Proporción Cine */
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 200px;
+}
+
+.video-loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f4eefc;
+  /* Color clarito violeta (mismo estilo que el anterior) */
+  /* O si prefieres oscuro: background-color: #1a1a1a; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px 20px 0px 20px;
-  font-family: 'Montserrat', sans-serif;
-  /* Capa oscura superpuesta para mejorar la lectura si el fondo es muy brillante */
-  position: relative;
+  z-index: 5;
 }
 
+/* El spinner giratorio */
+.spinner-course {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(156, 39, 176, 0.2);
+  border-top: 4px solid #9c27b0;
+  /* Violeta principal */
+  border-radius: 50%;
+  animation: spinCourse 1s linear infinite;
+}
 
+@keyframes spinCourse {
+  0% {
+    transform: rotate(0deg);
+  }
 
-/* --- Contenedor del contenido (para que quede por encima de la capa oscura) --- */
-.contactContainer {
-  position: relative;
-  z-index: 1;
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.iframeVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 1200px;
-
+  height: 100%;
+  border: none;
 }
 
-.sectionContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 50px;
-  align-items: flex-start;
+.descriptionArea {
+  flex-grow: 1;
+  /* Rellena espacio si sobra */
+  margin-bottom: 20px;
 }
 
-/* --- Títulos Generales (Estilo "SANACION COSMOTELURICA") --- */
-.titleContact {
-  font-weight: 900;
-  /* Bien negrita */
-  font-size: 2.5rem;
+.descriptionText {
+  color: #eee;
+  font-size: 1rem;
+  line-height: 1.5;
+  max-height: 100px;
+  /* Scroll si es muy largo para no romper diseño */
+  overflow-y: auto;
+}
+
+/* BOTONES DE ACCIÓN */
+.actionButtonsArea {
+  margin-top: auto;
+  /* Empuja los botones al fondo */
+  width: 100%;
+}
+
+.ctaButton {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 25px;
-  color: #8152c9;
-  font-family: "1";
-
-  /* Pequeño resplandor azul */
 }
 
-/* ================= SECCIÓN IZQUIERDA: Datos y Redes ================= */
-.socialMediaSection {
-  min-width: 300px;
-  padding-top: 20px;
+.ctaButton:hover {
+  transform: scale(1.02);
+}
+
+.buyButton {
+  background-color: #ffd700;
+  /* Dorado */
+}
+
+.lockMessage {
+  border: 1px solid #ffd700;
+  background-color: rgba(255, 215, 0, 0.15);
+  color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* =========================================
+   4. COLUMNA DERECHA (BOTONES)
+   ========================================= */
+.columnRight {
+  flex: 1;
+  /* Ocupa el 25% */
+  min-width: 280px;
+  /* Ancho mínimo para que no se aplasten */
+  display: flex;
+  flex-direction: column;
+}
+
+/* TARJETA DE BOTONES (Gemela de la del video) */
+.cardButtonsCourses {
+  height: 100%;
+  /* Se estira igual que la del video */
+  background-color: rgba(156, 118, 214, 0.85);
+  /* Tu violeta */
+  backdrop-filter: blur(10px);
+  border: 2px solid white;
+  /* Mismo borde */
+  border-radius: 24px;
+  /* Mismo radio */
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  /* Centrado interno */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Botones centrados verticalmente */
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.cardButtonsCourses h2 {
+  color: white;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Manteniendo tus estilos de botones circulares */
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  /* Apilados verticalmente o grid si prefieres */
+  gap: 25px;
   align-items: center;
 }
 
-/* Listas de texto */
-.contactList {
-  list-style: none;
-  padding: 0;
+/* Tu animación del anillo (preservada) */
+.btnWrapperCourses {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
+}
+
+.ring-courses {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+
+  width: 100px;
+  /* Ajustado */
+  height: 100px;
+  /* Ajustado */
+  animation: spin 10s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.btnCourses {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  z-index: 2;
+  cursor: pointer;
+  font-weight: bold;
+  transition: scale 0.2s;
+}
+
+.btnCourses:hover {
+  scale: 1.1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.buttonNameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  text-align: center;
+}
+
+.buttonTitleCourse {
+  font-size: 0.75rem;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 5px;
+  text-shadow: 0 2px 4px black;
+}
+
+/* =========================================
+   5. RESPONSIVE (CELULARES)
+   ========================================= */
+@media (max-width: 1024px) {
+  .contenedorVideoBotonCursos {
+    flex-direction: column;
+    /* Una columna arriba de la otra */
+    height: auto;
+    align-items: center;
+  }
+
+  .columnLeft,
+  .columnRight {
+    width: 100%;
+    flex: none;
+  }
+
+  .videoCard,
+  .cardButtonsCourses {
+    height: auto;
+    /* Altura automática en celular */
+    padding: 20px;
+  }
+
+  .videoWrapper {
+    aspect-ratio: 16/9;
+  }
+
+  .cardButtonsCourses {
+    /* En celular quizás quieras los botones horizontales si son muchos */
+    flex-direction: column;
+  }
+
+  .buttonsContainer {
+    flex-direction: row;
+  }
+
+}
+
+@media (max-width: 700px) {
+  .bgCourseContainer {
+    padding: 100px 20px;
+  }
+}
+
+
+
+/*PAGE ALICIA TETE*/
+
+/* --- SECCIÓN PRINCIPAL --- */
+.biografia-section {
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px 20px;
+  background: radial-gradient(circle at center, #fffcf5 0%, #f3e5f5 100%);
+  /* Degradado radial suave */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* Alineado arriba para que no quede todo apretado */
+}
+
+.biografia-container {
+  max-width: 1000px;
+  /* Ancho máximo controlado para que el video no se deforme en pantallas gigantes */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* --- TEXTOS --- */
+.biografia-header {
+  margin-bottom: 40px;
+  animation: biografiaFadeInDown 1s ease-out;
+}
+
+.biografia-subtitle {
+  display: block;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #9c27b0;
+  /* Violeta marca */
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.biografia-title {
+  font-size: 3.5rem;
+  font-family: '1', serif;
+  /* O la fuente elegante que uses */
+  color: #2c1a4d;
+  margin: 0 0 15px 0;
+}
+
+.biografia-intro {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* --- EL VIDEO (Marco y Efectos) --- */
+.biografia-video-frame {
+  width: 100%;
+  position: relative;
+  padding: 15px;
+  /* Espacio para el borde blanco */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(44, 26, 77, 0.15);
+  /* Sombra elegante */
+  animation: biografiaScaleUp 1s ease-out;
   margin-bottom: 40px;
 }
 
-.contactList li {
+.biografia-video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* Ratio 16:9 */
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000;
+  /* Fondo negro mientras carga */
+}
+
+.biografia-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Efecto de brillo detrás del video */
+.biografia-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  background: linear-gradient(45deg, #9c27b0, #ffd700);
+  z-index: -1;
+  filter: blur(60px);
+  /* Difuminado fuerte para crear aura */
+  opacity: 0.3;
+}
+
+/* --- PIE DE PÁGINA (Cita) --- */
+.biografia-footer {
+  max-width: 700px;
+  border-top: 1px solid rgba(156, 39, 176, 0.2);
+  padding-top: 30px;
+}
+
+.biografia-footer p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #555;
+}
+
+/* --- LOADER --- */
+.biografia-loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f3e5f5;
+  /* Violeta muy pálido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.biografia-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(156, 39, 176, 0.2);
+  border-top: 4px solid #9c27b0;
+  border-radius: 50%;
+  animation: biografiaSpin 1s linear infinite;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes biografiaSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes biografiaFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes biografiaScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .biografia-title {
+    font-size: 2.5rem;
+  }
+
+  .biografia-video-frame {
+    padding: 10px;
+    /* Menos borde en celular */
+  }
+
+  .biografia-footer p {
+    font-size: 1.1rem;
+  }
+}
+
+/*       CONTACTO    */
+
+.mainContact {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f9;
+  /* Un gris muy clarito de fondo de página */
+  padding: 40px 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* --- LA TARJETA PRINCIPAL --- */
+.contactCard {
+  width: 100%;
+  max-width: 1100px;
+  background: #fff;
+  border-radius: 20px;
+  display: flex;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  /* Sombra elegante */
+  overflow: hidden;
+  /* Para que nada se salga de los bordes redondeados */
+  min-height: 600px;
+}
+
+/* ================= LADO IZQUIERDO (VIOLETA) ================= */
+.contactInfoSide {
+  flex: 1;
+  /* Ocupa el 40-50% */
+  background: linear-gradient(135deg, #6a0dad 0%, #8152c9 100%);
+  color: white;
+  padding: 50px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.infoContent {
+  position: relative;
+  z-index: 2;
+  /* Para estar arriba de los círculos decorativos */
+}
+
+.infoTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.infoText {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.socialSection h3 {
   font-size: 1.2rem;
   margin-bottom: 15px;
-  opacity: 0.9;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-weight: 600;
 }
 
-/* Lista de Iconos de Redes */
-.socialMediaList {
-  list-style: none;
-  padding: 0;
+.socialIcons {
   display: flex;
   gap: 15px;
-  justify-content: center;
-
+  margin-bottom: 40px;
 }
 
-.socialMediaList li {
-  /* Círculos tipo "burbuja de energía" */
-  width: 55px;
-  height: 55px;
+.socialItem {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  font-weight: bold;
-  /* Efecto de brillo interno */
-  background-color: #8152c9;
+  transition: all 0.3s ease;
 }
 
-.socialMediaList li:hover {
-
-  /* Azul al pasar el mouse */
-  border-color: #00a8ff;
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 0 25px #8152c9, inset 0 0 15px #8152c9;
-  /* Glow intenso */
+.socialItem img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  /* Vuelve blancos los iconos negros */
 }
 
-.iconSocialList {
-  width: 30px;
-  height: 30px;
+.socialItem:hover {
+  background: white;
+  transform: translateY(-5px);
 }
 
-
-.buttonWtsContainer {
-  width: 100%;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.socialItem:hover img {
+  filter: none;
+  /* Recupera el color original al hover */
 }
 
+/* Botón WhatsApp Estilizado */
 .wtsButton {
-  background-color: #4caf50;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  width: 160px;
-  border-radius: 30px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  margin: auto;
+  gap: 10px;
   cursor: pointer;
-  transition: all .3s;
-
-}
-
-.wtsButton:hover {
-  background-color: #45a049;
-  box-shadow: 0 0 15px #07c511;
-  transform: translateY(-3px);
-  transition: all .3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
 }
 
 .wtsButton img {
-  width: 40px;
+  width: 24px;
 }
 
-/* ================= SECCIÓN DERECHA: Formulario (El Vidrio) ================= */
-.formContactSection {
-  min-width: 350px;
-  height: 100vh;
+.wtsButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
+}
+
+/* Decoración de círculos flotantes */
+.circleDecoration {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.circle1 {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  right: -50px;
+}
+
+.circle2 {
+  width: 150px;
+  height: 150px;
+  bottom: 50px;
+  left: -50px;
+}
+
+/* ================= LADO DERECHO (FORMULARIO) ================= */
+.contactFormSide {
+  flex: 1.3;
+  /* Ocupa un poco más de espacio */
+  background: white;
+  padding: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-
+  justify-content: center;
 }
 
-.titleFormContainer {
-  background-color: white;
-  padding: 40px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
-}
-
-/* Efecto GLASSMORPHISM para el contenedor del formulario */
-.glass {
-  background: rgba(255, 255, 255, 0.07);
-  /* Muy transparente */
-  backdrop-filter: blur(12px);
-  /* Desenfoca el fondo espacial detrás */
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  /* Borde sutil */
-  padding: 40px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-  /* Sombra profunda para darle volumen */
-
-}
-
-.titleForm {
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 35px;
-  color: #8152c9;
-  text-transform: uppercase;
-  font-family: "1";
-  font-weight: 900;
-
-}
-
-.formContact {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.formRow {
-  display: flex;
-  gap: 25px;
-}
-
-/* Estilos de los Inputs y Textarea */
-.contactFormInput,
-.contactFormTextarea {
-  width: 100%;
-  background: #8969b9;
-  /* Fondo semi-oscuro para que resalte el texto */
-  border: none;
-  /* Línea inferior brillante estilo "neon" */
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 15px;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.3s ease;
-  border-radius: 8px 8px 0 0;
-  border-bottom: 2px solid #8152c9;
-  /* Bordes redondeados solo arriba */
-}
-
-.contactFormTextarea {
-  resize: vertical;
-  min-height: 120px;
-
-}
-
-/* Efecto al hacer click (Focus) en los inputs */
-.contactFormInput:focus,
-.contactFormTextarea:focus {
-  outline: none;
-  background: rgba(194, 18, 194, 0.1);
-  /* Leve fondo azul */
-  border-bottom-color: #8152c9;
-  /* Rosa neón */
-
-  color: #8152c9;
-}
-
-/* Color del placeholder (el texto de ayuda) */
-.contactFormInput::placeholder,
-.contactFormTextarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-/* Botón de Enviar */
-.contactFormButton {
-  padding: 15px 40px;
-  background-color: #8152c9;
-  /* Degradado azul cósmico */
-  border: none;
-  border-radius: 50px;
-  color: white;
-  font-size: 1.1rem;
+.formTitle {
+  font-size: 2rem;
+  color: #6a0dad;
+  margin-bottom: 40px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.4s ease;
+}
+
+.modernForm {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 30px;
+}
+
+/* Estilo "Floating Label" (El texto flota) */
+.inputBox {
+  position: relative;
+  width: 100%;
+}
+
+.inputBox input,
+.inputBox textarea {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1rem;
+  color: #333;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  outline: none;
+  background: transparent;
+  transition: border-color 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.inputBox textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* La etiqueta (label) */
+.inputBox span {
+  position: absolute;
+  left: 0;
+  padding: 10px 0;
+  font-size: 1rem;
+  color: #999;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+/* Animación cuando escribes o haces click */
+.inputBox input:focus,
+.inputBox input:valid,
+.inputBox textarea:focus,
+.inputBox textarea:valid {
+  border-bottom-color: #8152c9;
+}
+
+/* Mover la etiqueta hacia arriba */
+.inputBox input:focus~span,
+.inputBox input:valid~span,
+.inputBox textarea:focus~span,
+.inputBox textarea:valid~span {
+  color: #8152c9;
+  font-size: 0.8rem;
+  transform: translateY(-20px);
+  font-weight: 600;
+}
+
+.sendButton {
   align-self: flex-start;
-  /* Alineado a la izquierda */
-
+  background: #6a0dad;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(106, 13, 173, 0.2);
+  margin-top: 10px;
 }
 
-.contactFormButton:hover {
+.sendButton:hover {
+  background: #8152c9;
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px #8152c9;
-  /* Glow intenso al hover */
+  box-shadow: 0 15px 25px rgba(106, 13, 173, 0.4);
 }
 
-/* --- Responsive para celulares --- */
-@media (max-width: 1100px) {
-
-  .formContactSection {
-    margin: auto;
-    width: 100%;
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .contactCard {
+    flex-direction: column;
+    /* Apilar uno arriba del otro */
     height: auto;
   }
 
-  .titleFormContainer {
-    width: 80%;
-    min-width: 300px;
-
-  }
-
-  .sectionContainer {
-    flex-direction: column-reverse;
-  }
-
-  .formRow {
-    flex-direction: column;
-  }
-
-  .socialMediaSection {
+  .contactInfoSide {
+    padding: 40px 30px;
     text-align: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    margin: auto;
   }
 
-  .contactList li {
+  .contactInfoSide .socialIcons {
     justify-content: center;
   }
 
-  .glass {
-    padding: 25px;
+  .wtsContainer {
+    display: flex;
+    justify-content: center;
   }
 
-  h2 {
-    font-size: 2rem;
+  .contactFormSide {
+    padding: 40px 30px;
+  }
+
+  .inputGroup {
+    flex-direction: column;
+    /* Inputs uno debajo del otro en celular */
+    gap: 30px;
+  }
+
+  .sendButton {
+    width: 100%;
+    /* Botón ancho completo en celular */
   }
 }
-
 
 /* CHECKOUT */
 
@@ -2683,7 +3464,7 @@
   font-family: "1";
   font-size: small;
   cursor: pointer;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 
 }
 
@@ -2957,7 +3738,7 @@
 
 /* --- Estilos Generales --- */
 .footer-container {
-  background-color: #bca7fa;
+  background-color: #ac93f9;
 
   /* Violeta oscuro místico */
   color: #ffffff;

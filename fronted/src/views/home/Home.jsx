@@ -1,6 +1,7 @@
 import ContactoFlotante from "../../components/ContactoFlotante";
 import CursosHome from "./Cursos"; // Tu archivo de secciones de cursos
 import Hero from "./Hero"; // ANTES ERA HEADER.JSX
+import Saludo from "./Saludo";
 
 
 const Home = () => {
@@ -12,6 +13,8 @@ const Home = () => {
                 <main>
                     {/* 2. La Portada Principal */}
                     <Hero />
+                    
+                    <Saludo/>
 
                     {/* 3. Las Secciones de Cursos */}
                     <CursosHome />
