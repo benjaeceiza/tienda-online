@@ -1,8 +1,6 @@
 
 const API_URL = import.meta.env.VITE_API_URL_BACKEND; 
 
-
-
 export const userLogin = async (email, password) => {
   const data = { email, password };
 
