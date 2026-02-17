@@ -4,7 +4,6 @@ import { getPaidCourses } from "../../services/getPaidCourses";
 import { useAuth } from "../../context/AuthContext";
 import { getUserCourses } from "../../services/getUserCourses";
 import { useLoading } from "../../context/LoadingContext";
-import ButtonsCourses from "./ButtonsCourses";
 import ContactoFlotante from "../../components/ContactoFlotante";
 import ModalLogin from "../../components/ModalLogin";
 
@@ -15,9 +14,10 @@ const Cursos = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [fondoCurso, setFondoCurso] = useState("");
 
-  // Loaders
-  const [videoLoading, setVideoLoading] = useState(true); // Loader para curso específico
-  const [generalVideoLoading, setGeneralVideoLoading] = useState(true); // Loader para video general
+  const [isPlayingGeneral, setIsPlayingGeneral] = useState(false);
+  const [isPlayingCourse, setIsPlayingCourse] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(true);
+  const [generalVideoLoading, setGeneralVideoLoading] = useState(true);
 
   const { user } = useAuth();
   const { hideLoader } = useLoading();
@@ -25,20 +25,17 @@ const Cursos = () => {
   const navigate = useNavigate();
 
   // URLs de Fondos
-  const fondoArtesanias = "https://i.postimg.cc/CKCGt1Rt/fondo_artesanias.png";
-  const fondoRituales = "https://i.postimg.cc/q7csYRNP/fondo_rituales.png";
-  const fondoEricBarone = "https://res.cloudinary.com/dmnksm3th/image/upload/v1769627595/barone_ghq6za.png";
-  const fondoSistemaSanacion = "https://i.postimg.cc/FR9yQ4c7/fondo_intermedio.png";
-  const fondoAnexo = "https://i.postimg.cc/JnLNYjq8/fondo-anexo.png";
-
-  // --- NUEVA CONFIGURACIÓN: VIDEOS GENERALES POR CATEGORÍA ---
+  const fondoArtesanias = "https://res.cloudinary.com/dmnksm3th/image/upload/v1770840319/fondo-artesanias_wwdtgn.webp";
+  const fondoRituales = "https://res.cloudinary.com/dmnksm3th/image/upload/v1770840320/fondo-rituales_peo2hl.webp";
+  const fondoEricBarone = "https://res.cloudinary.com/dmnksm3th/image/upload/v1770840318/eric-barone_x7w3ut.webp";
+  const fondoSistemaSanacion = "https://res.cloudinary.com/dmnksm3th/image/upload/v1770840320/fondo-intermedio_ymrtyu.webp";
+  const fondoAnexo = "https://res.cloudinary.com/dmnksm3th/image/upload/v1770840324/anexos_hrkifd_c9s65n.webp";
 
   const videosGenerales = {
     "rituales": "https://player.mediadelivery.net/embed/588203/2b26a1a9-1ceb-4034-b949-5b5dcd53d0de",
-    "artesanias magicas": "https://player.mediadelivery.net/embed/588203/abfac55d-7f41-4f2c-a2b0-a82534eba7af?autoplay=false",
-    "sistema de sanacion en camilla": "https://player.mediadelivery.net/embed/588203/65bd85fe-37f1-4439-83bb-99d32aebe751?autoplay=false",
-    "eric barone": "https://player.mediadelivery.net/embed/588203/24f9cf75-6423-46cd-8532-1c1fe090599d?autoplay=false"
-    // "anexos" se ha eliminado intencionalmente.
+    "artesanias magicas": "https://player.mediadelivery.net/embed/588203/abfac55d-7f41-4f2c-a2b0-a82534eba7af",
+    "sistema de sanacion en camilla": "https://player.mediadelivery.net/embed/588203/65bd85fe-37f1-4439-83bb-99d32aebe751",
+    "eric barone": "https://player.mediadelivery.net/embed/588203/24f9cf75-6423-46cd-8532-1c1fe090599d"
   };
 
   const videoGeneralActual = videosGenerales[categoria];
@@ -60,9 +57,8 @@ const Cursos = () => {
     }
 
     setFondoCurso(fondos[categoria]);
-
-    // Reseteamos el loader del video general al cambiar de categoría
     setGeneralVideoLoading(true);
+    setIsPlayingGeneral(false);
 
     if (user) {
       const token = localStorage.getItem("token");
@@ -83,109 +79,144 @@ const Cursos = () => {
 
   }, [categoria, user, navigate]);
 
-  // RESET LOADER WHEN SPECIFIC COURSE CHANGES
   useEffect(() => {
     if (cursoSeleccionado) {
       setVideoLoading(true);
+      setIsPlayingCourse(false);
     }
   }, [cursoSeleccionado]);
 
+  const esAdmin = user?.rol === "admin" || user?.rol === "administrador";
   const esAnexo = cursoSeleccionado?.categoria?.toLowerCase().includes("anexo");
   const tieneAlgunaCompra = usuarioCursos.length > 0;
-  const yaComprado = cursoSeleccionado && usuarioCursos.some((e) => e.course?._id === cursoSeleccionado._id);
+  const yaComprado = esAdmin || (cursoSeleccionado && usuarioCursos.some((e) => e.course?._id === cursoSeleccionado._id));
+
+  const VideoFacade = ({ image, onClick, label = "Ver Video" }) => (
+    <div className="course-select-video-facade" onClick={onClick}>
+      <img src={"https://res.cloudinary.com/dmnksm3th/image/upload/v1770840321/fondo-miniatura_1_to39yg.webp"} alt="Portada Video" className="course-select-facade-image" />
+      <div className="course-select-facade-overlay"></div>
+      <div className="course-select-play-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+      <span className="course-select-facade-text">{label}</span>
+    </div>
+  );
 
   return (
-    <main className="bgCourseContainer">
+    <main className="course-select-main-container">
       {fondoCurso && (
-        <img src={fondoCurso} alt="background" className="bgCourseImage" onLoad={hideLoader} />
+        <img src={fondoCurso} alt="background" className="course-select-bg-image" onLoad={hideLoader} />
       )}
 
       {isVisible && <ModalLogin setIsVisible={setIsVisible} />}
 
-      {/* --- NUEVA SECCIÓN: VIDEO GENERAL DE BIENVENIDA --- */}
-      {/* Solo se renderiza si videoGeneralActual tiene valor (es decir, no es anexos) */}
+      {/* --- HEADER / VIDEO GENERAL --- */}
       {videoGeneralActual && (
-        <section className="generalVideoSection">
-          <div className="generalVideoCard">
-            <h2 className="generalVideoTitle">Bienvenida a {categoria}</h2>
-            <div className="generalVideoDivider"></div>
-            <div className="videoWrapper" style={{ position: 'relative', minHeight: '300px' }}>
-              {generalVideoLoading && (
-                <div className="video-loader-overlay">
-                  <div className="spinner-course"></div>
-                </div>
+        <section className="course-select-hero-section">
+          <div className="course-select-glass-card course-select-hero-card">
+            <h2 className="course-select-hero-title">Bienvenida a {categoria}</h2>
+            <div className="course-select-divider"></div>
+
+            <div className="course-select-video-wrapper">
+              {!isPlayingGeneral ? (
+                <VideoFacade
+                  image={fondoCurso}
+                  onClick={() => setIsPlayingGeneral(true)}
+                  label="Ver Bienvenida"
+                />
+              ) : (
+                <>
+                  {generalVideoLoading && (
+                    <div className="course-select-loader-overlay">
+                      <div className="course-select-spinner"></div>
+                    </div>
+                  )}
+                  <iframe
+                    src={`${videoGeneralActual}?autoplay=true`}
+                    title={`Introducción a ${categoria}`}
+                    className="course-select-iframe"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;"
+                    allowFullScreen={true}
+                    onLoad={() => setGeneralVideoLoading(false)}
+                    style={{ opacity: generalVideoLoading ? 0 : 1 }}
+                  ></iframe>
+                </>
               )}
-              <iframe
-                src={`${videoGeneralActual}?autoplay=false`}
-                title={`Introducción a ${categoria}`}
-                className="iframeVideo"
-                allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
-                allowFullScreen={true}
-                onLoad={() => setGeneralVideoLoading(false)}
-                style={{ opacity: generalVideoLoading ? 0 : 1, transition: 'opacity 0.3s ease' }}
-              ></iframe>
             </div>
           </div>
         </section>
       )}
 
-      <div className="contenedorVideoBotonCursos">
-        <section className="columnLeft">
-          <div className="videoCard">
-            <div className="titleHeaderInside">
-              <div className="categoryBadge">
-                <span className="value">
-                  {cursoSeleccionado?.categoria || "Cargando..."}
-                </span>
+      {/* --- CONTENIDO PRINCIPAL --- */}
+      <div className="course-select-content-grid">
+        
+        {/* COLUMNA IZQUIERDA: DETALLE CURSO */}
+        <section className="course-select-detail-column">
+          <div className="course-select-glass-card course-select-detail-card">
+            
+            <div className="course-select-header-inside">
+              <div className="course-select-badge">
+                <span>{cursoSeleccionado?.categoria || "Cargando..."}</span>
               </div>
-              <h1 className="courseTitle slide-right" key={cursoSeleccionado?._id}>
+              <h1 className="course-select-title" key={cursoSeleccionado?._id}>
                 {cursoSeleccionado?.nombre}
               </h1>
             </div>
 
-            {/* VIDEO WRAPPER DEL CURSO ESPECÍFICO */}
-            <div className="videoWrapper" style={{ position: 'relative', minHeight: '300px' }}>
-              {videoLoading && (
-                <div className="video-loader-overlay">
-                  <div className="spinner-course"></div>
-                </div>
-              )}
+            <div className="course-select-video-wrapper">
               {cursoSeleccionado?.videoIntroduccion && (
-                <iframe
-                  key={cursoSeleccionado?.videoIntroduccion}
-                  src={`${cursoSeleccionado?.videoIntroduccion}?autoplay=false`}
-                  title="Video del curso"
-                  className="iframeVideo"
-                  allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
-                  allowFullScreen={true}
-                  onLoad={() => setVideoLoading(false)}
-                  style={{ opacity: videoLoading ? 0 : 1, transition: 'opacity 0.3s ease' }}
-                ></iframe>
+                !isPlayingCourse ? (
+                  <VideoFacade
+                    image={fondoCurso}
+                    onClick={() => setIsPlayingCourse(true)}
+                    label="Ver Introducción"
+                  />
+                ) : (
+                  <>
+                    {videoLoading && (
+                      <div className="course-select-loader-overlay">
+                        <div className="course-select-spinner"></div>
+                      </div>
+                    )}
+                    <iframe
+                      key={cursoSeleccionado?.videoIntroduccion}
+                      src={`${cursoSeleccionado?.videoIntroduccion}?autoplay=true`}
+                      title="Video del curso"
+                      className="course-select-iframe"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;"
+                      allowFullScreen={true}
+                      onLoad={() => setVideoLoading(false)}
+                      style={{ opacity: videoLoading ? 0 : 1 }}
+                    ></iframe>
+                  </>
+                )
               )}
             </div>
 
-            <div className="descriptionArea">
-              <p className="descriptionText">{cursoSeleccionado?.descripcion}</p>
+            <div className="course-select-description-area">
+              <p className="course-select-description">{cursoSeleccionado?.descripcion}</p>
             </div>
 
-            <div className="actionButtonsArea">
+            <div className="course-select-actions">
               {esAnexo ? (
                 tieneAlgunaCompra ? (
-                  <Link to={`/curso/${cursoSeleccionado?._id}`} className="ctaButton">
+                  <Link to={`/curso/${cursoSeleccionado?._id}`} className="course-select-btn course-select-btn-primary">
                     Ver Anexos
                   </Link>
                 ) : (
-                  <div className="lockMessage">
+                  <div className="course-select-lock-msg">
                     🔒 Compra un curso para desbloquear anexos
                   </div>
                 )
               ) : cursoSeleccionado?.tipo === "Gratuito" || yaComprado ? (
-                <Link to={`/curso/${cursoSeleccionado?._id}`} className="ctaButton">
+                <Link to={`/curso/${cursoSeleccionado?._id}`} className="course-select-btn course-select-btn-primary">
                   Ingresar al Curso
                 </Link>
               ) : (
                 <button
-                  className="ctaButton buyButton"
+                  className="course-select-btn course-select-btn-buy"
                   onClick={() => {
                     if (!user) {
                       setIsVisible(true);
@@ -201,11 +232,13 @@ const Cursos = () => {
           </div>
         </section>
 
-        {cursos.length <= 1 ? "" : (
-          <section className="columnRight">
-            <ButtonsCourses
+        {/* COLUMNA DERECHA: LISTA DE CURSOS */}
+        {cursos.length > 0 && (
+          <section className="course-select-list-column">
+             <ButtonsCourses
               cursos={cursos}
               setCursoSeleccionado={setCursoSeleccionado}
+              cursoSeleccionado={cursoSeleccionado} // Pasamos el seleccionado para marcarlo activo
             />
           </section>
         )}
@@ -213,6 +246,37 @@ const Cursos = () => {
 
       <ContactoFlotante />
     </main>
+  );
+};
+
+// COMPONENTE BOTONES (MODIFICADO PARA RECIBIR SELECCIONADO)
+const ButtonsCourses = ({ cursos, setCursoSeleccionado, cursoSeleccionado }) => {
+  return (
+    <div className="course-select-glass-card course-select-list-card">
+      <h2 className="course-select-list-title">Disponibles</h2>
+      <div className="course-select-buttons-container">
+        {cursos.map((c) => {
+             const isActive = cursoSeleccionado?._id === c._id;
+             return (
+                <div 
+                    key={c._id} 
+                    className={`course-select-item ${isActive ? 'active' : ''}`} 
+                    onClick={() => setCursoSeleccionado(c)}
+                >
+                    <div className="course-select-item-icon">
+                        {/* Icono simple o SVG */}
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                           <circle cx="12" cy="12" r="10"></circle>
+                           <path d="M10 8l6 4-6 4V8z"></path>
+                        </svg>
+                    </div>
+                    <span className="course-select-item-name">{c.nombre}</span>
+                    {isActive && <div className="course-select-active-indicator"></div>}
+                </div>
+             )
+        })}
+      </div>
+    </div>
   );
 };
 

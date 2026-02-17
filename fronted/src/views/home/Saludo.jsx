@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
 const Saludo = () => {
-    // Estado independiente para cada video (así cargan a su propio ritmo)
+    // Estado para la carga del video
     const [loadingV1, setLoadingV1] = useState(true);
-    const [loadingV2, setLoadingV2] = useState(true);
 
     return (
         <section className="saludo-section">
@@ -21,50 +20,28 @@ const Saludo = () => {
                         </p>
                     </div>
 
-                    {/* === COLUMNA DE VIDEOS (GRID DUAL) === */}
+                    {/* === COLUMNA DE VIDEO (SOLO UNO) === */}
                     <div className="saludo-video-column">
-                        
-                        {/* Contenedor para los dos videos */}
-                        <div className="videos-dual-container">
+                        <div className="single-video-card">
+                            <div className="saludo-video-wrapper">
+                                
+                                {/* LOADER */}
+                                {loadingV1 && (
+                                    <div className="saludo-video-loader">
+                                        <div className="spinner"></div>
+                                    </div>
+                                )}
 
-                            {/* VIDEO 1 */}
-                            <div className="single-video-card">
-                                <div className="saludo-video-wrapper">
-                                    {loadingV1 && (
-                                        <div className="saludo-video-loader">
-                                            <div className="spinner"></div>
-                                        </div>
-                                    )}
-                                    <iframe
-                                        className="saludo-iframe"
-                                        src="https://player.mediadelivery.net/embed/588203/041d4595-6348-434d-b15d-663a3ff7fd6a?autoplay=false"
-                                        title="Video Bienvenida 1"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                        onLoad={() => setLoadingV1(false)}
-                                    ></iframe>
-                                </div>
+                                {/* IFRAME */}
+                                <iframe
+                                    className="saludo-iframe"
+                                    src="https://player.mediadelivery.net/embed/588203/c88f3541-fa1d-4def-8e14-29a6ded89b3b?autoplay=false"
+                                    title="Video Bienvenida"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    onLoad={() => setLoadingV1(false)}
+                                ></iframe>
                             </div>
-
-                            {/* VIDEO 2 */}
-                            <div className="single-video-card">
-                                <div className="saludo-video-wrapper">
-                                    {loadingV2 && (
-                                        <div className="saludo-video-loader">
-                                            <div className="spinner"></div>
-                                        </div>
-                                    )}
-                                    <iframe
-                                        className="saludo-iframe"
-                                        src="https://player.mediadelivery.net/embed/588203/aa0fdfc0-a092-4384-972a-971b0505267a?autoplay=false"
-                                        title="Video Bienvenida 2"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                        onLoad={() => setLoadingV2(false)}
-                                    ></iframe>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 

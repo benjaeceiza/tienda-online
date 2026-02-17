@@ -32,8 +32,6 @@ const ModalLogin = ({ setIsVisible }) => {
 
     }
 
-
-
     return (
         <>
             <section className="modalLoginContainer">

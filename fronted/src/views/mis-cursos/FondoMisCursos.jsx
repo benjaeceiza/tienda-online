@@ -8,7 +8,7 @@ const FondoMisCursos = ({ onImageLoad }) => {
             
             {/* La imagen real. Usamos <img> para poder usar el evento onLoad */}
             <img 
-                src="https://i.postimg.cc/3NN2dFtH/fondo_mis_cursos.png" 
+                src="https://res.cloudinary.com/dmnksm3th/image/upload/v1770840319/fondo-mis-cursos_axu9vr.webp" 
                 alt="Fondo Mis Cursos" 
                 className="fondo-img"
                 onLoad={onImageLoad}

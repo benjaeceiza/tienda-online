@@ -1,23 +1,23 @@
-
-
-
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react'; // 1. Importar useRef
+import { NavLink, useLocation } from 'react-router-dom'; // 2. Importar useLocation
 import { getUser } from "../../services/getUser";
 import { useAuth } from '../../context/AuthContext';
 import userIcon from "../../assets/iconos/avatar.png";
-import salir from "../../assets/logos/logout.png";
-import ModalConfirm from "../ModalConfirm";
 import ModalUser from '../modal-user/ModalUser';
-import logo from "../../assets/logos/logo-tete.png";
+import logo from "../../assets/logos/logo-transparente.png";
 
 const NavbarDesktop = () => {
     const { user } = useAuth();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userLog, setUserLog] = useState({});
-    const [isVisible, setIsVisible] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const {logout} = useAuth()
+    const { logout } = useAuth();
+
+    // Referencia para el elemento del menú desplegable
+    const dropdownRef = useRef(null);
+    
+    // Hook para saber en qué ruta estamos
+    const location = useLocation();
 
     const cursosOptions = [
         { label: "Rituales", path: "/cursos/rituales" },
@@ -36,9 +36,38 @@ const NavbarDesktop = () => {
         }
     }, [user]);
 
+    // LÓGICA PARA CERRAR EL MENÚ ---
+
+    // 1. Cerrar cuando cambia la ruta (al hacer click en un link)
+    useEffect(() => {
+        setDropdownOpen(false);
+    }, [location]);
+
+    // 2. Cerrar cuando se hace click afuera
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // Si el menú está abierto y el click NO fue dentro del elemento referenciado
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownOpen(false);
+            }
+        };
+
+        // Agregamos el event listener al documento
+        document.addEventListener("mousedown", handleClickOutside);
+        
+        // Limpiamos el listener cuando el componente se desmonta
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [dropdownRef]);
+
+    const onHandleDropDown = () => {
+        setDropdownOpen(!dropdownOpen);
+    }
+
     return (
         <>
-              <ModalUser
+            <ModalUser
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
                 user={user}
@@ -47,24 +76,25 @@ const NavbarDesktop = () => {
             <nav className="navbar-desktop">
                 {/* Lado Izquierdo: Logo */}
                 <div className="navbar-logo-desktop">
-                    <NavLink to={"/"}><img className='logo-navbar' src={logo} alt='logo'/></NavLink>
+                    <NavLink to={"/"}><img className='logo-navbar' src={logo} alt='logo' /></NavLink>
                 </div>
 
                 {/* Lado Derecho: Menú */}
                 <ul className="navbar-links-desktop">
 
                     {/* Dropdown de Cursos */}
+                    {/* AGREGAMOS LA REF AQUÍ (ref={dropdownRef}) */}
                     <li
+                        ref={dropdownRef} 
                         className="nav-item-desktop dropdown-desktop"
-                        onMouseEnter={() => setDropdownOpen(true)}
-
+                        onClick={() => onHandleDropDown()}
                     >
                         <span className="nav-link-desktop cursor-pointer">
                             Cursos ▾
                         </span>
 
                         {dropdownOpen && (
-                            <ul className="dropdown-menu-desktop" onMouseLeave={() => setDropdownOpen(false)}>
+                            <ul className="dropdown-menu-desktop" >
                                 {cursosOptions.map((option, index) => (
                                     <li key={index} className="dropdown-item-desktop">
                                         <NavLink className='nav-link-desktop' to={option.path}>{option.label}</NavLink>
@@ -101,10 +131,10 @@ const NavbarDesktop = () => {
                         !user ?
                             <>
                                 <li className="nav-item">
-                                    <NavLink to={"/login"} className="nav-link-desktop">Iniciar Sesión</NavLink>
+                                    <NavLink to={"/login"} className="nav-link-desktop nav-btn-auth">Iniciar Sesión</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink to={"/register"} className="nav-link-desktop btn-register">Registrarse</NavLink>
+                                    <NavLink to={"/register"} className="nav-link-desktop nav-btn-auth">Registrarse</NavLink>
                                 </li>
                             </>
                             : ""

@@ -10,11 +10,12 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 export const router = Router();
 
-// MERCADO PAGO ROUTES
 
+const urlFrontend = process.env.VITE_API_URL_FRONTEND;
+
+// MERCADO PAGO ROUTES
 
 // Ruta para crear la preferencia de pago
 router.post("/mp/create-preference", async (req, res) => {
@@ -59,13 +60,13 @@ router.get("/mp/success", (req, res) => {
     const { payment_id, collection_id } = req.query;
 
     // redirigir al frontend con los params
-    const url = `http://localhost:5173/pago-exitoso?payment_id=${payment_id || collection_id}`;
+    const url = `${urlFrontend}/pago-exitoso?payment_id=${payment_id || collection_id}`;
     res.redirect(url);
 });
 
 
 router.get("/mp/failure", (req, res) => {
-    res.redirect("http://localhost:5173/pago-fallido");
+    res.redirect(`${urlFrontend}/pago-fallido`);
 });
 
 
@@ -90,7 +91,7 @@ router.get("/mp/verify/:paymentId", async (req, res) => {
 router.post('/pp/create-order', async (req, res) => {
     const { courseID } = req.body;
 
-    const COTIZACION_DOLAR = 1300; 
+    const COTIZACION_DOLAR = 1300;
 
     try {
         const course = await cursoModelo.findById(courseID);
@@ -101,9 +102,9 @@ router.post('/pp/create-order', async (req, res) => {
 
         // 2. CONVERSIÓN DE MONEDA
         // Precio en Base de Datos (ARS) / Cotización = Precio en USD
-        const precioEnPesos = course.precio; 
+        const precioEnPesos = course.precio;
         let precioEnDolares = precioEnPesos / COTIZACION_DOLAR;
-        
+
         // 3. FORMATEO (PayPal exige string con 2 decimales, ej: "43.48")
         const precioFinalPayPal = precioEnDolares.toFixed(2);
 
@@ -112,11 +113,19 @@ router.post('/pp/create-order', async (req, res) => {
 
         request.requestBody({
             intent: 'CAPTURE',
+            // AGREGÁ ESTO:
+            application_context: {
+                brand_name: "Sanación Cosmotelúrica",
+                landing_page: "NO_PREFERENCE",
+                user_action: "PAY_NOW",
+                return_url: `${urlFrontend}/pago-exitoso`, // Tu URL de frontend
+                cancel_url: `${urlFrontend}/pago-fallido`  // Tu URL de frontend
+            },
             purchase_units: [{
-                description: course.nombre, 
+                description: course.nombre,
                 amount: {
-                    currency_code: 'USD', // PayPal cobra en Dólares
-                    value: precioFinalPayPal // Aquí va el precio convertido (ej: "43.48")
+                    currency_code: 'USD',
+                    value: precioFinalPayPal
                 }
             }]
         });
@@ -157,7 +166,7 @@ router.post('/pp/capture-order', async (req, res) => {
 
             const tokenNuevo = jwt.sign(
                 payload,
-                process.env.JWT_SECRET , // Usa tu variable de entorno
+                process.env.JWT_SECRET, // Usa tu variable de entorno
                 { expiresIn: '24h' }
             );
 
@@ -177,5 +186,26 @@ router.post('/pp/capture-order', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error al capturar el pago' });
+    }
+});
+
+
+router.get('/pp/verify/:orderID', async (req, res) => {
+    const { orderID } = req.params;
+
+    const request = new paypal.orders.OrdersGetRequest(orderID);
+
+    try {
+        const order = await client().execute(request);
+
+        // PayPal usa 'COMPLETED' o 'APPROVED'
+        if (order.result.status === 'COMPLETED' || order.result.status === 'APPROVED') {
+            res.json({ status: 'approved', id: order.result.id });
+        } else {
+            res.json({ status: 'pending', id: order.result.id });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error', message: 'Error verificando PayPal' });
     }
 });

@@ -1,6 +1,10 @@
 // config/paypal.js
 import paypal from '@paypal/checkout-server-sdk';
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 // Configuración del entorno
 const environment = () => {
     const clientId = process.env.PAYPAL_CLIENT_ID;

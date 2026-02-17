@@ -1,8 +1,11 @@
 
-import React, { useState } from 'react';
+import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
-    const [view, setView] = useState('profile'); // 'profile' | 'password'
+    const [view, setView] = useState('profile'); 
+    const navigate = useNavigate();
+
 
     if (!isOpen) return null;
 
@@ -10,6 +13,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
     const handleContainerClick = (e) => {
         e.stopPropagation();
     };
+    
 
     return (
         <div className="userModal_overlay" onClick={onClose}>
@@ -47,6 +51,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                 onClick={() => {
                                     onLogout();
                                     onClose();
+                                    navigate("/");
                                 }}
                             >
                                 Cerrar Sesión

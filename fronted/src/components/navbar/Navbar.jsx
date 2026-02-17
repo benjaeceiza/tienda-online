@@ -6,6 +6,7 @@ import { getUser } from "../../services/getUser";
 import { useEffect, useState } from "react";
 import buttonMenu from "../../assets/iconos/hamburguesa.png";
 import ModalConfirm from "../ModalConfirm";
+import logo from "../../assets/logos/logo-transparente.png";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -31,7 +32,7 @@ const Navbar = () => {
         {/* 1. SECCIÓN IZQUIERDA: LOGO */}
         <div className="logoContainer">
           {/* Aquí puedes poner tu etiqueta <img src={tuLogo} /> */}
-          <h2 className="logoText">SC</h2>
+          <img className='logo-navbar' src={logo} alt='logo'/>
         </div>
 
         {/* 2. SECCIÓN DERECHA: BOTONES */}
@@ -78,7 +79,7 @@ const Navbar = () => {
             <NavLink to="/cursos/sistema de sanacion en camilla" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Sist. Sanación en camilla</NavLink>
           </li>
           <li className="navbarItem">
-            <NavLink to="/cursos/anexo" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Anexos</NavLink>
+            <NavLink to="/cursos/anexos" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Anexos</NavLink>
           </li>
           <li className="navbarItem">
             <NavLink to="/cursos/eric barone" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Eric Barone</NavLink>

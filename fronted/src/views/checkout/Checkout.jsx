@@ -4,9 +4,9 @@ import { pagar } from "../../services/payMercadoPago"; // Tu servicio existente
 import { useAuth } from "../../context/AuthContext"; // Para saber quién paga
 import { useLoading } from "../../context/LoadingContext";
 import mpLogo from "../../assets/logos/mercado-pago.png"; // Asegurate de tener logos si querés, sino usa texto
-import paypalLogo from "../../assets/logos/paypal.png"; // Icono de paypal opcional
 import PaypalButton from "../../components/PaypalButton";
 
+const urlBackend = import.meta.env.VITE_API_URL_BACKEND; // Tu URL del backend
 
 const Checkout = () => {
     const { cid } = useParams();
@@ -17,7 +17,7 @@ const Checkout = () => {
 
     // 1. Traemos la data del curso con tu NUEVA RUTA pública
     useEffect(() => {
-        fetch(`http://localhost:8080/api/courses/detalle/${cid}`) 
+        fetch(`${urlBackend}/courses/detalle/${cid}`) 
             .then((res) => res.json())
             .then((data) => {
                 setCurso(data);
@@ -32,17 +32,13 @@ const Checkout = () => {
         pagar(user.id, curso);
     };
 
-    const handlePayPal = () => {
-        alert("Integración con PayPal próximamente...");
-    };
+
 
 
 
     return (
         <div className="checkout-container">
-
             <div className="checkout-bg"></div>
-
             <div className="checkout-content">
                 <Link to="/" className="btn-volver">← Volver al inicio</Link>
 

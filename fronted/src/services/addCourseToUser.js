@@ -1,4 +1,7 @@
 
+
+const urlBackend = import.meta.env.VITE_API_URL_BACKEND;
+
 export const addCourseToUser = async (idCourse) => {
     const token = localStorage.getItem("token")
 
@@ -6,7 +9,7 @@ export const addCourseToUser = async (idCourse) => {
         throw new Error("Inicia sesión o regístrate.");
     }
 
-    const API_URL = "http://localhost:8080/api";
+    const API_URL = `${urlBackend}/api`;
     try {
         const res = await fetch(`${API_URL}/payments/${idCourse}`, {
             method: "PATCH",

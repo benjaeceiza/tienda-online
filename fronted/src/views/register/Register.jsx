@@ -3,8 +3,6 @@ import { userRegister } from "../../services/register";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "../../context/LoadingContext";
-import fondo from "../../assets/fondos/inicio.png";
-
 
 const Register = () => {
 
@@ -22,30 +20,43 @@ const Register = () => {
     hideLoader();
   }, []);
 
-  const submitUser = (e) => {
+  // --- NUEVA FUNCIÓN MEJORADA ---
+  // Convierte "juan carlos" -> "Juan Carlos"
+  // Convierte "PEREZ GARCIA" -> "Perez Garcia"
+  const formatName = (text) => {
+    if (!text) return "";
+    return text
+      .trim()             // Quita espacios al principio y final
+      .toLowerCase()      // Pasa todo a minúscula primero (para arreglar si escribieron en MAYÚSCULA)
+      .split(/\s+/)       // Separa por espacios (incluso si pusieron varios espacios seguidos)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza cada palabra
+      .join(' ');         // Vuelve a unir con un solo espacio
+  };
 
+  const submitUser = (e) => {
     e.preventDefault();
 
-    userRegister(nombre, apellido, email, password)
+    // Aplicamos el formateo aquí
+    const nombreFinal = formatName(nombre);
+    const apellidoFinal = formatName(apellido);
+
+    userRegister(nombreFinal, apellidoFinal, email, password)
       .then((res) => {
         if (res?.token) {
           login(res.token);
           navigate("/");
-
         } else {
-          setMensaje(res);
+          setMensaje(res); 
         }
       })
       .catch(err => console.error(err))
-
-
   }
 
 
   return (
     <>
       <main>
-        <img className="bgRegister" src={fondo} alt="fondo" />
+        <img className="bgRegister" src={"https://res.cloudinary.com/dmnksm3th/image/upload/v1770840320/inicio_dycna6.webp"} alt="fondo" />
         <div className="registerContainer">
           <div className="modalLogin">
             <h2 className="modalTitle">Registrarse</h2>

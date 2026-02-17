@@ -19,6 +19,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Checkout from "./views/checkout/Checkout";
 import NavbarDesktop from "./components/navbar/NavbarDesktop";
 import AliciaTete from "./views/alicia-tete/AliciaTete";
+import Rejected from "./views/pay/Rejected";
 
 export default function App() {
   const { isVisible, isExiting } = useLoading();
@@ -45,7 +46,7 @@ export default function App() {
             <Route path="/alicia-tete" element={<AliciaTete />} />
             <Route path="/payment/:uid/:cid" element={<Checkout />} />
             <Route path="/pago-exitoso" element={<Approved />} />
-            <Route path="/pago-fallido" element={<h1>Pago fallido</h1>} />
+            <Route path="/pago-fallido" element={<Rejected/>} />
           </Routes>
           <Footer />
         </BrowserRouter>

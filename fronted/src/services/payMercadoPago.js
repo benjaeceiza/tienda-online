@@ -1,7 +1,9 @@
 // 1. La función pagar ahora recibe el objeto CURSO entero (o los datos separados)
+const urlBackend = import.meta.env.VITE_API_URL_BACKEND;
+
 export const pagar = async (userId, curso) => {
   try {
-    const res = await fetch("http://localhost:8080/api/payments/mp/create-preference", {
+    const res = await fetch(`${urlBackend}/payments/mp/create-preference`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
