@@ -504,7 +504,7 @@
 }
 
 .navbarSessionLink {
-  color: #ad043a;
+  color: #ffffff;
   font-family: "1";
   font-size: 0.9rem;
   font-weight: 800;
@@ -512,7 +512,8 @@
   margin-top: 10px;
   padding: 10px 15px;
   border-radius: 30px;
-  background-color: #ffffff;
+  box-shadow: 0px 0px 5px 2px rgb(255, 255, 255);
+
 
 }
 
@@ -1520,63 +1521,317 @@
 
 /* REGISTER */
 
-.bgRegister {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 120vh;
-  object-fit: cover;
-  z-index: -1;
+/* =========================================
+   VARIABLES (Coherentes con Login)
+   ========================================= */
+:root {
+  --rp-bg-solid: #1e1026;
+  /* Violeta muy oscuro y sólido */
+  --rp-primary: #9c27b0;
+  --rp-accent: #9c27b0;
+  /* Dorado */
+  --rp-text-main: #ffffff;
+  --rp-text-muted: #b0a0c0;
+  --rp-input-bg: #150a1c;
+  --rp-border: rgba(255, 255, 255, 0.15);
 }
 
-
-
-.registerContainer {
-  height: 100vh;
+/* =========================================
+   LAYOUT GENERAL
+   ========================================= */
+.register-page-main {
+  position: relative;
   width: 100%;
-  padding: 0px 20px;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-x: hidden;
 }
 
-.titleModalContainer {
+.register-page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.6);
+}
+
+.register-page-container {
   width: 100%;
   max-width: 500px;
-  height: 500px;
-  margin: auto;
-  background-color: #171f52;
-  color: white;
-  transition: all .3s;
-  padding: 15px;
+  /* Un poco más ancho que login para que entren los nombres */
+  animation: fadeInUpRegister 0.6s ease-out;
+  margin-top: 60px;
+  /* Por si el navbar molesta */
+  margin-bottom: 40px;
+}
+
+/* =========================================
+   TARJETA SÓLIDA
+   ========================================= */
+.register-page-card {
+  background-color: #f8f8f8;
+  border: 1px solid var(--rp-border);
   border-radius: 20px;
-  box-shadow: 0px 0px 15px 1px rgb(0, 0, 0);
-  animation: slideDownFade 0.4s ease forwards;
+  padding: 40px 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+  gap: 20px;
+  position: relative;
 }
 
-.linkLogin {
-  text-decoration: none;
+/* Decoración dorada superior */
+.register-page-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--rp-accent), transparent);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.linkLoginP {
+/* =========================================
+   HEADER
+   ========================================= */
+.register-page-header {
   text-align: center;
-  margin-top: 15px;
-  font-size: small;
-  font-weight: bold;
-  color: white;
-  font-family: "1";
-
+  margin-bottom: 10px;
 }
 
-.linkLoginP:hover {
-  color: rgb(170, 170, 170);
-  transition: all .3s;
+.register-page-title {
+  color: #2c1a4d;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  letter-spacing: 1px;
+}
+
+.register-page-subtitle {
+  color: var(--rp-text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.register-page-divider {
+  width: 50px;
+  height: 3px;
+  background: var(--rp-primary);
+  margin: 15px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* =========================================
+   FORMULARIO
+   ========================================= */
+.register-page-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Fila para poner inputs lado a lado (Nombre / Apellido) */
+.register-page-row {
+  display: flex;
+  gap: 15px;
+}
+
+/* En celular, que se pongan uno abajo del otro */
+@media (max-width: 480px) {
+  .register-page-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+
+.register-page-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  width: 100%;
+}
+
+.register-page-label {
+  color: #2c1a4d;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.register-page-input {
+  background-color: #dadada;
+  border: none;
+  border-bottom: 2px solid var(--rp-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.register-page-input::placeholder {
+  color: rgb(136, 136, 136);
+}
+
+.register-page-input:focus {
+  background-color: #dadada;
+  border: 0;
+  box-shadow: none;
+  border-bottom: 2px solid var(--rp-primary);
+}
+
+/* =========================================
+   BOTÓN SUBMIT
+   ========================================= */
+.register-page-btn-submit {
+  margin-top: 10px;
+  background: linear-gradient(135deg, var(--rp-primary) 0%, #7b1fa2 100%);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.register-page-btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(156, 39, 176, 0.6);
+  filter: brightness(1.1);
+}
+
+/* =========================================
+   MENSAJES Y FOOTER
+   ========================================= */
+.register-page-error-box {
+  background-color: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  color: #ff5252;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+  animation: shakeRegister 0.4s ease-in-out;
+}
+
+.register-page-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid var(--rp-border);
+  padding-top: 20px;
+  color: var(--rp-text-muted);
+  font-size: 0.95rem;
+}
+
+.register-page-link-highlight {
+  color: var(--rp-primary);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.register-page-link-highlight:hover {
+  color: var(--rp-accent);
+  text-decoration: underline;
+}
+
+
+/* =========================================
+   SPINNER (Mini Cargador)
+   ========================================= */
+.register-page-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  /* Círculo transparente */
+  border-top: 3px solid white;
+  /* Parte blanca que gira */
+  border-radius: 50%;
+  animation: spinRegister 1s linear infinite;
+  margin: 0 auto;
+  /* Centrado */
+}
+
+@keyframes spinRegister {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   AJUSTE AL BOTÓN (Para centrar el spinner)
+   ========================================= */
+.register-page-btn-submit {
+  /* ... mantenemos los estilos de gradiente y forma ... */
+  display: flex;
+  /* Para centrar el spinner o el texto */
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  /* Altura fija para que no se achique al cambiar texto por spinner */
+}
+
+/* Estado deshabilitado (cuando está cargando) */
+.register-page-btn-submit:disabled {
+  background: var(--rp-primary);
+  cursor: not-allowed;
+  transform: none;
+  /* Quitamos el efecto de movimiento */
+  box-shadow: none;
+}
+
+/* =========================================
+   ANIMACIONES
+   ========================================= */
+@keyframes fadeInUpRegister {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shakeRegister {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
 }
 
 /*LOGIN*/
@@ -1837,7 +2092,7 @@
   font-weight: 700;
   text-decoration: none;
   margin-left: 5px;
-    font-size: small;
+  font-size: small;
   font-family: "1";
   font-weight: bold;
 }
@@ -1855,107 +2110,154 @@
 }
 
 
+/* =========================================
+   SPINNER DE CARGA
+   ========================================= */
+.page-login-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spinLogin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spinLogin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   AJUSTES AL BOTÓN
+   ========================================= */
+.page-login-btn-submit {
+  /* Mantenemos tus estilos previos de gradiente, borde, etc. */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  /* Para que no cambie de tamaño al cargar */
+}
+
+/* Estado deshabilitado */
+.page-login-btn-submit:disabled {
+  background: var(--pl-primary);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
 /* CODIGO DE RECUPERACION */
 
 /* CONTENEDOR FLEXIBLE */
 .page-login-code-container {
-    display: flex;
-    justify-content: center;
-    gap: 12px; /* Separación entre cajas */
-    margin: 25px 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  /* Separación entre cajas */
+  margin: 25px 0;
 }
 
 /* CADA CAJA DE NÚMERO */
 .page-login-code-box {
-    width: 50px;
-    height: 60px;
-    
-    /* Fondo oscuro sólido (Deep Violet) */
+  width: 50px;
+  height: 60px;
 
-    
-    /* Borde sutil */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    
-    /* Tipografía */
-    color: rgb(0, 0, 0);
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-align: center;
-    
-    /* Transiciones suaves */
-    outline: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Sombra base */
-    box-shadow: 0 0px 4px 2px rgba(252, 0, 231, 0.61);
+  /* Fondo oscuro sólido (Deep Violet) */
+
+
+  /* Borde sutil */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+
+  /* Tipografía */
+  color: rgb(0, 0, 0);
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+
+  /* Transiciones suaves */
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Sombra base */
+  box-shadow: 0 0px 4px 2px rgba(252, 0, 231, 0.61);
 }
 
 /* CUANDO EL USUARIO TOCA UNA CAJA (FOCUS) */
 .page-login-code-box:focus {
-    /* Borde Violeta Brillante */
-    border-color: #d64cb6; 
-        
-    /* Efecto de resplandor */
-    box-shadow: 0 0 15px rgba(214, 76, 182, 0.5);
-    
-    /* Pequeña animación de subida */
-    transform: translateY(-4px);
+  /* Borde Violeta Brillante */
+  border-color: #d64cb6;
+
+  /* Efecto de resplandor */
+  box-shadow: 0 0 15px rgba(214, 76, 182, 0.5);
+
+  /* Pequeña animación de subida */
+  transform: translateY(-4px);
 }
 
 
 
 /* CONTENEDOR DEL TEMPORIZADOR */
 .page-login-resend-container {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 0.95rem;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 /* TEXTO DE CUENTA REGRESIVA (Gris/Muted) */
 .page-login-timer-text {
-    color: var(--pl-text-muted); /* #b0a0c0 */
-    font-weight: 500;
+  color: var(--pl-text-muted);
+  /* #b0a0c0 */
+  font-weight: 500;
 }
 
 /* LINK DE REENVIAR (Activo) */
 .page-login-resend-link {
-    background: none;
-    border: none;
-    color: var(--pl-text-muted); 
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: underline;
-    transition: all 0.3s ease;
-    padding: 5px 10px;
-    font-weight: bold;
-    font-family: "1";
-    font-size: small;
+  background: none;
+  border: none;
+  color: var(--pl-text-muted);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-family: "1";
+  font-size: small;
 }
 
 .page-login-resend-link:hover {
-    color: var(--pl-accent); /* Un dorado más claro */
-    transform: scale(1.05);
+  color: var(--pl-accent);
+  /* Un dorado más claro */
+  transform: scale(1.05);
 }
 
 .page-login-resend-link:disabled {
-    color: #555;
-    cursor: not-allowed;
-    text-decoration: none;
+  color: #555;
+  cursor: not-allowed;
+  text-decoration: none;
 }
 
 /* RESPONSIVE (CELULARES) */
 @media (max-width: 450px) {
-    .page-login-code-container {
-        gap: 8px;
-    }
-    
-    .page-login-code-box {
-        width: 42px;
-        height: 52px;
-        font-size: 1.4rem;
-        border-radius: 8px;
-    }
+  .page-login-code-container {
+    gap: 8px;
+  }
+
+  .page-login-code-box {
+    width: 42px;
+    height: 52px;
+    font-size: 1.4rem;
+    border-radius: 8px;
+  }
 }
 
 @keyframes fadeInUp {
@@ -1972,6 +2274,311 @@
 
 @media (max-width: 480px) {
   .page-login-card {
+    padding: 30px 20px;
+  }
+}
+
+
+/* MODAL LOGIN */
+
+/* =========================================
+   VARIABLES (Mismas que Login/Register)
+   ========================================= */
+:root {
+  --ml-bg-solid: #1e1026;
+  /* Violeta muy oscuro y sólido */
+  --ml-primary: #9c27b0;
+  --ml-accent: #9c27b0;
+  /* Dorado */
+  --ml-text-main: #ffffff;
+  --ml-text-muted: #b0a0c0;
+  --ml-input-bg: #150a1c;
+  --ml-border: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================
+   OVERLAY (FONDO OSCURO)
+   ========================================= */
+.modal-login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Fondo negro semitransparente */
+  backdrop-filter: blur(5px);
+  /* Un leve blur al fondo de la página */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* Siempre arriba */
+  padding: 20px;
+  animation: fadeInModal 0.3s ease-out;
+}
+
+/* =========================================
+   TARJETA DEL MODAL
+   ========================================= */
+.modal-login-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #f8f8f8;
+  border: 1px solid var(--ml-border);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+  /* Sombra fuerte */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  animation: slideUpModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Decoración dorada superior */
+.modal-login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--ml-accent), transparent);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* BOTÓN CERRAR (X) */
+.modal-login-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: var(--ml-text-muted);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-login-close-btn:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: rotate(90deg);
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+.modal-login-header {
+  text-align: center;
+}
+
+.modal-login-title {
+  color: #2c1a4d;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+}
+
+.modal-login-subtitle {
+  color: var(--ml-text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.modal-login-divider {
+  width: 50px;
+  height: 3px;
+  background: var(--ml-primary);
+  margin: 15px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* =========================================
+   FORMULARIO
+   ========================================= */
+.modal-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-login-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.modal-login-label {
+  color: #2c1a4d;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.modal-login-input {
+  background-color: #dadada;
+  border: 0;
+  border-bottom: 2px solid var(--ml-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+  color: black;
+}
+
+.modal-login-input::placeholder {
+  color: rgba(138, 138, 138, 0.712);
+}
+
+.modal-login-input:focus {
+  border-bottom: 2px solid var(--ml-primary);
+}
+
+/* =========================================
+   BOTÓN SUBMIT
+   ========================================= */
+.modal-login-btn-submit {
+  margin-top: 10px;
+  background: linear-gradient(135deg, var(--ml-primary) 0%, #7b1fa2 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 45px;
+  /* Altura fija */
+}
+
+.modal-login-btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(156, 39, 176, 0.6);
+  filter: brightness(1.1);
+}
+
+.modal-login-btn-submit:disabled {
+  background: #555;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* =========================================
+   FOOTER & ERROR
+   ========================================= */
+.modal-login-error-box {
+  background-color: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  color: #ff5252;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.modal-login-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--ml-border);
+  padding-top: 15px;
+}
+
+.modal-login-link-btn {
+  background: none;
+  border: none;
+  color: var(--ml-text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.modal-login-link-btn:hover {
+  color: var(--ml-accent);
+}
+
+.modal-login-register-area {
+  color: var(--ml-text-muted);
+  font-size: 0.9rem;
+}
+
+.modal-login-link-highlight {
+  color: var(--ml-primary);
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.modal-login-link-highlight:hover {
+  color: var(--ml-accent);
+  text-decoration: underline;
+}
+
+/* =========================================
+   SPINNER & ANIMACIONES
+   ========================================= */
+.modal-login-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spinModal 1s linear infinite;
+}
+
+@keyframes spinModal {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpModal {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-login-card {
     padding: 30px 20px;
   }
 }
@@ -2076,6 +2683,24 @@
   /* Color de transición */
   z-index: 2;
   pointer-events: none;
+}
+
+
+@media (max-width: 700px) {
+  .heroSection {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    /* Ocupa toda la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 20px;
+
+  }
+
 }
 
 
@@ -3320,7 +3945,7 @@
   z-index: 2;
 
   /* --- OPTIMIZACIÓN 1: Blur más ligero --- */
-  background: rgba(255, 255, 255, 0.6);
+  background: rgb(255, 255, 255);
   /* Un poco más opaco para compensar menos blur */
   backdrop-filter: blur(10px);
   /* Bajamos de 25px a 10px (Clave para rendimiento) */
@@ -3524,10 +4149,11 @@
   background: transparent;
   border: none;
   /* Línea inferior gris clara */
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(247, 2, 255, 0.301);
   outline: none;
   transition: border-color 0.3s;
   font-weight: 500;
+
 }
 
 .page-contact_textarea {

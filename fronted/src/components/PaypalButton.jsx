@@ -17,7 +17,7 @@ const PaypalButton = ({ courseId, userId }) => {
 
     const handleCreateOrder = async (data, actions) => {
         try {
-            const response = await fetch(`${urlBackend}/api/payments/pp/create-order`, {
+            const response = await fetch(`${urlBackend}/payments/pp/create-order`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ courseID: courseId }),
@@ -33,7 +33,7 @@ const PaypalButton = ({ courseId, userId }) => {
 
     const handleApprove = async (data, actions) => {
         try {
-            const response = await fetch(`${urlBackend}/api/payments/pp/capture-order`, {
+            const response = await fetch(`${urlBackend}/payments/pp/capture-order`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLoading } from "../../context/LoadingContext";
+import ContactoFlotante from "../../components/ContactoFlotante";
 
 const AliciaTete = () => {
     const { hideLoader } = useLoading();
@@ -57,6 +58,7 @@ const AliciaTete = () => {
                 </div>
 
             </div>
+            <ContactoFlotante />
         </section>
     );
 }

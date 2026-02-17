@@ -5,6 +5,7 @@ import waContact from "../../assets/iconos/wtsContact.png";
 import yt from "../../assets/iconos/youtube.png";
 
 
+
 const Contacto = () => {
   const { hideLoader } = useLoading();
 
@@ -14,12 +15,12 @@ const Contacto = () => {
 
   return (
     <main className="page-contact_main">
-      
+
       {/* --- IMAGEN DE FONDO REAL (Controla el Loader) --- */}
-      <img 
-        src={backgroundImage} 
-        alt="Fondo Contacto" 
-        className="page-contact_bg_real" 
+      <img
+        src={backgroundImage}
+        alt="Fondo Contacto"
+        className="page-contact_bg_real"
         onLoad={hideLoader} // <--- AQUÍ ESTÁ LA MAGIA
       />
 
@@ -27,17 +28,17 @@ const Contacto = () => {
       <div className="page-contact_background_glow"></div>
 
       <div className="page-contact_container">
-        
+
         {/* --- COLUMNA IZQUIERDA: INFO --- */}
         <div className="page-contact_info_col">
           <div className="page-contact_header">
             <span className="page-contact_subtitle">Hablemos</span>
-            <h2 className="page-contact_title">Comunicáte con<br/>Nosotros</h2>
+            <h2 className="page-contact_title">Comunicáte con<br />Nosotros</h2>
             <div className="page-contact_divider"></div>
           </div>
 
           <p className="page-contact_text">
-            ¿Tienes dudas sobre los cursos o sientes el llamado a iniciar un proceso personal? 
+            ¿Tienes dudas sobre los cursos o sientes el llamado a iniciar un proceso personal?
             Estoy aquí para escucharte y acompañarte en tu camino.
           </p>
 
@@ -56,7 +57,12 @@ const Contacto = () => {
             </div>
           </div>
 
-          <a href="#" className="page-contact_wts_btn">
+          <a
+            href="https://wa.me/5492657547597?text=Hola!%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20cursos."
+            className="page-contact_wts_btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={waContact} alt="WhatsApp" />
             <span>Whatsapp</span>
           </a>
