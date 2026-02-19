@@ -33,8 +33,8 @@ const Cursos = () => {
 
   const videosGenerales = {
     "rituales": "https://player.mediadelivery.net/embed/588203/2b26a1a9-1ceb-4034-b949-5b5dcd53d0de",
-    "artesanias magicas": "https://player.mediadelivery.net/embed/588203/abfac55d-7f41-4f2c-a2b0-a82534eba7af",
-    "sistema de sanacion en camilla": "https://player.mediadelivery.net/embed/588203/65bd85fe-37f1-4439-83bb-99d32aebe751",
+    "artesanias magicas": "https://player.mediadelivery.net/embed/588203/70ae5c9a-c2e9-4140-934b-b41a1f399d6b",
+    "sistema de sanacion en camilla": "https://player.mediadelivery.net/embed/588203/5d7fa29b-76df-4745-b2be-9a16e1a05105",
     "eric barone": "https://player.mediadelivery.net/embed/588203/24f9cf75-6423-46cd-8532-1c1fe090599d"
   };
 

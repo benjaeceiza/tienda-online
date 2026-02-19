@@ -45,13 +45,13 @@ const Contacto = () => {
           <div className="page-contact_socials">
             <h3>Encuéntrame en:</h3>
             <div className="page-contact_icons_grid">
-              <a href="#" className="page-contact_social_link" aria-label="Instagram">
+              <a href="https://www.instagram.com/sanacioncosmotelurica/" target="_blank" className="page-contact_social_link" aria-label="Instagram">
                 <img src={ig} alt="Instagram" />
               </a>
               <a href="#" className="page-contact_social_link" aria-label="Facebook">
                 <img src={fb} alt="Facebook" />
               </a>
-              <a href="#" className="page-contact_social_link" aria-label="YouTube">
+              <a href="https://www.youtube.com/@aliciatete" target="_blank" className="page-contact_social_link" aria-label="YouTube">
                 <img src={yt} alt="YouTube" />
               </a>
             </div>
@@ -91,7 +91,7 @@ const Contacto = () => {
 
             <div className="page-contact_input_group">
               <input type="tel" required className="page-contact_input" />
-              <label className="page-contact_label">Teléfono (Opcional)</label>
+              <label className="page-contact_label">Teléfono</label>
             </div>
 
             <div className="page-contact_input_group">
