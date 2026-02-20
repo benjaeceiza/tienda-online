@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import userIcon from "../../assets/iconos/avatar.png";
 import salir from "../../assets/logos/logout.png";
@@ -32,7 +32,7 @@ const Navbar = () => {
         {/* 1. SECCIÓN IZQUIERDA: LOGO */}
         <div className="logoContainer">
           {/* Aquí puedes poner tu etiqueta <img src={tuLogo} /> */}
-          <img className='logo-navbar' src={logo} alt='logo'/>
+        <Link to="/" className="logoLinkMob"><img className="logoText" src={logo} alt="logo"/></Link>
         </div>
 
         {/* 2. SECCIÓN DERECHA: BOTONES */}

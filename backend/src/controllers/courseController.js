@@ -127,3 +127,74 @@ export const obtenerInfoBasicaCurso = async (req, res) => {
 
 
 
+export const agregarCursoAlPerfil = async (req, res) => {
+    try {
+        // En el body esperamos el ID del curso
+        const { courseId } = req.body;
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader) {
+            return res.status(401).json({ error: "Token no proporcionado" });
+        }
+
+        const token = authHeader.split(" ")[1];
+        let decoded;
+
+        try {
+            decoded = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            return res.status(401).json({ error: "Token inválido o expirado" });
+        }
+
+        // Buscamos al usuario y al curso en la base de datos
+        const user = await usuarioModelo.findById(decoded.id).populate("courses.course");
+        const course = await cursoModelo.findById(courseId);
+
+        if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+        if (!course) return res.status(404).json({ error: "Curso no encontrado" });
+
+        // 1. Verificamos si ya lo tiene agregado para no duplicar
+        const hasCourse = user.courses.some(c => c.course?._id?.toString() === courseId);
+        if (hasCourse) {
+            return res.status(400).json({ error: "Ya tienes este curso en tu perfil" });
+        }
+
+        // --- 2. LÓGICA DE PERMISOS (BARRERA DE SEGURIDAD) ---
+        const isAdmin = user.rol === "admin" || user.rol === "administrador";
+        const categoria = (course.categoria || "").toLowerCase();
+        const nombre = (course.nombre || "").toLowerCase();
+
+        const isEricBarone = categoria === "eric barone";
+        const isAnexo = categoria.includes("anexo");
+        const isGratuito = course.tipo === "Gratuito";
+
+        // ¿Es el anexo que requiere compra previa?
+        const requiereCompraAnexo = isAnexo && (nombre.includes("2") || nombre.includes("ii"));
+        const tieneAlgunaCompra = user.courses.some(c => {
+            const cat = (c.course?.categoria || "").toLowerCase();
+            const precio = c.course?.precio || 0;
+            return !cat.includes("anexo") && cat !== "eric barone" && precio > 0;
+        });
+
+        // ¿Tiene permiso para agregarlo gratis?
+        const puedeAgregar =
+            isAdmin ||
+            isGratuito ||
+            isEricBarone ||
+            (isAnexo && (!requiereCompraAnexo || tieneAlgunaCompra));
+
+        if (!puedeAgregar) {
+            return res.status(403).json({ error: "No cumples con los requisitos para desbloquear este contenido" });
+        }
+
+        // 3. Si pasó todas las barreras, lo guardamos en su perfil
+        user.courses.push({ course: courseId });
+        await user.save();
+
+        res.status(200).json({ message: "Curso agregado exitosamente a tu perfil" });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error al agregar el curso", detalle: error.message });
+    }
+};

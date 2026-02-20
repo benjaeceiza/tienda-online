@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { obtenedorTodosLosCursos, obtenerContenidoCurso, obtenerCursosGratuitos, obtenerCursosPorCategoria, obtenerInfoBasicaCurso } from "../controllers/courseController.js";
+import { agregarCursoAlPerfil, obtenedorTodosLosCursos, obtenerContenidoCurso, obtenerCursosGratuitos, obtenerCursosPorCategoria, obtenerInfoBasicaCurso } from "../controllers/courseController.js";
+import { authMiddleware } from "../middleware/auth.js";
 
 
 
@@ -19,3 +20,5 @@ router.get("/categoria/freeCourses", obtenerCursosGratuitos);
 
 // obtiene info básica del curso (nombre, precio, categoria, descripcion)
 router.get("/detalle/:cid", obtenerInfoBasicaCurso);
+
+router.post("/add-free-course",authMiddleware, agregarCursoAlPerfil);

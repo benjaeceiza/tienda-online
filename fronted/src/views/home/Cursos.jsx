@@ -48,7 +48,7 @@ const Cursos = () => {
         {
             id: "barone",
             title: "Eric Barone",
-            subtitle: "Aportes escritos para nutrir la ciencia y la comprensión.",
+            subtitle: "Aportes escritos para nutrir la conciencia y la comprensión.",
             image: "https://res.cloudinary.com/dmnksm3th/image/upload/v1770840318/eric-barone_x7w3ut.webp",
             link: "/cursos/eric barone",
             videoUrl: "https://player.mediadelivery.net/embed/588203/24f9cf75-6423-46cd-8532-1c1fe090599d"

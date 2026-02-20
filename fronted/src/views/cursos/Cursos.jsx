@@ -19,6 +19,9 @@ const Cursos = () => {
   const [videoLoading, setVideoLoading] = useState(true);
   const [generalVideoLoading, setGeneralVideoLoading] = useState(true);
 
+  // 🔥 ESTADO NUEVO: Para mostrar "Agregando..." mientras llama al backend
+  const [agregando, setAgregando] = useState(false);
+
   const { user } = useAuth();
   const { hideLoader } = useLoading();
   const { categoria } = useParams();
@@ -39,6 +42,17 @@ const Cursos = () => {
   };
 
   const videoGeneralActual = videosGenerales[categoria];
+  const isEricBarone = categoria?.toLowerCase() === "eric barone";
+
+  // Función para recargar los cursos del usuario (se usa al agregar uno gratis)
+  const cargarCursosUsuario = () => {
+    if (user) {
+      const token = localStorage.getItem("token");
+      getUserCourses(token)
+        .then((data) => setUsuarioCursos(data.courses || []))
+        .catch((err) => console.error(err));
+    }
+  };
 
   useEffect(() => {
     const fondos = {
@@ -51,7 +65,6 @@ const Cursos = () => {
     };
 
     if (!fondos[categoria]) {
-      console.warn(`Categoría "${categoria}" no existe.`);
       navigate("/");
       return;
     }
@@ -60,12 +73,7 @@ const Cursos = () => {
     setGeneralVideoLoading(true);
     setIsPlayingGeneral(false);
 
-    if (user) {
-      const token = localStorage.getItem("token");
-      getUserCourses(token)
-        .then((data) => setUsuarioCursos(data.courses || []))
-        .catch((err) => console.error(err));
-    }
+    cargarCursosUsuario(); // Cargamos los cursos del usuario al inicio
 
     getPaidCourses(categoria)
       .then((data) => {
@@ -86,11 +94,65 @@ const Cursos = () => {
     }
   }, [cursoSeleccionado]);
 
+  // --- LÓGICA DE PERMISOS, ANEXOS Y BOTONES ---
   const esAdmin = user?.rol === "admin" || user?.rol === "administrador";
-  const esAnexo = cursoSeleccionado?.categoria?.toLowerCase().includes("anexo");
-  const tieneAlgunaCompra = usuarioCursos.length > 0;
+  const tieneAlgunaCompra = usuarioCursos.some((e) => {
+    const categoriaUsuario = (e.course?.categoria || "").toLowerCase();
+    const precioCurso = e.course?.precio || 0;
+
+    return !categoriaUsuario.includes("anexo") &&
+      categoriaUsuario !== "eric barone" &&
+      precioCurso > 0;
+  });
+
+  // ¿Ya lo tiene en su lista de "Mis Cursos"?
   const yaComprado = esAdmin || (cursoSeleccionado && usuarioCursos.some((e) => e.course?._id === cursoSeleccionado._id));
 
+  const esAnexo = cursoSeleccionado?.categoria?.toLowerCase().includes("anexo");
+  const nombreCursoLimpiado = cursoSeleccionado?.nombre?.toLowerCase() || "";
+  const requiereCompraAnexo = esAnexo && (nombreCursoLimpiado.includes("2") || nombreCursoLimpiado.includes("ii"));
+
+  // 🔥 VARIABLE CLAVE: ¿Es un curso que se puede agregar gratis a la cuenta?
+  // Se puede si es Eric Barone, o si es un Anexo (y no está bloqueado)
+  const sePuedeAgregarGratis = isEricBarone || (esAnexo && (!requiereCompraAnexo || tieneAlgunaCompra));
+
+  const videoAMostrar = isEricBarone ? (cursoSeleccionado?.videoIntroduccion || videoGeneralActual) : cursoSeleccionado?.videoIntroduccion;
+
+  // 🔥 FUNCIÓN PARA AGREGAR CURSO GRATIS AL PERFIL
+  const handleAgregarCurso = async () => {
+    if (!user) {
+      setIsVisible(true);
+      return;
+    }
+
+    setAgregando(true);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/courses/add-free-course`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        // Mandamos el ID del curso que está viendo
+        body: JSON.stringify({ courseId: cursoSeleccionado._id })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Se guardó en la BD, recargamos la lista del usuario
+        cargarCursosUsuario();
+      } else {
+        alert(result.error || "Hubo un problema al agregar el curso");
+      }
+
+    } catch (error) {
+      console.error("Error al agregar curso:", error);
+    } finally {
+      setAgregando(false);
+    }
+  };
+  
   const VideoFacade = ({ image, onClick, label = "Ver Video" }) => (
     <div className="course-select-video-facade" onClick={onClick}>
       <img src={"https://res.cloudinary.com/dmnksm3th/image/upload/v1770840321/fondo-miniatura_1_to39yg.webp"} alt="Portada Video" className="course-select-facade-image" />
@@ -112,8 +174,8 @@ const Cursos = () => {
 
       {isVisible && <ModalLogin setIsVisible={setIsVisible} />}
 
-      {/* --- HEADER / VIDEO GENERAL --- */}
-      {videoGeneralActual && (
+      {/* --- HEADER GENERAL --- */}
+      {videoGeneralActual && !isEricBarone && (
         <section className="course-select-hero-section">
           <div className="course-select-glass-card course-select-hero-card">
             <h2 className="course-select-hero-title">Bienvenida a {categoria}</h2>
@@ -121,11 +183,7 @@ const Cursos = () => {
 
             <div className="course-select-video-wrapper">
               {!isPlayingGeneral ? (
-                <VideoFacade
-                  image={fondoCurso}
-                  onClick={() => setIsPlayingGeneral(true)}
-                  label="Ver Bienvenida"
-                />
+                <VideoFacade image={fondoCurso} onClick={() => setIsPlayingGeneral(true)} label="Ver Bienvenida" />
               ) : (
                 <>
                   {generalVideoLoading && (
@@ -150,12 +208,11 @@ const Cursos = () => {
       )}
 
       {/* --- CONTENIDO PRINCIPAL --- */}
-      <div className="course-select-content-grid">
-        
-        {/* COLUMNA IZQUIERDA: DETALLE CURSO */}
-        <section className="course-select-detail-column">
+      <div className="course-select-content-grid" style={isEricBarone ? { display: "flex", justifyContent: "center" } : {}}>
+
+        <section className="course-select-detail-column" style={isEricBarone ? { width: "100%", maxWidth: "800px" } : {}}>
           <div className="course-select-glass-card course-select-detail-card">
-            
+
             <div className="course-select-header-inside">
               <div className="course-select-badge">
                 <span>{cursoSeleccionado?.categoria || "Cargando..."}</span>
@@ -166,13 +223,9 @@ const Cursos = () => {
             </div>
 
             <div className="course-select-video-wrapper">
-              {cursoSeleccionado?.videoIntroduccion && (
+              {videoAMostrar && (
                 !isPlayingCourse ? (
-                  <VideoFacade
-                    image={fondoCurso}
-                    onClick={() => setIsPlayingCourse(true)}
-                    label="Ver Introducción"
-                  />
+                  <VideoFacade image={fondoCurso} onClick={() => setIsPlayingCourse(true)} label="Ver Introducción" />
                 ) : (
                   <>
                     {videoLoading && (
@@ -181,8 +234,8 @@ const Cursos = () => {
                       </div>
                     )}
                     <iframe
-                      key={cursoSeleccionado?.videoIntroduccion}
-                      src={`${cursoSeleccionado?.videoIntroduccion}?autoplay=true`}
+                      key={videoAMostrar}
+                      src={`${videoAMostrar}?autoplay=true`}
                       title="Video del curso"
                       className="course-select-iframe"
                       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;"
@@ -200,21 +253,33 @@ const Cursos = () => {
             </div>
 
             <div className="course-select-actions">
-              {esAnexo ? (
-                tieneAlgunaCompra ? (
-                  <Link to={`/curso/${cursoSeleccionado?._id}`} className="course-select-btn course-select-btn-primary">
-                    Ver Anexos
-                  </Link>
-                ) : (
-                  <div className="course-select-lock-msg">
-                    🔒 Compra un curso para desbloquear anexos
-                  </div>
-                )
-              ) : cursoSeleccionado?.tipo === "Gratuito" || yaComprado ? (
+              {/* LÓGICA DE BOTONES DEFINITIVA */}
+
+              {yaComprado ? (
+                /* 1. YA LO TIENE EN SU CUENTA */
                 <Link to={`/curso/${cursoSeleccionado?._id}`} className="course-select-btn course-select-btn-primary">
                   Ingresar al Curso
                 </Link>
+
+              ) : esAnexo && requiereCompraAnexo && !tieneAlgunaCompra ? (
+                /* 2. ESTÁ BLOQUEADO (Anexo 2 sin compras) */
+                <div className="course-select-lock-msg" style={{ padding: "10px", background: "rgba(255,0,0,0.1)", borderRadius: "8px", color: "#d32f2f", fontWeight: "600", textAlign: "center" }}>
+                  🔒 Compra cualquier curso para desbloquear este anexo
+                </div>
+
+              ) : sePuedeAgregarGratis || cursoSeleccionado?.tipo === "Gratuito" ? (
+                /* 3. ES GRATIS / ANEXO / ERIC BARONE -> SE AGREGA A LA CUENTA */
+                <button
+                  className="course-select-btn course-select-btn-primary" // Podés cambiarle la clase si querés un color distinto
+                  onClick={handleAgregarCurso}
+                  disabled={agregando}
+                  style={{ opacity: agregando ? 0.7 : 1, cursor: agregando ? "wait" : "pointer" }}
+                >
+                  {agregando ? "Agregando..." : "Agregar a mis cursos"}
+                </button>
+
               ) : (
+                /* 4. ES UN CURSO PAGO NORMAL -> VA A MERCADO PAGO */
                 <button
                   className="course-select-btn course-select-btn-buy"
                   onClick={() => {
@@ -229,17 +294,13 @@ const Cursos = () => {
                 </button>
               )}
             </div>
+
           </div>
         </section>
 
-        {/* COLUMNA DERECHA: LISTA DE CURSOS */}
-        {cursos.length > 0 && (
+        {!isEricBarone && cursos.length > 0 && (
           <section className="course-select-list-column">
-             <ButtonsCourses
-              cursos={cursos}
-              setCursoSeleccionado={setCursoSeleccionado}
-              cursoSeleccionado={cursoSeleccionado} // Pasamos el seleccionado para marcarlo activo
-            />
+            <ButtonsCourses cursos={cursos} setCursoSeleccionado={setCursoSeleccionado} cursoSeleccionado={cursoSeleccionado} />
           </section>
         )}
       </div>
@@ -249,31 +310,30 @@ const Cursos = () => {
   );
 };
 
-// COMPONENTE BOTONES (MODIFICADO PARA RECIBIR SELECCIONADO)
+// COMPONENTE BOTONES
 const ButtonsCourses = ({ cursos, setCursoSeleccionado, cursoSeleccionado }) => {
   return (
     <div className="course-select-glass-card course-select-list-card">
       <h2 className="course-select-list-title">Disponibles</h2>
       <div className="course-select-buttons-container">
         {cursos.map((c) => {
-             const isActive = cursoSeleccionado?._id === c._id;
-             return (
-                <div 
-                    key={c._id} 
-                    className={`course-select-item ${isActive ? 'active' : ''}`} 
-                    onClick={() => setCursoSeleccionado(c)}
-                >
-                    <div className="course-select-item-icon">
-                        {/* Icono simple o SVG */}
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                           <circle cx="12" cy="12" r="10"></circle>
-                           <path d="M10 8l6 4-6 4V8z"></path>
-                        </svg>
-                    </div>
-                    <span className="course-select-item-name">{c.nombre}</span>
-                    {isActive && <div className="course-select-active-indicator"></div>}
-                </div>
-             )
+          const isActive = cursoSeleccionado?._id === c._id;
+          return (
+            <div
+              key={c._id}
+              className={`course-select-item ${isActive ? 'active' : ''}`}
+              onClick={() => setCursoSeleccionado(c)}
+            >
+              <div className="course-select-item-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M10 8l6 4-6 4V8z"></path>
+                </svg>
+              </div>
+              <span className="course-select-item-name">{c.nombre}</span>
+              {isActive && <div className="course-select-active-indicator"></div>}
+            </div>
+          )
         })}
       </div>
     </div>

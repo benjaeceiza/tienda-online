@@ -286,6 +286,8 @@
   justify-content: center;
 }
 
+.logoLinkMob {}
+
 .logoText {
   color: white;
   font-family: "1";
@@ -298,6 +300,7 @@
   cursor: pointer;
   /* Efecto de brillo en el logo */
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  width: 50px;
 }
 
 /* --- SECCIÓN ACCIONES (DERECHA) --- */
@@ -1110,6 +1113,71 @@
   transform: translateY(-2px);
 }
 
+.card-skeleton-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #a080d1;
+  /* Mismo color base de tu tarjeta */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animación de titilar */
+@keyframes pulseSkeleton {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+/* Replicamos las cajas de tu diseño en formato fantasma */
+.skeleton-thumb {
+  width: 100%;
+  height: 180px;
+  /* Igual a tu .card-thumb-container */
+  background: rgba(255, 255, 255, 0.3);
+  animation: pulseSkeleton 1.5s infinite ease-in-out;
+}
+
+.skeleton-title {
+  width: 70%;
+  height: 25px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  animation: pulseSkeleton 1.5s infinite ease-in-out;
+}
+
+.skeleton-desc {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  /* Empuja el botón igual que tu .card-desc */
+  animation: pulseSkeleton 1.5s infinite ease-in-out;
+}
+
+.skeleton-btn {
+  width: 100%;
+  height: 44px;
+  /* Altura aproximada de tu botón */
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  animation: pulseSkeleton 1.5s infinite ease-in-out;
+}
+
 /* --- EMPTY STATE (Cuando no hay cursos) --- */
 .empty-state {
   display: flex;
@@ -1272,13 +1340,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
+  /* <--- Esto es vital para que el <img> no se deforme */
   filter: blur(20px) brightness(0.9);
-  /* Efecto difuminado y oscurecido */
   z-index: -1;
   transform: scale(1.1);
-  /* Escalar un poco para evitar bordes blancos por el blur */
+  /* Escalar un poco para evitar bordes blancos por el desenfoque */
 }
 
 /* Header transparente y minimalista */
@@ -1425,21 +1492,32 @@
 
 .detalle-curso-audio-playlist {
   width: 100%;
-  max-width: 650px; /* Un poco más ancho */
+  max-width: 650px;
+  /* Un poco más ancho */
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Espacio entre meditaciones */
-  max-height: 400px; /* Scroll si son muchísimas */
+  gap: 20px;
+  /* Espacio entre meditaciones */
+  max-height: 400px;
+  /* Scroll si son muchísimas */
   overflow-y: auto;
-  padding-right: 10px; /* Espacio para el scroll */
+  padding-right: 10px;
+  /* Espacio para el scroll */
 }
 
 /* Scrollbar personalizada para la lista de audios (opcional pero queda cheto) */
-.detalle-curso-audio-playlist::-webkit-scrollbar { width: 6px; }
-.detalle-curso-audio-playlist::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+.detalle-curso-audio-playlist::-webkit-scrollbar {
+  width: 6px;
+}
+
+.detalle-curso-audio-playlist::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
 
 .detalle-curso-audio-track {
-  background: rgba(255, 255, 255, 0.1); /* Fondo sutil por track */
+  background: rgba(255, 255, 255, 0.1);
+  /* Fondo sutil por track */
   padding: 15px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1598,6 +1676,74 @@
   color: #0369a1;
 }
 
+/* =========================================
+   SISTEMA DE LOADERS (SPINNERS)
+   ========================================= */
+
+/* Contenedor superpuesto para Video y PDF */
+.detalle-curso-media-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  /* Fondo oscuro semitransparente */
+  border-radius: 16px;
+  z-index: 10;
+}
+
+/* Spinner Icon */
+.detalle-curso-spinner-icon {
+  font-size: 3rem;
+  color: var(--accent-color, #e040fb);
+  animation: detalleCursoSpin 1s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(224, 64, 251, 0.5));
+}
+
+/* Animación genérica de giro */
+@keyframes detalleCursoSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Clase de utilidad para hacer girar cualquier icono (ej: el del sidebar) */
+.detalle-curso-spin {
+  animation: detalleCursoSpin 1s linear infinite;
+}
+
+/* Ajustes a los wrappers para que el loader absoluto funcione */
+.detalle-curso-video-wrapper {
+  position: relative;
+  /* ... resto de tu CSS anterior ... */
+}
+
+.detalle-curso-pdf-stage {
+  position: relative;
+  /* ... resto de tu CSS anterior ... */
+}
+
+.detalle-curso-pdf-frame,
+.detalle-curso-video-frame {
+  transition: opacity 0.4s ease;
+  /* Transición suave cuando aparece el iframe */
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Efecto visual sutil en el sidebar cuando está cargando */
+.detalle-curso-item.loading {
+  opacity: 0.8;
+}
 
 
 @media (max-width: 768px) {
