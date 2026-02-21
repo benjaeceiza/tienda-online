@@ -1,64 +1,85 @@
 
-import { Link } from "react-router-dom"; // Asumo que usas react-router
+import { Link } from "react-router-dom";
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaHeart } from "react-icons/fa";
 
-// Importación de imágenes
-import fc from "../assets/iconos/facebook.png";
-import yt from "../assets/iconos/youtube.png";
-import ig from "../assets/iconos/instagram.png";
-// Ojo: en tus imports tenías cruzados telefono y email, revisa los nombres de tus archivos
-// import email from "../assets/iconos/telefono.png"; 
-// import telefono from "../assets/iconos/correo-electronico.png";
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
+
     return (
-        <footer className="footer-container">
-            <div className="footer-wrapper">
+        <footer className="footer-main-wrapper">
+            {/* Efecto de cristal oscuro sobre el footer */}
+            <div className="footer-glass-layer">
+                <div className="footer-container">
 
-                {/* Columna Izquierda: Contacto */}
-                {/* En móvil, queremos que esto vaya SEGUNDO */}
-                <div className="footer-column contact-col">
-                    <h3 className="footer-heading">Hablemos</h3>
-                    <div className="contact-item">
-                        <span className="icon">✉️</span>
-                        <a href="mailto:sanaciones@gmail.com">sanaciones@gmail.com</a>
+                    <div className="footer-grid">
+                        {/* COLUMNA 1: Marca y Descripción */}
+                        <div className="footer-column footer-brand-col">
+                            <h2 className="footer-logo-text">Sanación Cosmotelúrica</h2>
+                            <p className="footer-description">
+                                Acompañándote en tu proceso de evolución y bienestar.
+                                Descubrí herramientas para equilibrar tu energía y transformar tu vida.
+                            </p>
+                        </div>
+
+                        {/* COLUMNA 2: Accesos Rápidos */}
+                        <div className="footer-column">
+                            <h3 className="footer-title">Explorar</h3>
+                            <ul className="footer-links-list">
+                                <li><Link to="/" className="footer-link">Inicio</Link></li>
+                                <li><Link to="/cursos/rituales" className="footer-link">Rituales</Link></li>
+                                <li><Link to="/cursos/artesanias magicas" className="footer-link">Artesanías Mágicas</Link></li>
+                                <li><Link to="/cursos/sistema de sanacion en camilla" className="footer-link">Sist.Sanación en camilla</Link></li>
+                                <li><Link to="/cursos/anexos" className="footer-link">Anexos</Link></li>
+                                <li><Link to="/cursos/eric barone" className="footer-link">Eric Barone</Link></li>
+                                <li><Link to="/alicia-tete" className="footer-link">Alicia Teté</Link></li>
+                                <li><Link to="/contacto" className="footer-link">Contacto</Link></li>
+                            </ul>
+                        </div>
+
+                        {/* COLUMNA 3: Soporte y Legales */}
+                        <div className="footer-column">
+                            <h3 className="footer-title">Ayuda</h3>
+                            <ul className="footer-links-list">
+                                <li><Link to="#" className="footer-link">Preguntas Frecuentes</Link></li>
+                                <li><Link to="#" className="footer-link">Términos y Condiciones</Link></li>
+                                <li><Link to="#" className="footer-link">Política de Privacidad</Link></li>
+                            </ul>
+                        </div>
+
+                        {/* COLUMNA 4: Contacto y Redes */}
+                        <div className="footer-column footer-contact-col">
+                            <h3 className="footer-title">Conectemos</h3>
+                            <div className="footer-contact-item">
+                                <FaEnvelope className="footer-icon" />
+                                <span>contacto@tuweb.com</span>
+                            </div>
+                            <div className="footer-contact-item">
+                                <FaWhatsapp className="footer-icon" />
+                                <span>+54 9 2657 54-7597</span>
+                            </div>
+
+                            <div className="footer-social-wrapper">
+                                <a href="https://www.instagram.com/sanacioncosmotelurica/" target="_blank" rel="noreferrer" className="footer-social-btn">
+                                    <FaInstagram />
+                                </a>
+                                <a href="https://wa.me/+5492657547597" target="_blank" rel="noreferrer" className="footer-social-btn">
+                                    <FaWhatsapp />
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div className="contact-item">
-                        <span className="icon">📱</span>
-                        <span>300 123 4567</span>
+
+                    {/* LÍNEA DIVISORIA Y COPYRIGHT */}
+                    <div className="footer-bottom-bar">
+                        <p className="footer-copyright">
+                            &copy; {currentYear} Sanación Cosmotelúrica. Todos los derechos reservados.
+                        </p>
+                        <p className="footer-made-with">
+                            Desarrollado con <FaHeart className="footer-heart-icon" /> para tu bienestar.
+                        </p>
                     </div>
-                </div>
 
-                {/* Columna Central: La Marca */}
-                {/* En móvil, queremos que esto vaya PRIMERO */}
-                <div className="footer-column brand-col">
-                    <h2 className="brand-title">SANACION<br />COSMOTELURICA</h2>
-                    <span className="brand-line"></span>
-                </div>
-
-                {/* Columna Derecha: Navegación */}
-                {/* En móvil, queremos que esto vaya TERCERO */}
-                <div className="footer-column links-col">
-                    <h3 className="footer-heading">Navegación</h3>
-                    <ul className="footer-links">
-                        <li><Link to="/">Inicio</Link></li>
-                        <li><Link to="/cursos/sistema de sanacion cosmotelurica">Sistema de sanación cosmotelurica</Link></li>
-                        <li><Link to="/cursos/rituales">Rituales</Link></li>
-                        <li><Link to="/cursos/artesanias magicas">Artesanías mágicas</Link></li>
-                        <li><Link to="/cursos/eric barone">Eric Barone</Link></li>
-                    </ul>
-                </div>
-            </div>
-
-            {/* Barra Inferior */}
-            <div className="footer-bottom">
-                <span className="powered-by">Powered by BE</span>
-                <p>© 2026 Sanación Cosmotelúrica. Todos los derechos reservados.</p>
-                <div className="social-links">
-                    <a href="#" className="social-icon"><img src={ig} alt="Instagram" className="social-img" /></a>
-                    <a href="#" className="social-icon"><img src={yt} alt="Youtube" className="social-img" /></a>
-                    <a href="#" className="social-icon"><img src={fc} alt="Facebook" className="social-img" /></a>
-                    {/* Si quieres WhatsApp aquí también */}
-                    {/* <a href="#" className="social-icon"><img src={wts} alt="WhatsApp" className="social-img"/></a> */}
                 </div>
             </div>
         </footer>

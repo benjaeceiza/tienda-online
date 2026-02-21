@@ -4,7 +4,7 @@ import { getUser } from "../../services/getUser";
 import { useAuth } from '../../context/AuthContext';
 import userIcon from "../../assets/iconos/avatar.png";
 import ModalUser from '../modal-user/ModalUser';
-import logo from "../../assets/logos/logo-transparente.png";
+import logo from "../../assets/logos/logo-tete.png";
 
 const NavbarDesktop = () => {
     const { user } = useAuth();

@@ -100,8 +100,7 @@
 .navbar-desktop {
   width: 100%;
   height: 70px;
-  background: #ac93f9;
-  /* Negro semi-transparente */
+  background: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,15 +111,14 @@
 
 /* Logo */
 .navbar-logo-desktop a {
-  color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
 }
 
 .logo-navbar {
-  width: 50px;
-  filter: drop-shadow(0px 0px 5px black);
+  width: 60px;
+  filter: drop-shadow(0px 0px 1px rgb(0, 0, 0));
   border-radius: 50%;
 
 }
@@ -137,40 +135,43 @@
 
 /* General Link Styles */
 .nav-link-desktop {
-  color: rgba(255, 255, 255, 0.7);
+  color: #8120a4;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 14px;
+  font-size: small;
   padding: 10px 20px;
   display: block;
   transition: all 0.3s ease;
   font-family: "1";
-  text-shadow: 0px 0px 5px rgb(75, 75, 75);
   border-radius: 20px;
 
 }
 
 .nav-link-desktop:hover,
 .nav-link-desktop.active {
-  color: #8152c9;
-  background-color: white;
+  color: white;
+  background-color: #8120a4;
   text-shadow: none;
 }
 
 .nav-btn-auth {
-  background-color: #8152c9;
+  border: 2px solid #8120a4;
   border-radius: 20px;
+  color: #8120a4;
+
+  font-size: small;
 }
 
 .nav-btn-auth.active {
-  background-color: #ffffff;
+
   border-radius: 20px;
 }
 
 .nav-btn-auth:hover {
-  background-color: white;
+  transform: translateY(-5px);
   transition: all .3s;
+  background-color: #8120a4;
 }
 
 /* Cursor pointer para el texto "Cursos" que no es un link real */
@@ -557,7 +558,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #8152c9;
+  background: #8120a4;
   padding: 8px 15px;
   border-radius: 30px;
   cursor: pointer;
@@ -1179,31 +1180,85 @@
 }
 
 /* --- EMPTY STATE (Cuando no hay cursos) --- */
-.empty-state {
+/* =========================================
+   ESTADO VACÍO (EMPTY STATE)
+   ========================================= */
+
+.mis-cursos-empty-state {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 40vh;
+  min-height: 60vh; /* Para que quede bien centrado en la pantalla */
+  padding: 40px 20px;
 }
 
-.empty-card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
+.mis-cursos-empty-card {
+  background: rgb(250, 250, 250); /* Cristal oscuro/transparente */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.empty-card h2 {
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: white;
-  margin-bottom: 10px;
 }
 
-.empty-card p {
-  color: #ccc;
-  margin-bottom: 20px;
+.mis-cursos-empty-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.2) 0%, rgba(103, 58, 183, 0.2) 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  border: 1px solid rgba(224, 64, 251, 0.3);
+  box-shadow: 0 0 20px rgba(156, 39, 176, 0.4);
 }
 
+.mis-cursos-empty-icon {
+  font-size: 2.5rem;
+  color: #e040fb; /* Fucsia / Violeta de acento */
+}
+
+.mis-cursos-empty-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: #2c1a4d;
+  letter-spacing: 0.5px;
+}
+
+.mis-cursos-empty-text {
+  font-size: 1.05rem;
+  color: #949494; /* Gris claro suave */
+  line-height: 1.6;
+  margin: 0 0 35px 0;
+}
+
+.mis-cursos-btn-explorar {
+  background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+  color: white;
+  padding: 14px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3);
+  display: inline-block;
+}
+
+.mis-cursos-btn-explorar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(156, 39, 176, 0.5);
+  color: white; /* Asegura que el texto no cambie de color al hacer hover */
+}
 /* --- ANIMACIONES --- */
 @keyframes fadeInDown {
   from {
@@ -5258,221 +5313,217 @@
 
 /* FOOTER */
 
-/* --- Estilos Generales --- */
-.footer-container {
-  background-color: #ac93f9;
+/* =========================================
+   ESTILOS DEL FOOTER PROFESIONAL
+   ========================================= */
 
-  /* Violeta oscuro místico */
-  color: #ffffff;
-  padding: 60px 20px 20px;
-  font-family: 'Poppins', sans-serif;
-  /* Asegúrate de importar la fuente si la usas */
+.footer-main-wrapper {
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  margin-top: auto;
+  /* Empuja el footer al fondo de la página */
+  background-color: #ffffff;
+  /* Fondo oscuro profundo */
+  color: #e2e8f0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.footer-wrapper {
+.footer-glass-layer {
+  width: 100%;
+  /* Efecto de cristal muy sutil */
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 60px 0 20px 0;
+}
+
+.footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 20px;
 }
 
-/* --- Columnas --- */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+/* Responsivo para tablets y celulares */
+@media (max-width: 968px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* --- COLUMNAS Y TEXTOS --- */
 .footer-column {
-  flex: 1;
-  min-width: 250px;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.brand-col {
-  text-align: center;
-}
-
-.contact-col {
-  text-align: left;
-}
-
-.links-col {
-  text-align: right;
-}
-
-/* --- Título y Marca --- */
-.brand-title {
-  font-size: 1.8rem;
+.footer-logo-text {
+  font-size: 1.6rem;
   font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  font-family: "1";
-  filter: drop-shadow(0px 0px 4px #303030);
-  text-shadow: none;
-
+  margin: 0 0 15px 0;
+  background: linear-gradient(45deg, #e040fb, #7b1fa2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
 
-.brand-line {
-  display: block;
-  width: 60px;
-  height: 3px;
-  background-color: #d946ef;
-  /* Detalle fucsia */
-  margin: 0 auto;
-  border-radius: 2px;
+.footer-description {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 300px;
 }
 
-.footer-heading {
-  font-size: 1rem;
-  color: #b14064;
-  /* Lila claro */
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-  font-family: "1";
+.footer-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #8120a4;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.5px;
 }
 
-/* --- Enlaces y Contacto --- */
-.contact-item {
+/* --- ENLACES --- */
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  color: #8120a4;
+  /* Fucsia brillante al pasar el mouse */
+  transform: translateX(5px);
+  /* Pequeño movimiento hacia la derecha */
+}
+
+/* --- CONTACTO Y REDES --- */
+.footer-contact-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 15px;
-  color: white;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.footer-icon {
+  color: #7b1fa2;
+  font-size: 1.1rem;
 
 }
 
-.footer-links {
-  list-style: none;
-  padding: 0;
+.footer-social-wrapper {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
 }
 
-.footer-links li {
-  margin-bottom: 10px;
-}
-
-
-
-.footer-links a,
-.contact-item a {
-  color: white;
+.footer-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #8120a4;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 1.2rem;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-family: "1";
-  font-weight: 600;
-
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-links a:hover,
-.contact-item a:hover {
-  color: #b14064;
-  /* Hover fucsia */
-  padding-left: 5px;
-  /* Pequeño movimiento al pasar el mouse */
+.footer-social-btn:hover {
+  background: linear-gradient(45deg, #7b1fa2, #e040fb);
+  transform: translateY(-3px);
+  border-color: transparent;
+  box-shadow: 0 5px 15px rgba(224, 64, 251, 0.4);
 }
 
-/* --- Parte Inferior (Redes y Copyright) --- */
-.footer-bottom {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-top: 25px;
+/* --- BARRA INFERIOR (COPYRIGHT) --- */
+.footer-bottom-bar {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-}
-
-.footer-bottom p {
-  font-family: "1";
-  font-size: small;
-  font-weight: 600;
-  color: white;
-  filter: drop-shadow(0px 0px 2px #303030);
-}
-
-.social-links {
-  display: flex;
-  gap: 20px;
-}
-
-/* Controlar tamaño de iconos PNG */
-.social-img {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.3s ease;
-  filter: brightness(0) invert(1);
-  /* Vuelve los iconos BLANCOS. Quítalo si quieres su color original */
-
-
-}
-
-.social-icon:hover .social-img {
-  transform: scale(1.2);
-  filter: drop-shadow(0px 0px 10px #fa004f);
-  /* Efecto zoom al pasar mouse */
-}
-
-.copyright-info {
-  text-align: center;
+  align-items: center;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.85rem;
-  color: #94a3b8;
-  font-family: "1";
+  color: #64748b;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.powered-by {
-  display: block;
-  margin-top: 5px;
-  color: #b14064;
-  font-weight: bold;
-  font-size: 0.8rem;
-  font-family: "1";
-
+.footer-copyright {
+  margin: 0;
 }
 
-/* =========================================
-   RESPONSIVE (CELULAR)
-   ========================================= */
+.footer-made-with {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-heart-icon {
+  color: #e040fb;
+  animation: footerHeartbeat 2s infinite;
+}
+
+/* Animación de latido para el corazón */
+@keyframes footerHeartbeat {
+  0% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1.2);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.2);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 768px) {
-  .footer-wrapper {
+  .footer-bottom-bar {
     flex-direction: column;
-    /* Apila todo en columna */
-    align-items: center;
-    /* Centra todo */
-    gap: 40px;
-  }
-
-  /* EL TRUCO DEL ORDEN: */
-  .brand-col {
-    order: -1;
-    /* Manda la marca ARRIBA de todo */
-    width: 100%;
-  }
-
-  .contact-col {
     text-align: center;
-    /* Centra el texto de contacto */
-    width: 100%;
-  }
-
-  .links-col {
-    text-align: center;
-    /* Centra los links */
-    width: 100%;
-
-    /* OPCIONAL: Descomenta esto si quieres ocultar links en celular para ahorrar espacio */
-  }
-
-  .contact-item {
-    justify-content: center;
-    /* Centra los items de contacto */
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    align-items: center;
   }
 }
 

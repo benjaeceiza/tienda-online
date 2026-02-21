@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Importante para que el botón funcione
+import { FaCompass } from "react-icons/fa"; // Ícono para la pantalla vacía
 import { useAuth } from "../../context/AuthContext";
 import { getUserCourses } from "../../services/getUserCourses";
 import CardCourse from "./CardCourse";
 import { useLoading } from "../../context/LoadingContext";
-import FondoMisCursos from "./FondoMisCursos"; // Importamos el fondo nuevo
+import FondoMisCursos from "./FondoMisCursos";
 
 const MisCursos = () => {
     const { user } = useAuth();
@@ -25,7 +27,7 @@ const MisCursos = () => {
             })
             .catch(err => console.error(err))
             .finally(() => {
-                setDataReady(true); // Datos listos (hayan o no cursos)
+                setDataReady(true);
             });
 
     }, [user]);
@@ -57,11 +59,19 @@ const MisCursos = () => {
                         </section>
                     </>
                 ) : (
-                    <div className="empty-state">
-                        <div className="empty-card">
-                            <h2>Aún no tienes cursos activos</h2>
-                            <p>Explorá nuestra tienda para comenzar tu camino.</p>
-                            <button className="btn-explorar">Ir a la Tienda</button>
+                    /* 🔥 NUEVO ESTADO VACÍO (EMPTY STATE) 🔥 */
+                    <div className="mis-cursos-empty-state">
+                        <div className="mis-cursos-empty-card">
+                            <div className="mis-cursos-empty-icon-wrapper">
+                                <FaCompass className="mis-cursos-empty-icon" />
+                            </div>
+                            <h2 className="mis-cursos-empty-title">Tu viaje comienza aquí</h2>
+                            <p className="mis-cursos-empty-text">
+                                Aún no tienes cursos en tu biblioteca. Explorá nuestra tienda, descubrí nuevas herramientas de sanación y comenzá a transformar tu energía.
+                            </p>
+                            <Link to="/" className="mis-cursos-btn-explorar">
+                                Volver al inicio
+                            </Link>
                         </div>
                     </div>
                 )}
