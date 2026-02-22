@@ -178,3 +178,46 @@ export const asignarCursoManual = async (req, res) => {
         res.status(500).json({ error: "Error en el servidor al asignar curso." });
     }
 };
+
+
+
+export const editarUsuarioPorAdmin = async (req, res) => {
+    try {
+        const { targetUserId, nombre, email, rol } = req.body;
+
+        // 1. Verificamos quién hace la petición
+        const authHeader = req.headers.authorization;
+        if (!authHeader) return res.status(401).json({ error: "Token no proporcionado" });
+
+        const token = authHeader.split(" ")[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        // 2. Verificamos que sea Administrador
+        const adminUser = await usuarioModelo.findById(decoded.id);
+        const esAdmin = adminUser && (adminUser.rol === "admin" || adminUser.rol === "administrador");
+        if (!esAdmin) {
+            return res.status(403).json({ error: "Acceso denegado. Solo administradores." });
+        }
+
+        // 3. Buscamos y actualizamos al usuario destino
+        // Validamos que el targetUserId exista
+        const usuarioEditado = await usuarioModelo.findByIdAndUpdate(
+            targetUserId,
+            { nombre, email, rol },
+            { new: true } // Para que nos devuelva el usuario ya actualizado
+        ).select("-password"); // No mandamos la contraseña al front
+
+        if (!usuarioEditado) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        res.status(200).json({ 
+            message: "Usuario actualizado correctamente.",
+            user: usuarioEditado
+        });
+
+    } catch (error) {
+        console.error("Error al editar usuario (Admin):", error);
+        res.status(500).json({ error: "Error en el servidor al editar usuario." });
+    }
+};

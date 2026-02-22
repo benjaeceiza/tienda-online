@@ -8,6 +8,7 @@ import { useLoading } from "../../context/LoadingContext";
 import { useAuth } from "../../context/AuthContext";
 import ModalAdminReceipts from "../../components/modal-admin-recibos/ModalAdminReceipts";
 import ModalAssignCourse from "../../components/modal-asignar-curso/ModalAssignCourse";
+import ModalAdminEditUser from "../../components/modal-admin-editar-usuario/ModalAdminEditUser";
 
 const AdminDashboard = () => {
     const { user } = useAuth();
@@ -19,6 +20,7 @@ const AdminDashboard = () => {
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
     const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
     const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [error, setError] = useState("");
 
     // 1. Verificación rápida de seguridad en el Frontend
@@ -163,7 +165,10 @@ const AdminDashboard = () => {
                                                     <button
                                                         className="admin-btn-icon btn-edit"
                                                         title="Editar Perfil / Cambiar Rol"
-                                                        onClick={() => alert(`Editando a ${u.nombre}`)}
+                                                        onClick={() => {
+                                                            setUsuarioSeleccionado(u);
+                                                            setIsEditModalOpen(true);
+                                                        }}
                                                     >
                                                         <FaUserEdit />
                                                     </button>
@@ -216,6 +221,13 @@ const AdminDashboard = () => {
                 isOpen={isReceiptModalOpen}
                 onClose={() => setIsReceiptModalOpen(false)}
                 usuarioSeleccionado={usuarioSeleccionado}
+            />
+
+            <ModalAdminEditUser
+                isOpen={isEditModalOpen}
+                onClose={() => setIsEditModalOpen(false)}
+                usuarioSeleccionado={usuarioSeleccionado}
+                onUserUpdated={() => window.location.reload()}
             />
         </main>
     );

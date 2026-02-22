@@ -3,7 +3,7 @@ import { usuarioModelo } from "../models/user.model.js";
 import { authMiddleware } from "../middleware/auth.js";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
-import { asignarCursoManual, updatePassword, updateUser } from "../controllers/userController.js";
+import { asignarCursoManual, editarUsuarioPorAdmin, updatePassword, updateUser } from "../controllers/userController.js";
 import { obtenerTodosLosUsuarios } from "../controllers/adminController.js";
 dotenv.config();
 
@@ -193,6 +193,8 @@ router.post("/recovery/reset", async (req, res) => {
 router.put("/update", authMiddleware,updateUser );
 router.put("/update-password", authMiddleware,updatePassword );
 
-router.get("/admin/users",authMiddleware, obtenerTodosLosUsuarios);
+// RUTAS ADMIN
 
+router.get("/admin/users",authMiddleware, obtenerTodosLosUsuarios);
 router.post("/admin/assign-course", authMiddleware, asignarCursoManual);
+router.put("/admin/edit-user", authMiddleware, editarUsuarioPorAdmin);
