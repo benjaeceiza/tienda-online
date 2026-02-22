@@ -1,0 +1,262 @@
+/* =========================================
+   PANEL DE ADMINISTRACIÓN (GLASSMORPHISM)
+   ========================================= */
+
+.admin-dashboard-layout {
+  min-height: 100vh;
+  padding: 120px 20px 60px 20px; /* Espacio para el navbar fijo arriba */
+  background: linear-gradient(135deg, #0f0518 0%, #1a0b2e 100%);
+  color: #e2e8f0;
+}
+
+.admin-dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- HEADER Y BUSCADOR --- */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.admin-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+}
+
+.admin-icon-title {
+  color: #e040fb; /* Fucsia */
+}
+
+.admin-subtitle {
+  color: #94a3b8;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.admin-search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+}
+
+.admin-search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.admin-search-input {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 0.95rem;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.admin-search-input:focus {
+  outline: none;
+  border-color: #e040fb;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(224, 64, 251, 0.2);
+}
+
+/* --- TARJETA DE CRISTAL PARA LA TABLA --- */
+.admin-glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.admin-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 18px 20px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* --- ELEMENTOS DE LA TABLA --- */
+.admin-td-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-avatar-mini {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #9c27b0, #673ab7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.admin-user-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.admin-td-email {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.admin-badge-rol {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badge-admin {
+  background: rgba(224, 64, 251, 0.2);
+  color: #e040fb;
+  border: 1px solid rgba(224, 64, 251, 0.4);
+}
+
+.badge-user {
+  background: rgba(148, 163, 184, 0.1);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.admin-courses-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.admin-icon-course {
+  color: #4caf50; /* Verde sutil para indicar activo */
+}
+
+/* Botón de acción (El "Ojo") */
+.admin-btn-action {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.admin-btn-action:hover {
+  background: rgba(224, 64, 251, 0.2);
+  border-color: #e040fb;
+  color: #e040fb;
+}
+
+.admin-table-empty {
+  text-align: center;
+  padding: 40px !important;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.admin-alert-error {
+  background: #fee2e2;
+  color: #ef4444;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* --- GRUPO DE BOTONES DE ACCIÓN --- */
+.admin-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-btn-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-btn-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Colores específicos para cada acción al hacer hover */
+.btn-info:hover { background: rgba(56, 189, 248, 0.2); border-color: #38bdf8; color: #38bdf8; }
+.btn-gift:hover { background: rgba(224, 64, 251, 0.2); border-color: #e040fb; color: #e040fb; }
+.btn-edit:hover { background: rgba(74, 222, 128, 0.2); border-color: #4ade80; color: #4ade80; }
+.btn-suspend:hover { background: rgba(250, 204, 21, 0.2); border-color: #facc15; color: #facc15; }
+.btn-delete:hover { background: rgba(248, 113, 113, 0.2); border-color: #f87171; color: #f87171; }
+
+.admin-actions-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 4px;
+}

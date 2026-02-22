@@ -1,9 +1,8 @@
-
-
 const urlBackend = import.meta.env.VITE_API_URL_BACKEND;
 
-export const addCourseToUser = async (idCourse) => {
-    const token = localStorage.getItem("token")
+// 🔥 Le agregamos metodoPago e idTransaccion como parámetros
+export const addCourseToUser = async (idCourse, metodoPago = "Manual", idTransaccion = "N/A") => {
+    const token = localStorage.getItem("token");
 
     if (!token) {
         throw new Error("Inicia sesión o regístrate.");
@@ -17,24 +16,22 @@ export const addCourseToUser = async (idCourse) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
+            // 🔥 Mandamos los datos al backend
+            body: JSON.stringify({
+                metodoPago: metodoPago,
+                idTransaccion: idTransaccion
+            })
         });
 
         if (!res.ok) {
-            // Intentamos sacar el mensaje exacto que mandó el Backend (si existe)
             const errorData = await res.json().catch(() => null);
             const mensajeError = errorData?.message || "No se pudo completar la compra.";
-
-            // ¡Lanzamos el error para que caiga en el catch del componente!
             throw new Error(mensajeError);
         }
 
-        // 3. Éxito: Devolvemos la respuesta parseada o simplemente true
         return await res.json();
 
     } catch (error) {
-        // Si es un error que lanzamos nosotros arriba (throw), lo dejamos pasar.
-        // Si es un error de red (fetch falló), lo capturamos aquí.
         throw error;
     }
-
 }

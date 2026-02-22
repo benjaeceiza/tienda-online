@@ -1,0 +1,156 @@
+/* =========================================
+   MODAL DE ASIGNAR CURSO (modal-assign)
+   ========================================= */
+
+.modal-assign-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-assign-container {
+  background: rgba(255, 255, 255, 0.95);
+  width: 90%;
+  max-width: 450px;
+  border-radius: 24px;
+  padding: 40px 30px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-assign-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-assign-close-btn:hover {
+  color: #ef4444;
+}
+
+.modal-assign-fade-in {
+  animation: modalAssignFadeIn 0.4s ease forwards;
+}
+
+@keyframes modalAssignFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-assign-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.modal-assign-icon {
+  font-size: 2.5rem;
+  color: #e040fb; /* Fucsia */
+  margin-bottom: 10px;
+}
+
+.modal-assign-title {
+  font-size: 1.4rem;
+  color: #1e293b;
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.modal-assign-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.modal-assign-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-assign-inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-assign-inputGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-assign-select {
+  padding: 12px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #1e293b;
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.modal-assign-select:focus {
+  outline: none;
+  border-color: #e040fb;
+  box-shadow: 0 0 0 3px rgba(224, 64, 251, 0.1);
+}
+
+.modal-assign-btn-save {
+  margin-top: 10px;
+  padding: 14px;
+  background: linear-gradient(135deg, #e040fb 0%, #7b1fa2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(224, 64, 251, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-assign-btn-save:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(224, 64, 251, 0.4);
+}
+
+.modal-assign-btn-save:disabled {
+  background: #cbd5e1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Alertas */
+.modal-assign-alert {
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.modal-assign-alert-error { background-color: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; }
+.modal-assign-alert-success { background-color: #dcfce3; color: #22c55e; border: 1px solid #86efac; }

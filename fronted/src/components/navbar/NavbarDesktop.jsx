@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'react'; // 1. Importar useRef
-import { NavLink, useLocation } from 'react-router-dom'; // 2. Importar useLocation
+import { useEffect, useState, useRef } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { getUser } from "../../services/getUser";
 import { useAuth } from '../../context/AuthContext';
 import userIcon from "../../assets/iconos/avatar.png";
@@ -13,10 +13,7 @@ const NavbarDesktop = () => {
     const [showModal, setShowModal] = useState(false);
     const { logout } = useAuth();
 
-    // Referencia para el elemento del menú desplegable
     const dropdownRef = useRef(null);
-    
-    // Hook para saber en qué ruta estamos
     const location = useLocation();
 
     const cursosOptions = [
@@ -36,26 +33,18 @@ const NavbarDesktop = () => {
         }
     }, [user]);
 
-    // LÓGICA PARA CERRAR EL MENÚ ---
-
-    // 1. Cerrar cuando cambia la ruta (al hacer click en un link)
     useEffect(() => {
         setDropdownOpen(false);
     }, [location]);
 
-    // 2. Cerrar cuando se hace click afuera
     useEffect(() => {
         const handleClickOutside = (event) => {
-            // Si el menú está abierto y el click NO fue dentro del elemento referenciado
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setDropdownOpen(false);
             }
         };
 
-        // Agregamos el event listener al documento
         document.addEventListener("mousedown", handleClickOutside);
-        
-        // Limpiamos el listener cuando el componente se desmonta
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
@@ -64,6 +53,9 @@ const NavbarDesktop = () => {
     const onHandleDropDown = () => {
         setDropdownOpen(!dropdownOpen);
     }
+
+    // 🔥 VALIDACIÓN DE ROL: Chequeamos tanto en el user del context como en el userLog
+    const isAdmin = user?.rol === "admin" || user?.rol === "administrador" || userLog?.rol === "admin" || userLog?.rol === "administrador";
 
     return (
         <>
@@ -74,16 +66,12 @@ const NavbarDesktop = () => {
                 onLogout={logout}
             />
             <nav className="navbar-desktop">
-                {/* Lado Izquierdo: Logo */}
                 <div className="navbar-logo-desktop">
                     <NavLink to={"/"}><img className='logo-navbar' src={logo} alt='logo' /></NavLink>
                 </div>
 
-                {/* Lado Derecho: Menú */}
                 <ul className="navbar-links-desktop">
 
-                    {/* Dropdown de Cursos */}
-                    {/* AGREGAMOS LA REF AQUÍ (ref={dropdownRef}) */}
                     <li
                         ref={dropdownRef} 
                         className="nav-item-desktop dropdown-desktop"
@@ -114,6 +102,19 @@ const NavbarDesktop = () => {
                     {
                         user ?
                             <>
+                                {/* 🔥 BOTÓN DE ADMIN: Solo se muestra si isAdmin es true */}
+                                {isAdmin && (
+                                    <li className='nav-item'>
+                                        <NavLink 
+                                            to={"/admin"} 
+                                            className="nav-link-desktop" 
+                                            style={{ color: "#e040fb", fontWeight: "bold" }} // Destacado en fucsia
+                                        >
+                                            Dashboard
+                                        </NavLink>
+                                    </li>
+                                )}
+
                                 <li className='nav-item'>
                                     <NavLink to={"/mis-cursos"} className="nav-link-desktop">Mis Cursos</NavLink>
                                 </li>

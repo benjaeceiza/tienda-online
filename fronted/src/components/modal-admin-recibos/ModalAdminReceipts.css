@@ -1,0 +1,180 @@
+/* =========================================
+   MODAL DE RECIBOS (modal-receips)
+   ========================================= */
+
+.modal-receips-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* El contenedor es un poco más ancho que el de usuario para que entre bien la tabla */
+.modal-receips-container {
+  background: rgba(30, 41, 59, 0.95); /* Tono oscuro profundo */
+  width: 90%;
+  max-width: 650px; 
+  border-radius: 24px;
+  padding: 40px 30px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  color: #e2e8f0;
+}
+
+.modal-receips-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.modal-receips-close-btn:hover {
+  color: #ef4444;
+  transform: scale(1.1);
+}
+
+.modal-receips-fade-in {
+  animation: modalReceipsFadeIn 0.4s ease forwards;
+}
+
+@keyframes modalReceipsFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- HEADER DEL MODAL --- */
+.modal-receips-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.modal-receips-icon {
+  font-size: 2.5rem;
+  color: #38bdf8; /* Celeste para recibos */
+  margin-bottom: 10px;
+}
+
+.modal-receips-title {
+  font-size: 1.4rem;
+  color: #ffffff;
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.modal-receips-subtitle {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.modal-receips-subtitle strong {
+  color: #e2e8f0;
+}
+
+/* --- TABLA DE RECIBOS (modal-receips) --- */
+.modal-receips-list {
+  margin-top: 20px;
+  max-height: 400px; /* Si tiene muchos cursos, aparece un scroll interno */
+  overflow-y: auto;
+  padding-right: 5px; /* Espacio para la barra de scroll */
+}
+
+/* Estilización del scrollbar para que quede lindo */
+.modal-receips-list::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-receips-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.modal-receips-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.modal-receips-table th {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px 15px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky; /* Deja los títulos fijos al scrollear */
+  top: 0;
+}
+
+.modal-receips-table td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.modal-receips-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.modal-receips-td-course {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.modal-receips-td-date {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.modal-receips-flex-center {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal-receips-method-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.modal-receips-method-name {
+  font-size: 0.85rem;
+  color: #e040fb; /* Fucsia / Violeta */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal-receips-method-ref {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.modal-receips-empty {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  font-style: italic;
+}

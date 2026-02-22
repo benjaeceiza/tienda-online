@@ -139,7 +139,6 @@ router.post('/pp/create-order', async (req, res) => {
     }
 });
 
-// 2. RUTA: CAPTURAR (FINALIZAR) PAGO
 router.post('/pp/capture-order', async (req, res) => {
     const { orderID, userID, courseID } = req.body;
 
@@ -152,10 +151,20 @@ router.post('/pp/capture-order', async (req, res) => {
         // Verificamos si PayPal dice que se completó
         if (capture.result.status === 'COMPLETED') {
 
+            // 🔥 LA MAGIA ACÁ: Armamos el recibo completo para el admin
+            const cursoComprado = {
+                course: courseID,
+                fechaCompra: new Date(), // El servidor pone la fecha y hora exacta
+                metodoPago: "PayPal",    // Queda asentado que pagó en dólares/PayPal
+                idTransaccion: orderID   // Guardamos el ID de la transacción
+            };
+
+            // Lo inyectamos en la base de datos
             const userActualizado = await usuarioModelo.findByIdAndUpdate(
                 userID,
-                { $push: { courses: { course: courseID } } },
-                { new: true });
+                { $push: { courses: cursoComprado } }, // Pasamos el objeto armado
+                { new: true }
+            );
 
             const payload = {
                 id: userActualizado._id,
@@ -166,10 +175,9 @@ router.post('/pp/capture-order', async (req, res) => {
 
             const tokenNuevo = jwt.sign(
                 payload,
-                process.env.JWT_SECRET, // Usa tu variable de entorno
+                process.env.JWT_SECRET, 
                 { expiresIn: '24h' }
             );
-
 
             console.log(`Pago exitoso para el curso ${courseID}`);
 
@@ -188,7 +196,6 @@ router.post('/pp/capture-order', async (req, res) => {
         res.status(500).json({ message: 'Error al capturar el pago' });
     }
 });
-
 
 router.get('/pp/verify/:orderID', async (req, res) => {
     const { orderID } = req.params;

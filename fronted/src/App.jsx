@@ -20,6 +20,7 @@ import Checkout from "./views/checkout/Checkout";
 import NavbarDesktop from "./components/navbar/NavbarDesktop";
 import AliciaTete from "./views/alicia-tete/AliciaTete";
 import Rejected from "./views/pay/Rejected";
+import AdminDashboard from "./views/admin-dashboard/AdminDashboard";
 
 export default function App() {
   const { isVisible, isExiting } = useLoading();
@@ -37,6 +38,7 @@ export default function App() {
           <Navbar/>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/cursos/:categoria" element={<Cursos />} />

@@ -15,7 +15,6 @@ export const getPaymentById = async (id) => {
 export const desbloquearCurso = async ({ paymentId, userId, cursoId }) => {
   try {
     // A. IDEMPOTENCIA: Chequeamos si este pago ya lo guardamos antes.
-    // Mercado Pago a veces manda el mismo webhook 2 o 3 veces.
     const pagoExistente = await paymentModel.findOne({ paymentId });
 
     if (pagoExistente) {
@@ -23,7 +22,7 @@ export const desbloquearCurso = async ({ paymentId, userId, cursoId }) => {
       return;
     }
 
-    // B. GUARDAR EL PAGO: Usamos el modelo que corregimos antes
+    // B. GUARDAR EL PAGO: Historial de transacciones de MP
     const nuevoPago = await paymentModel.create({
       paymentId,
       status: "approved",
@@ -32,20 +31,32 @@ export const desbloquearCurso = async ({ paymentId, userId, cursoId }) => {
     });
     console.log("💾 Pago guardado en DB:", nuevoPago._id);
 
-    // C. ACTUALIZAR AL USUARIO: Le agregamos el curso a su lista
-    // Asumo que tu modelo de User tiene un array "courses" o "cursosComprados"
-    // Usamos $addToSet para que no se duplique si ya lo tenía.
-    await usuarioModelo.findByIdAndUpdate(userId, {
-      $addToSet: {
-        courses: { course: cursoId }
-      }
+    // C. ACTUALIZAR AL USUARIO: Le agregamos el curso y el RECIBO COMPLETO
+    // Usamos findOneAndUpdate buscando al usuario, PERO con la condición $ne (Not Equal).
+    // Esto significa: "Encontrá a este usuario SOLO SI dentro de sus cursos NO está este cursoId".
+    const resultado = await usuarioModelo.findOneAndUpdate(
+      { 
+        _id: userId, 
+        "courses.course": { $ne: cursoId } // Evita duplicados a nivel lógico
+      },
+      {
+        $push: {
+          courses: { 
+            course: cursoId,
+            fechaCompra: new Date(),
+            metodoPago: "Mercado Pago",
+            idTransaccion: paymentId.toString()
+          }
+        }
+      },
+      { new: true } // Para que devuelva el documento actualizado
+    );
 
-      
-    });
-
-
-
-    console.log("🔓 Curso desbloqueado exitosamente para el usuario.");
+    if (resultado) {
+      console.log(`🔓 Curso ${cursoId} desbloqueado exitosamente para el usuario con su recibo.`);
+    } else {
+      console.log("ℹ️ El usuario ya tenía este curso. Se registró el pago pero no se duplicó el acceso.");
+    }
 
   } catch (error) {
     console.error("❌ Error en desbloquearCurso service:", error);
