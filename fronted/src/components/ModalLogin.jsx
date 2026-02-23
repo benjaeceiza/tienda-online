@@ -1,44 +1,43 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext"; // Asumo que este path es correcto desde components/
+import { useAuth } from "../context/AuthContext";
 import { userLogin } from "../services/login";
 import { Link } from "react-router-dom";
+// 🔥 Importamos el traductor
+import { useTranslation } from 'react-i18next';
 
 const ModalLogin = ({ setIsVisible }) => {
-
+    const { t } = useTranslation("global"); // 🔥 Hook de traducción
     const [mensaje, setMensaje] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false); // 🔥 ESTADO DE CARGA
-    const { login } = useAuth(); // Usamos login() del contexto si está disponible, sino setUser como tenías
+    const [loading, setLoading] = useState(false);
+    const { login } = useAuth();
 
     const submitUser = async (e) => {
         e.preventDefault();
         setMensaje("");
-        setLoading(true); // 🔥 ACTIVAMOS SPINNER
+        setLoading(true);
 
         try {
             const res = await userLogin(email, password);
 
             if (res?.token) {
-                // Si tu contexto tiene la función login, úsala. Si no, usa setUser como antes.
-                // login(res.token); 
-                
-                // Mantenemos tu lógica original de recarga:
-                localStorage.setItem("token", res.token); // Guardamos token manualmente si no usas login()
+                localStorage.setItem("token", res.token);
                 setIsVisible(false);
-                window.location.reload(); // 🔄 RECARGA LA PÁGINA
+                window.location.reload(); 
             } else {
-                setMensaje(res || "Credenciales incorrectas");
-                setLoading(false); // 🔥 APAGAMOS SI FALLA
+                // 🔥 Traducción dinámica del error
+                const errorKey = res === "Credenciales incorrectas" ? "login.error_credenciales" : "login.error_general";
+                setMensaje(t(errorKey));
+                setLoading(false);
             }
         } catch (err) {
             console.error(err);
-            setMensaje("Error al iniciar sesión");
-            setLoading(false); // 🔥 APAGAMOS SI HAY ERROR
+            setMensaje(t("login.error_conexion"));
+            setLoading(false);
         }
     }
 
-    // Cerramos el modal si hacen click fuera de la tarjeta (en el fondo oscuro)
     const handleBackgroundClick = (e) => {
         if (e.target.className === "modal-login-overlay") {
             setIsVisible(false);
@@ -50,7 +49,6 @@ const ModalLogin = ({ setIsVisible }) => {
             
             <div className="modal-login-card">
                 
-                {/* Botón Cerrar (X) */}
                 <button className="modal-login-close-btn" onClick={() => setIsVisible(false)}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -59,19 +57,19 @@ const ModalLogin = ({ setIsVisible }) => {
                 </button>
 
                 <div className="modal-login-header">
-                    <h2 className="modal-login-title">Bienvenido</h2>
-                    <p className="modal-login-subtitle">Inicia sesión para continuar</p>
+                    <h2 className="modal-login-title">{t("login.titulo")}</h2>
+                    <p className="modal-login-subtitle">{t("login.subtitulo")}</p>
                     <div className="modal-login-divider"></div>
                 </div>
 
                 <form className="modal-login-form" onSubmit={submitUser}>
                     
                     <div className="modal-login-input-group">
-                        <label className="modal-login-label">Correo Electrónico</label>
+                        <label className="modal-login-label">{t("login.label_email")}</label>
                         <input 
                             className="modal-login-input" 
                             type="email" 
-                            placeholder="ejemplo@email.com" 
+                            placeholder={t("login.placeholder_email")} 
                             required 
                             autoComplete="email" 
                             onChange={(e) => setEmail(e.target.value)} 
@@ -79,7 +77,7 @@ const ModalLogin = ({ setIsVisible }) => {
                     </div>
 
                     <div className="modal-login-input-group">
-                        <label className="modal-login-label">Contraseña</label>
+                        <label className="modal-login-label">{t("login.label_password")}</label>
                         <input 
                             className="modal-login-input" 
                             type="password" 
@@ -96,26 +94,25 @@ const ModalLogin = ({ setIsVisible }) => {
                         </div>
                     )}
 
-                    {/* BOTÓN CON SPINNER */}
                     <button 
                         className="modal-login-btn-submit" 
                         type="submit" 
                         disabled={loading}
                     >
-                        {loading ? <div className="modal-login-spinner"></div> : "Iniciar Sesión"}
+                        {loading ? <div className="modal-login-spinner"></div> : t("login.btn_ingresar")}
                     </button>
 
                 </form>
 
                 <div className="modal-login-footer">
                     <Link to="/login" className="modal-login-link-btn">
-                        ¿Olvidaste tu contraseña?
+                        {t("login.olvido_pass")}
                     </Link>
 
                     <div className="modal-login-register-area">
-                        <span>¿No tienes cuenta?</span>
+                        <span>{t("login.no_cuenta")}</span>
                         <Link className="modal-login-link-highlight" to="/register">
-                            Regístrate aquí
+                            {t("login.registrate_aca")}
                         </Link>
                     </div>
                 </div>

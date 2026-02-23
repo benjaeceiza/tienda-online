@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// 🔥 Agregamos FaTimes (la cruz) a la importación
 import { FaCog, FaSignOutAlt, FaUserEdit, FaLock, FaArrowLeft, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
-
+// 🔥 Importamos el traductor
+import { useTranslation } from 'react-i18next';
 
 const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
+    const { t } = useTranslation("global"); // 🔥 Hook de traducción
     const [view, setView] = useState('profile');
     const navigate = useNavigate();
     const { setUser } = useAuth();
@@ -59,7 +60,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
             const data = await response.json();
 
             if (response.ok) {
-                setMensaje({ tipo: "exito", texto: "¡Tus datos se actualizaron correctamente!" });
+                setMensaje({ tipo: "exito", texto: t("user_modal.exito_perfil") });
 
                 if (data.token) {
                     localStorage.setItem("token", data.token);
@@ -75,11 +76,11 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                 }, 2000);
 
             } else {
-                setMensaje({ tipo: "error", texto: data.error || "Hubo un problema al actualizar." });
+                setMensaje({ tipo: "error", texto: data.error || t("admin_modal.error_update") });
             }
         } catch (error) {
             console.error(error);
-            setMensaje({ tipo: "error", texto: "Error de conexión con el servidor." });
+            setMensaje({ tipo: "error", texto: t("recovery.error_conexion") });
         } finally {
             setLoading(false);
         }
@@ -89,12 +90,12 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
         e.preventDefault();
 
         if (newPassword !== confirmPassword) {
-            setMensaje({ tipo: "error", texto: "Las contraseñas no coinciden." });
+            setMensaje({ tipo: "error", texto: t("recovery.error_match") });
             return;
         }
 
-        if (newPassword.length < 6) {
-            setMensaje({ tipo: "error", texto: "La contraseña debe tener al menos 6 caracteres." });
+        if (newPassword.length < 8) {
+            setMensaje({ tipo: "error", texto: t("user_modal.error_pass_length") });
             return;
         }
 
@@ -114,7 +115,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
             const data = await response.json();
 
             if (response.ok) {
-                setMensaje({ tipo: "exito", texto: "¡Contraseña actualizada con éxito!" });
+                setMensaje({ tipo: "exito", texto: t("recovery.exito_cambio") });
                 setNewPassword("");
                 setConfirmPassword("");
 
@@ -124,11 +125,11 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                 }, 2000);
 
             } else {
-                setMensaje({ tipo: "error", texto: data.error || "Hubo un problema al actualizar." });
+                setMensaje({ tipo: "error", texto: data.error || t("admin_modal.error_update") });
             }
         } catch (error) {
             console.error(error);
-            setMensaje({ tipo: "error", texto: "Error de conexión con el servidor." });
+            setMensaje({ tipo: "error", texto: t("recovery.error_conexion") });
         } finally {
             setLoading(false);
         }
@@ -140,18 +141,16 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
         <div className="userModal_overlay" onClick={handleClose}>
             <div className="userModal_container" onClick={handleContainerClick}>
 
-                {/* 🔥 NUEVO: Cruz fija arriba a la derecha para cerrar */}
-                <button className="userModal_iconBtn_topRight" onClick={handleClose} title="Cerrar ventana">
+                <button className="userModal_iconBtn_topRight" onClick={handleClose} title={t("user_modal.cerrar")}>
                     <FaTimes />
                 </button>
 
-                {/* 🔥 MOVIDO: Botón de Configuración/Volver ahora a la IZQUIERDA */}
                 {view === 'profile' ? (
-                    <button className="userModal_iconBtn_topLeft" onClick={() => setView('editProfile')} title="Configuración">
+                    <button className="userModal_iconBtn_topLeft" onClick={() => setView('editProfile')} title={t("user_modal.config")}>
                         <FaCog />
                     </button>
                 ) : (
-                    <button className="userModal_iconBtn_topLeft" onClick={() => { setView('profile'); setMensaje({ tipo: "", texto: "" }); }} title="Volver al perfil">
+                    <button className="userModal_iconBtn_topLeft" onClick={() => { setView('profile'); setMensaje({ tipo: "", texto: "" }); }} title={t("user_modal.volver")}>
                         <FaArrowLeft />
                     </button>
                 )}
@@ -162,7 +161,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                             <div className="userModal_avatar">
                                 {user?.nickname ? user.nickname.charAt(0).toUpperCase() : "U"}
                             </div>
-                            <h3 className="userModal_name">{user?.nickname || "Usuario"}</h3>
+                            <h3 className="userModal_name">{user?.nickname || t("user_modal.usuario_anonimo")}</h3>
                             <p className="userModal_email">{user?.email || "usuario@email.com"}</p>
                         </div>
 
@@ -175,7 +174,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                     navigate("/");
                                 }}
                             >
-                                <FaSignOutAlt className="userModal_btn_icon" /> Cerrar Sesión
+                                <FaSignOutAlt className="userModal_btn_icon" /> {t("navbar.cerrar_sesion", "Cerrar Sesión")}
                             </button>
                         </div>
                     </div>
@@ -185,8 +184,8 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                     <div className="userModal_content fade-in">
                         <div className="userModal_header_small">
                             <FaUserEdit className="userModal_header_icon" />
-                            <h3 className="userModal_title">Editar Perfil</h3>
-                            <p className="userModal_subtitle">Actualiza tus datos personales</p>
+                            <h3 className="userModal_title">{t("admin_modal.titulo")}</h3>
+                            <p className="userModal_subtitle">{t("admin_modal.sub_perfil", "Actualiza tus datos personales")}</p>
                         </div>
 
                         {mensaje.texto && (
@@ -197,17 +196,17 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
 
                         <form className="userModal_form" onSubmit={handleUpdateProfile}>
                             <div className="userModal_inputGroup">
-                                <label>Nombre o Nickname</label>
+                                <label>{t("user_modal.label_nick")}</label>
                                 <input
                                     type="text"
                                     value={nickname}
                                     onChange={(e) => setNickname(e.target.value)}
-                                    placeholder="Tu nombre"
+                                    placeholder={t("contacto.label_nombre")}
                                     required
                                 />
                             </div>
                             <div className="userModal_inputGroup">
-                                <label>Correo Electrónico</label>
+                                <label>Email</label>
                                 <input
                                     type="email"
                                     value={email}
@@ -222,7 +221,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                 className="userModal_textBtn"
                                 onClick={() => setView('password')}
                             >
-                                <FaLock /> Cambiar Contraseña
+                                <FaLock /> {t("login.olvido_pass")}
                             </button>
 
                             <button
@@ -230,7 +229,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                 className="userModal_btn_save"
                                 disabled={isButtonDisabled}
                             >
-                                {loading ? "Guardando..." : "Guardar Cambios"}
+                                {loading ? t("recovery.guardando") : t("admin_modal.btn_guardar")}
                             </button>
                         </form>
                     </div>
@@ -240,8 +239,8 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                     <div className="userModal_content fade-in">
                         <div className="userModal_header_small">
                             <FaLock className="userModal_header_icon" />
-                            <h3 className="userModal_title">Seguridad</h3>
-                            <p className="userModal_subtitle">Elige una nueva contraseña</p>
+                            <h3 className="userModal_title">{t("user_modal.seguridad")}</h3>
+                            <p className="userModal_subtitle">{t("recovery.sub_pass")}</p>
                         </div>
 
                         {mensaje.texto && (
@@ -259,7 +258,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                 readOnly
                             />
                             <div className="userModal_inputGroup">
-                                <label>Nueva Contraseña</label>
+                                <label>{t("recovery.label_nueva")}</label>
                                 <input
                                     type="password"
                                     placeholder="••••••••"
@@ -271,7 +270,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                 />
                             </div>
                             <div className="userModal_inputGroup">
-                                <label>Confirmar Contraseña</label>
+                                <label>{t("recovery.label_confirmar")}</label>
                                 <input
                                     type="password"
                                     placeholder="••••••••"
@@ -288,7 +287,7 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                 className="userModal_btn_save"
                                 disabled={isPasswordButtonDisabled}
                             >
-                                {loading ? "Actualizando..." : "Actualizar Contraseña"}
+                                {loading ? t("recovery.guardando") : t("recovery.btn_cambiar")}
                             </button>
                         </form>
                     </div>

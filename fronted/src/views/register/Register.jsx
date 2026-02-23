@@ -3,16 +3,17 @@ import { userRegister } from "../../services/register";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "../../context/LoadingContext";
+// 🔥 Importamos i18next
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
+  const { t } = useTranslation("global"); // 🔥 Hook de traducción
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
-  
-  // 🔥 NUEVO ESTADO PARA EL SPINNER
   const [loading, setLoading] = useState(false);
 
   const { hideLoader } = useLoading();
@@ -33,11 +34,10 @@ const Register = () => {
     setMensaje("");
 
     if (password !== confirmPassword) {
-        setMensaje("Las contraseñas no coinciden");
+        setMensaje(t("register.error_match"));
         return;
     }
 
-    // 🔥 ACTIVAMOS EL SPINNER
     setLoading(true);
 
     const nombreFinal = formatName(nombre);
@@ -48,16 +48,17 @@ const Register = () => {
         if (res?.token) {
           login(res.token);
           navigate("/");
-          // No hace falta setLoading(false) porque nos vamos de la página
         } else {
-          setMensaje(res || "Error al registrarse");
-          setLoading(false); // 🔥 APAGAMOS SI HAY ERROR
+          // 🔥 Traducción de errores comunes del backend
+          const errorMsg = res === "Error al registrarse" ? t("register.error_general") : res;
+          setMensaje(errorMsg);
+          setLoading(false);
         }
       })
       .catch(err => {
         console.error(err);
-        setMensaje("Ocurrió un error inesperado");
-        setLoading(false); // 🔥 APAGAMOS SI HAY ERROR
+        setMensaje(t("register.error_inesperado"));
+        setLoading(false);
       });
   }
 
@@ -69,8 +70,8 @@ const Register = () => {
         <div className="register-page-card">
             
             <div className="register-page-header">
-                <h2 className="register-page-title">Crear Cuenta</h2>
-                <p className="register-page-subtitle">Únete a nuestra comunidad</p>
+                <h2 className="register-page-title">{t("register.titulo")}</h2>
+                <p className="register-page-subtitle">{t("register.subtitulo")}</p>
                 <div className="register-page-divider"></div>
             </div>
 
@@ -78,27 +79,27 @@ const Register = () => {
                 
                 <div className="register-page-row">
                     <div className="register-page-input-group">
-                        <label className="register-page-label">Nombre</label>
+                        <label className="register-page-label">{t("contacto.label_nombre")}</label>
                         <input className="register-page-input" type="text" placeholder="Juan" required autoComplete="given-name" onChange={(e) => setNombre(e.target.value)} />
                     </div>
                     <div className="register-page-input-group">
-                        <label className="register-page-label">Apellido</label>
+                        <label className="register-page-label">{t("contacto.label_apellido")}</label>
                         <input className="register-page-input" type="text" placeholder="Pérez" required autoComplete="family-name" onChange={(e) => setApellido(e.target.value)} />
                     </div>
                 </div>
 
                 <div className="register-page-input-group">
-                    <label className="register-page-label">Correo Electrónico</label>
+                    <label className="register-page-label">Email</label>
                     <input className="register-page-input" type="email" placeholder="ejemplo@email.com" required autoComplete="email" onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
                 <div className="register-page-input-group">
-                    <label className="register-page-label">Contraseña</label>
+                    <label className="register-page-label">{t("login.label_password")}</label>
                     <input className="register-page-input" type="password" placeholder="••••••••" required autoComplete="new-password" onChange={(e) => setPassword(e.target.value)} />
                 </div>
 
                 <div className="register-page-input-group">
-                    <label className="register-page-label">Confirmar Contraseña</label>
+                    <label className="register-page-label">{t("recovery.label_confirmar")}</label>
                     <input className="register-page-input" type="password" placeholder="••••••••" required autoComplete="new-password" onChange={(e) => setConfirmPassword(e.target.value)} />
                 </div>
 
@@ -106,20 +107,19 @@ const Register = () => {
                     <div className="register-page-error-box"><p>{mensaje}</p></div>
                 )}
 
-                {/* 🔥 CAMBIAMOS INPUT POR BUTTON PARA PODER PONER EL SPINNER ADENTRO */}
                 <button 
                     className="register-page-btn-submit" 
                     type="submit" 
-                    disabled={loading} // Deshabilitar mientras carga
+                    disabled={loading}
                 >
-                    {loading ? <div className="register-page-spinner"></div> : "Registrarse"}
+                    {loading ? <div className="register-page-spinner"></div> : t("navbar.registrarse")}
                 </button>
 
             </form>
 
             <div className="register-page-footer">
-                <span>¿Ya tienes una cuenta?</span>
-                <Link className="register-page-link-highlight" to="/login">Inicia Sesión</Link>
+                <span>{t("register.ya_cuenta")}</span>
+                <Link className="register-page-link-highlight" to="/login">{t("login.btn_ingresar")}</Link>
             </div>
 
         </div>

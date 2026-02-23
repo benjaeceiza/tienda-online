@@ -5,27 +5,28 @@ import { useLoading } from "../../context/LoadingContext";
 import {
     FaPlay, FaFilePdf, FaHeadphones, FaCheckCircle, FaArrowLeft, FaSpinner
 } from "react-icons/fa";
+// 🔥 Importamos el traductor
+import { useTranslation } from 'react-i18next';
 
 const Curso = () => {
+    const { t } = useTranslation("global"); // 🔥 Hook de traducción
     const { cid } = useParams();
     const [curso, setCurso] = useState(null);
-    const { hideLoader } = useLoading(); // Tu loader general
+    const { hideLoader } = useLoading(); 
     
     const [activeUnitIndex, setActiveUnitIndex] = useState(0);
     const [mediaLoading, setMediaLoading] = useState(true);
     
     const navigate = useNavigate();
 
-    // 1. CARGA DE DATOS (Súper limpio, sin apagar el loader)
     useEffect(() => {
         getCourse(cid)
             .then(data => {
                 setCurso(data || {});
-                // 🔥 NUNCA apagamos el loader acá. Dejamos que la <img> de abajo lo haga.
             })
             .catch(err => {
                 console.error(err);
-                hideLoader(); // Solo si hay error lo apagamos para no trabar al usuario
+                hideLoader(); 
             });
     }, [cid, hideLoader]);
 
@@ -38,7 +39,6 @@ const Curso = () => {
     const listaAudios = Array.isArray(rawAudio) ? rawAudio : (rawAudio ? [rawAudio] : []);
     const tieneAudio = listaAudios.length > 0;
 
-    // 2. EFECTO PARA LOS MINI-LOADERS AL CAMBIAR DE UNIDAD (Video/PDF)
     useEffect(() => {
         setMediaLoading(true); 
         if (!tieneVideo && !tienePdf) {
@@ -46,7 +46,6 @@ const Curso = () => {
         }
     }, [activeUnitIndex, tieneVideo, tienePdf]);
 
-    // --- RENDERIZADO DEL REPRODUCTOR ---
     const renderPlayer = () => {
         if (tieneVideo) {
             return (
@@ -74,28 +73,26 @@ const Curso = () => {
                 <div className="detalle-curso-audio-stage">
                     <div className="detalle-curso-audio-icon"><FaHeadphones /></div>
                     <h3 style={{ margin: "0 0 20px 0", fontWeight: 300, fontSize: "1.5rem" }}>
-                        Reproductor de Meditaciones
+                        {t("reproductor.titulo_meditaciones")}
                     </h3>
                     <div className="detalle-curso-audio-playlist">
                        {listaAudios.map((item, idx) => {
                                 const url = typeof item === 'string' ? item : item.url;
-                                const nombre = typeof item === 'string' ? `Pista ${idx + 1}` : item.titulo;
+                                // 🔥 Traducimos el nombre de la pista si es "Meditación X"
+                                const nombre = typeof item === 'string' 
+                                    ? `${t("reproductor.pista")} ${idx + 1}` 
+                                    : item.titulo.replace("Meditación", t("reproductor.meditacion"));
 
                                 return (
                                     <div key={idx} className="detalle-curso-audio-track">
-                                        
-                                        {/* 🔥 TÍTULO ARRIBA */}
                                         <div className="track-info">
                                             <span className="track-number">{idx + 1}.</span>
                                             <span className="track-title">{nombre}</span>
                                         </div>
-                                        
-                                        {/* 🔥 REPRODUCTOR ABAJO */}
                                         <audio controls className="track-player custom-audio-player">
                                             <source src={url} />
-                                            Tu navegador no soporta audio.
+                                            {t("reproductor.audio_no_soportado")}
                                         </audio>
-                                        
                                     </div>
                                 );
                             })}
@@ -123,12 +120,9 @@ const Curso = () => {
             );
         }
         
-        return <div style={{ padding: '40px', textAlign: 'center', color: '#aaa' }}>Selecciona una unidad del temario</div>;
+        return <div style={{ padding: '40px', textAlign: 'center', color: '#aaa' }}>{t("reproductor.selecciona_unidad")}</div>;
     };
 
-    // 🔥 TRUCO PARA EL FOOTER: Si todavía no hay curso, devolvemos un div invisible de 100vh.
-    // Esto hace que el footer se vaya para abajo inmediatamente, pero el usuario
-    // no ve este div porque tu Loader General está tapando toda la pantalla.
     if (!curso) {
         return <div style={{ minHeight: "100vh" }}></div>;
     }
@@ -136,15 +130,12 @@ const Curso = () => {
     return (
         <div className="detalle-curso-page" style={{ minHeight: "100vh" }}>
             
-            {/* 🔥 TU IDEA HECHA REALIDAD: Esta <img> es un componente real de React.
-                El navegador NO disparará onLoad hasta que sus píxeles estén listos 
-                y todo el HTML de abajo ya esté armado. */}
             <img
                 src={curso.thumbnail || 'https://via.placeholder.com/1500'}
                 alt="Fondo del curso"
                 className="detalle-curso-background-layer"
-                onLoad={() => hideLoader()}   // <- El loader general muere ACÁ
-                onError={() => hideLoader()}  // (Por si falla la imagen de Cloudinary)
+                onLoad={() => hideLoader()} 
+                onError={() => hideLoader()} 
             />
 
             <header className="detalle-curso-header">
@@ -154,10 +145,10 @@ const Curso = () => {
                     </button>
                     <div className="header-titles-block">
                         <span className="header-category">
-                            {curso.categoria || "Categoría General"}
+                            {t(`navbar.cursos_${curso.categoria?.replace(/ /g, "_")}`, curso.categoria)}
                         </span>
                         <h1 className="header-course-title">
-                            {curso.nombre}
+                            {t(`cursos_db.${curso._id}.nombre`, curso.nombre)}
                         </h1>
                     </div>
                 </div>
@@ -169,10 +160,11 @@ const Curso = () => {
                     <main className="detalle-curso-main-card">
                         <div className="detalle-curso-unit-header">
                             <div className="detalle-curso-unit-meta">
-                                Unidad {activeUnitIndex + 1}
+                                {t("reproductor.unidad")} {activeUnitIndex + 1}
                             </div>
                             <h1 className="detalle-curso-unit-title">
-                                {unidadActual.title || "Introducción"}
+                                {/* 🔥 Buscamos traducción del título de la unidad en el JSON */}
+                                {t(`cursos_db.${curso._id}.temario.${unidadActual.title?.toLowerCase().replace(/ /g, "_")}`, unidadActual.title)}
                             </h1>
                         </div>
 
@@ -182,7 +174,7 @@ const Curso = () => {
                             <p>{unidadActual.descripcion}</p>
                             {tieneVideo && tienePdf && (
                                 <a href={unidadActual.pdf} target="_blank" rel="noreferrer" className="detalle-curso-btn-download">
-                                    <FaFilePdf /> Descargar Material PDF
+                                    <FaFilePdf /> {t("reproductor.descargar_pdf")}
                                 </a>
                             )}
                         </div>
@@ -190,7 +182,7 @@ const Curso = () => {
 
                     <aside className="detalle-curso-sidebar">
                         <div className="detalle-curso-sidebar-header">
-                            <h3>Contenido del Curso</h3>
+                            <h3>{t("reproductor.contenido_titulo")}</h3>
                         </div>
                         <ul className="detalle-curso-list">
                             {temario.map((tema, index) => {
@@ -212,7 +204,9 @@ const Curso = () => {
                                             <Icono className={isActive && mediaLoading ? 'detalle-curso-spin' : ''} />
                                         </div>
                                         <div className="detalle-curso-item-info">
-                                            <span className="item-title">{index + 1}. {tema.title}</span>
+                                            <span className="item-title">
+                                                {index + 1}. {t(`cursos_db.${curso._id}.temario.${tema.title?.toLowerCase().replace(/ /g, "_")}`, tema.title)}
+                                            </span>
                                             <div className="item-tags">
                                                 {tema.video && <span className="tag video">Video</span>}
                                                 {tema.audio && <span className="tag audio">Audio</span>}

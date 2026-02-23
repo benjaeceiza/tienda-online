@@ -1,0 +1,231 @@
+{
+    "navbar": {
+        "inicio": "Inicio",
+        "cursos": "Cursos",
+        "cursos_rituales": "Rituales",
+        "cursos_artesanias": "Artesanías Mágicas",
+        "cursos_sanacion": "Sist. Sanación en camilla",
+        "cursos_anexos": "Anexos",
+        "cursos_eric": "Eric Barone",
+        "alicia_tete": "Alicia Tete",
+        "contacto": "Contacto",
+        "mis_cursos": "Mis Cursos",
+        "admin_dashboard": "Dashboard Admin",
+        "iniciar_sesion": "Iniciar Sesión",
+        "registrarse": "Registrarse"
+    },
+    "hero": {
+        "beforeTitle": "Bioenergía en equilibrio terrenal y cósmico",
+        "title": "SANACIÓN COSMOTELÚRICA.",
+        "subtitle": "Sanación energética que une Cosmos, Tierra y Conciencia."
+    },
+    "saludo": {
+        "subtitle": "Bienvenidos a mi espacio",
+        "title": "Sanaciones Cosmotelúricas",
+        "description": "Un espacio para explorar, sentir y acompañar tu propio proceso de sanación y conciencia. Aquí encontrarás herramientas y guías para tu evolución personal."
+    },
+    "agradecimiento": {
+        "video_title": "Mensaje de agradecimiento de Alicia",
+        "play_label": "Reproducir video",
+        "badge": "Un sueño hecho realidad",
+        "title": "Gracias por ser parte de este camino",
+        "text_1": "Esta plataforma era mi proyecto desde hace mucho tiempo. Sentía que no era el momento de concretarlo porque no encontraba a las personas adecuadas, aquellas que me acompañaran desde el corazón.",
+        "text_2": "Reconozco mis limitaciones con la informática, pero encontré a un equipo maravilloso de jóvenes (Rocío, Guadalupe, Ariel y Benjamín) que trabajaron con una dedicación fantástica.",
+        "text_3": "Juntos logramos hacer accesibles todos estos conocimientos, y mi mayor deseo es que este espacio te sea tan útil y transformador como nosotros soñamos."
+    },
+    "cursos_home": {
+        "btn_ver_1": "Ver",
+        "btn_ver_2": "Cursos",
+        "ver_introduccion": "Ver Introducción",
+        "rituales": {
+            "title": "Rituales",
+            "subtitle": "Espacios sagrados para intencionar, sanar y transformar."
+        },
+        "artesanias": {
+            "title": "Artesanías",
+            "subtitle": "Objetos creados con intención, conciencia y energía."
+        },
+        "sanacion": {
+            "title": "Sist. de Sanación",
+            "subtitle": "Acompañamiento energético profundo para armonizar los cuerpos."
+        },
+        "anexos": {
+            "title": "Anexos",
+            "subtitle": "Material complementario que profundiza los fundamentos."
+        },
+        "barone": {
+            "title": "Eric Barone",
+            "subtitle": "Aportes escritos para nutrir la conciencia y la comprensión."
+        }
+    },
+    "cursos_db": {
+        "69668326a91da4a6f234a1c8": {
+            "nombre": "Nivel III",
+            "descripcion": "Tercer nivel del sistema de sanacion cosmotelurica.",
+            "temario": {
+                "muy_importante": "Muy importante",
+                "pdf": "PDF Nivel III",
+                "meditaciones": "Meditaciones"
+            }
+        },
+        "69874e1dedd9b34e2fd566b1": {
+            "nombre": "Anexo 1",
+            "descripcion": "Introducción a la terapia akáshica",
+            "temario": "Introducción a la terapia akáshica"
+        },
+        "69874e44edd9b34e2fd566b2": {
+            "nombre": "Anexo 2",
+            "descripcion": "Elemento de protección personal para la realización de rituales",
+            "temario": "Elemento de protección personal"
+        },
+        "69874e79edd9b34e2fd566b5": {
+            "nombre": "Anexo 3",
+            "descripcion": "Trabajar con artesanías mágicas",
+            "temario": "Trabajar con artesanías mágicas"
+        }
+    },
+    "cursos_vista": {
+        "bienvenida": "Bienvenidos a",
+        "ver_bienvenida": "Ver Bienvenida",
+        "ver_introduccion": "Ver Introducción",
+        "atencion_personalizada": "¿Preferís una atención personalizada?",
+        "atencion_texto": "Ofrecemos sesiones individuales de sanación en camilla.",
+        "consultar_turno": "Consultar Turno",
+        "ingresar": "Ingresar al Curso",
+        "bloqueado": "🔒 Compra cualquier curso para desbloquear este anexo",
+        "agregar_gratis": "Agregar a mis cursos",
+        "agregando": "Agregando...",
+        "comprar": "COMPRAR ARS",
+        "disponibles": "Disponibles",
+        "tus_cursos": "Cursos",
+        "reproduciendo": "Reproduciendo ahora",
+        "click_ver": "Click para ver"
+    },
+    "contacto": {
+        "subtitle": "Hablemos",
+        "title_1": "Comunicáte con",
+        "title_2": "Nosotros",
+        "description": "¿Tienes dudas sobre los cursos o sientes el llamado a iniciar un proceso personal? Estoy aquí para escucharte y acompañarte en tu camino.",
+        "social_title": "Encuéntrame en:",
+        "form_title": "Envíame un mensaje",
+        "label_nombre": "Nombre",
+        "label_apellido": "Apellido",
+        "label_telefono": "Teléfono",
+        "label_mensaje": "¿En qué puedo ayudarte?",
+        "btn_enviar": "Enviar Consulta"
+    },
+    "biografia": {
+        "subtitle": "Conoce mi historia",
+        "intro": "Un recorrido por el camino de la sanación, el aprendizaje y la conexión espiritual.",
+        "video_title": "Biografía de Alicia Tete",
+        "quote": "La sanación comienza cuando nos permitimos escuchar nuestra propia voz interior."
+    },
+    "checkout": {
+        "volver": "Volver al inicio",
+        "finalizar_compra": "Finalizar Compra",
+        "elegir_pago": "Elige cómo pagar",
+        "seguridad_pago": "Transacciones seguras y encriptadas.",
+        "mp_sub": "Tarjetas, Débito, Efectivo",
+        "ssl_note": "Tus datos están protegidos con SSL.",
+        "total": "Total a pagar"
+    },
+    "login": {
+        "titulo": "Bienvenido",
+        "subtitulo": "Inicia sesión para continuar",
+        "label_email": "Correo Electrónico",
+        "placeholder_email": "ejemplo@email.com",
+        "label_password": "Contraseña",
+        "btn_ingresar": "Ingresar",
+        "olvido_pass": "¿Olvidaste tu contraseña?",
+        "no_cuenta": "¿No tienes cuenta?",
+        "registrate_aca": "Regístrate aquí",
+        "error_credenciales": "Credenciales incorrectas",
+        "error_general": "Hubo un problema al iniciar sesión",
+        "error_conexion": "Error al conectar con el servidor"
+    },
+    "mis_cursos": {
+        "titulo": "MIS CURSOS",
+        "subtitulo": "Tu biblioteca de sanación y conocimiento. Accedé a tu contenido aquí.",
+        "vacio_titulo": "Tu viaje comienza aquí",
+        "vacio_texto": "Aún no tienes cursos en tu biblioteca. Explorá nuestra tienda, descubrí nuevas herramientas de sanación y comenzá a transformar tu energía.",
+        "btn_volver": "Volver al inicio",
+        "btn_ingresar": "INGRESAR AL CURSO",
+        "tag_activo": "Activo"
+    },
+    "recovery": {
+        "volver": "Volver",
+        "titulo": "Recuperar Cuenta",
+        "sub_email": "Ingresa tu correo para recibir un código",
+        "sub_code": "Revisa tu correo e ingresa el código",
+        "sub_pass": "Crea una nueva contraseña segura",
+        "enviando": "Enviando...",
+        "btn_enviar": "Enviar Código",
+        "reenviar_en": "Reenviar código en",
+        "reenviar_ahora": "Reenviar código ahora",
+        "label_nueva": "Nueva Contraseña",
+        "label_confirmar": "Confirmar Contraseña",
+        "btn_cambiar": "Cambiar Contraseña",
+        "guardando": "Guardando...",
+        "error_codigo": "Código incorrecto",
+        "error_validando": "Error validando código",
+        "error_email_no_existe": "El correo no está registrado",
+        "error_envio": "Error al enviar el correo",
+        "error_cambio": "Error al cambiar contraseña",
+        "exito_cambio": "Contraseña cambiada con éxito 🔐",
+        "error_match": "Las contraseñas no coinciden"
+    },
+    "register": {
+        "titulo": "Crear Cuenta",
+        "subtitulo": "Únete a nuestra comunidad",
+        "ya_cuenta": "¿Ya tienes una cuenta?",
+        "error_match": "Las contraseñas no coinciden",
+        "error_general": "Error al registrarse",
+        "error_inesperado": "Ocurrió un error inesperado"
+    },
+    "reproductor": {
+        "titulo_meditaciones": "Reproductor de Meditaciones",
+        "pista": "Pista",
+        "meditacion": "Meditación",
+        "audio_no_soportado": "Tu navegador no soporta audio.",
+        "selecciona_unidad": "Selecciona una unidad del temario",
+        "unidad": "Unidad",
+        "descargar_pdf": "Descargar Material PDF",
+        "contenido_titulo": "Contenido del Curso"
+    },
+    "admin_modal": {
+        "titulo": "Editar Usuario",
+        "modificando_a": "Modificando a",
+        "label_rol": "Rol en la plataforma",
+        "rol_user": "Usuario normal (Alumno)",
+        "rol_admin": "Administrador (Jefe)",
+        "btn_guardar": "Guardar Cambios",
+        "exito_update": "¡Usuario actualizado con éxito!",
+        "error_update": "Error al actualizar."
+    },
+    "user_modal": {
+        "cerrar": "Cerrar ventana",
+        "config": "Configuración",
+        "volver": "Volver al perfil",
+        "usuario_anonimo": "Usuario",
+        "seguridad": "Seguridad",
+        "label_nick": "Nombre o Nickname",
+        "exito_perfil": "¡Tus datos se actualizaron correctamente!",
+        "error_pass_length": "La contraseña debe tener al menos 8 caracteres."
+    },
+    "footer": {
+        "descripcion": "Acompañándote en tu proceso de evolución y bienestar. Descubrí herramientas para equilibrar tu energía y transformar tu vida.",
+        "explorar": "Explorar",
+        "ayuda": "Ayuda",
+        "faq": "Preguntas Frecuentes",
+        "terminos": "Términos y Condiciones",
+        "privacidad": "Política de Privacidad",
+        "conectemos": "Conectemos",
+        "derechos": "Todos los derechos reservados.",
+        "desarrollado": "Desarrollado con",
+        "bienestar": "para tu bienestar."
+    },
+    "bloqueo": {
+        "titulo": "Curso no disponible",
+        "mensaje": "No tienes acceso a este contenido. Por favor, asegúrate de haberlo adquirido o de haber iniciado sesión con la cuenta correcta."
+    }
+}

@@ -1,11 +1,13 @@
-
+import { useTranslation } from 'react-i18next';
 
 const ButtonsCourses = ({ cursos, setCursoSeleccionado, cursoSeleccionado }) => {
+  const { t } = useTranslation("global");
+
   return (
     <div className="course-select-glass-card course-select-list-card">
       <div className="course-select-list-header">
-        <h2 className="course-select-list-title">Tus Cursos</h2>
-        <span className="course-select-count">{cursos.length} Disponibles</span>
+        <h2 className="course-select-list-title">{t("cursos_vista.tus_cursos")}</h2>
+        <span className="course-select-count">{cursos.length} {t("cursos_vista.disponibles")}</span>
       </div>
       
       <div className="course-select-scroll-container">
@@ -25,9 +27,12 @@ const ButtonsCourses = ({ cursos, setCursoSeleccionado, cursoSeleccionado }) => 
 
                 {/* Contenido del botón */}
                 <div className="course-select-item-content">
-                  <span className="course-select-item-title">{c.nombre}</span>
+                  <span className="course-select-item-title">
+                    {/* 🔥 Traducción dinámica por ID */}
+                    {t(`cursos_db.${c._id}.nombre`, c.nombre)}
+                  </span>
                   <span className="course-select-item-status">
-                    {isActive ? "Reproduciendo ahora" : "Click para ver"}
+                    {isActive ? t("cursos_vista.reproduciendo") : t("cursos_vista.click_ver")}
                   </span>
                 </div>
 
@@ -35,11 +40,11 @@ const ButtonsCourses = ({ cursos, setCursoSeleccionado, cursoSeleccionado }) => 
                 <div className="course-select-item-icon">
                   {isActive ? (
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" /> {/* Icono Pausa/Playing */}
+                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                     </svg>
                   ) : (
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z" /> {/* Icono Play */}
+                      <path d="M8 5v14l11-7z" />
                     </svg>
                   )}
                 </div>

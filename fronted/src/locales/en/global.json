@@ -1,0 +1,231 @@
+{
+    "navbar": {
+        "inicio": "Home",
+        "cursos": "Courses",
+        "cursos_rituales": "Rituals",
+        "cursos_artesanias": "Magical Crafts",
+        "cursos_sanacion": "Stretcher Healing System",
+        "cursos_anexos": "Annexes",
+        "cursos_eric": "Eric Barone",
+        "alicia_tete": "Alicia Tete",
+        "contacto": "Contact",
+        "mis_cursos": "My Courses",
+        "admin_dashboard": "Admin Dashboard",
+        "iniciar_sesion": "Log In",
+        "registrarse": "Register"
+    },
+    "hero": {
+        "beforeTitle": "Bioenergy in earthly and cosmic balance",
+        "title": "COSMOTELLURIC HEALING.",
+        "subtitle": "Energy healing uniting Cosmos, Earth, and Consciousness."
+    },
+    "saludo": {
+        "subtitle": "Welcome to my space",
+        "title": "Cosmotelluric Healings",
+        "description": "A space to explore, feel, and accompany your own healing and awareness process. Here you will find tools and guides for your personal evolution."
+    },
+    "agradecimiento": {
+        "video_title": "Alicia's thank you message",
+        "play_label": "Play video",
+        "badge": "A dream come true",
+        "title": "Thank you for being part of this journey",
+        "text_1": "This platform has been my project for a long time. I felt it wasn't the right time to make it happen because I couldn't find the right people, those who would accompany me from the heart.",
+        "text_2": "I acknowledge my limitations with computing, but I found a wonderful team of young people (Rocío, Guadalupe, Ariel, and Benjamín) who worked with fantastic dedication.",
+        "text_3": "Together we managed to make all this knowledge accessible, and my greatest wish is that this space is as useful and transformative for you as we dreamed."
+    },
+    "cursos_home": {
+        "btn_ver_1": "View",
+        "btn_ver_2": "Courses",
+        "ver_introduccion": "Watch Intro",
+        "rituales": {
+            "title": "Rituals",
+            "subtitle": "Sacred spaces for intention, healing, and transformation."
+        },
+        "artesanias": {
+            "title": "Crafts",
+            "subtitle": "Objects created with intention, consciousness, and energy."
+        },
+        "sanacion": {
+            "title": "Healing Syst.",
+            "subtitle": "Deep energetic support to harmonize the bodies."
+        },
+        "anexos": {
+            "title": "Annexes",
+            "subtitle": "Complementary material that deepens the foundations."
+        },
+        "barone": {
+            "title": "Eric Barone",
+            "subtitle": "Written contributions to nurture awareness and understanding."
+        }
+    },
+    "cursos_db": {
+        "69668326a91da4a6f234a1c8": {
+            "nombre": "Level III",
+            "descripcion": "Third level of the cosmotelluric healing system.",
+            "temario": {
+                "muy_importante": "Very important",
+                "pdf": "PDF Level III",
+                "meditaciones": "Meditations"
+            }
+        },
+        "69874e1dedd9b34e2fd566b1": {
+            "nombre": "Annex 1",
+            "descripcion": "Introduction to Akashic therapy",
+            "temario": "Introduction to Akashic therapy"
+        },
+        "69874e44edd9b34e2fd566b2": {
+            "nombre": "Annex 2",
+            "descripcion": "Personal protection elements for performing rituals",
+            "temario": "Personal protection elements"
+        },
+        "69874e79edd9b34e2fd566b5": {
+            "nombre": "Annex 3",
+            "descripcion": "Working with magical crafts",
+            "temario": "Working with magical crafts"
+        }
+    },
+    "cursos_vista": {
+        "bienvenida": "Welcome to",
+        "ver_bienvenida": "Watch Welcome",
+        "ver_introduccion": "Watch Introduction",
+        "atencion_personalizada": "Do you prefer personalized attention?",
+        "atencion_texto": "We offer individual on-stretcher healing sessions.",
+        "consultar_turno": "Check Availability",
+        "ingresar": "Enter Course",
+        "bloqueado": "🔒 Buy any course to unlock this annex",
+        "agregar_gratis": "Add to my courses",
+        "agregando": "Adding...",
+        "comprar": "BUY ARS",
+        "disponibles": "Available",
+        "tus_cursos": "Courses",
+        "reproduciendo": "Playing now",
+        "click_ver": "Click to view"
+    },
+    "contacto": {
+        "subtitle": "Let's talk",
+        "title_1": "Get in touch",
+        "title_2": "with Us",
+        "description": "Do you have questions about the courses or feel the call to start a personal process? I am here to listen and accompany you on your path.",
+        "social_title": "Find me on:",
+        "form_title": "Send me a message",
+        "label_nombre": "First Name",
+        "label_apellido": "Last Name",
+        "label_telefono": "Phone",
+        "label_mensaje": "How can I help you?",
+        "btn_enviar": "Send Inquiry"
+    },
+    "biografia": {
+        "subtitle": "Get to know my story",
+        "intro": "A journey through the path of healing, learning, and spiritual connection.",
+        "video_title": "Alicia Tete's Biography",
+        "quote": "Healing begins when we allow ourselves to listen to our own inner voice."
+    },
+    "checkout": {
+        "volver": "Back to home",
+        "finalizar_compra": "Checkout",
+        "elegir_pago": "Choose how to pay",
+        "seguridad_pago": "Secure and encrypted transactions.",
+        "mp_sub": "Credit Cards, Debit, Cash",
+        "ssl_note": "Your data is protected with SSL.",
+        "total": "Total to pay"
+    },
+    "login": {
+        "titulo": "Welcome",
+        "subtitulo": "Log in to continue",
+        "label_email": "Email Address",
+        "placeholder_email": "example@email.com",
+        "label_password": "Password",
+        "btn_ingresar": "Log In",
+        "olvido_pass": "Forgot your password?",
+        "no_cuenta": "Don't have an account?",
+        "registrate_aca": "Sign up here",
+        "error_credenciales": "Incorrect credentials",
+        "error_general": "There was a problem logging in",
+        "error_conexion": "Server connection error"
+    },
+    "mis_cursos": {
+        "titulo": "MY COURSES",
+        "subtitulo": "Your healing and knowledge library. Access your content here.",
+        "vacio_titulo": "Your journey starts here",
+        "vacio_texto": "You don't have any courses in your library yet. Explore our shop, discover new healing tools, and start transforming your energy.",
+        "btn_volver": "Back to home",
+        "btn_ingresar": "ENTER COURSE",
+        "tag_activo": "Active"
+    },
+    "recovery": {
+        "volver": "Back",
+        "titulo": "Recover Account",
+        "sub_email": "Enter your email to receive a code",
+        "sub_code": "Check your email and enter the code",
+        "sub_pass": "Create a new secure password",
+        "enviando": "Sending...",
+        "btn_enviar": "Send Code",
+        "reenviar_en": "Resend code in",
+        "reenviar_ahora": "Resend code now",
+        "label_nueva": "New Password",
+        "label_confirmar": "Confirm Password",
+        "btn_cambiar": "Change Password",
+        "guardando": "Saving...",
+        "error_codigo": "Incorrect code",
+        "error_validando": "Error validating code",
+        "error_email_no_existe": "Email is not registered",
+        "error_envio": "Error sending email",
+        "error_cambio": "Error changing password",
+        "exito_cambio": "Password changed successfully 🔐",
+        "error_match": "Passwords do not match"
+    },
+    "register": {
+        "titulo": "Create Account",
+        "subtitulo": "Join our community",
+        "ya_cuenta": "Already have an account?",
+        "error_match": "Passwords do not match",
+        "error_general": "Registration error",
+        "error_inesperado": "An unexpected error occurred"
+    },
+    "reproductor": {
+        "titulo_meditaciones": "Meditations Player",
+        "pista": "Track",
+        "meditacion": "Meditation",
+        "audio_no_soportado": "Your browser does not support audio.",
+        "selecciona_unidad": "Select a unit from the syllabus",
+        "unidad": "Unit",
+        "descargar_pdf": "Download PDF Material",
+        "contenido_titulo": "Course Content"
+    },
+    "admin_modal": {
+        "titulo": "Edit User",
+        "modificando_a": "Modifying",
+        "label_rol": "Platform Role",
+        "rol_user": "Normal User (Student)",
+        "rol_admin": "Administrator (Boss)",
+        "btn_guardar": "Save Changes",
+        "exito_update": "User updated successfully!",
+        "error_update": "Error updating user."
+    },
+    "user_modal": {
+        "cerrar": "Close window",
+        "config": "Settings",
+        "volver": "Back to profile",
+        "usuario_anonimo": "User",
+        "seguridad": "Security",
+        "label_nick": "Name or Nickname",
+        "exito_perfil": "Your data has been updated correctly!",
+        "error_pass_length": "Password must be at least 8 characters long."
+    },
+    "footer": {
+    "descripcion": "Accompanying you in your process of evolution and well-being. Discover tools to balance your energy and transform your life.",
+    "explorar": "Explore",
+    "ayuda": "Support",
+    "faq": "FAQ",
+    "terminos": "Terms & Conditions",
+    "privacidad": "Privacy Policy",
+    "conectemos": "Connect with Us",
+    "derechos": "All rights reserved.",
+    "desarrollado": "Developed with",
+    "bienestar": "for your well-being."
+  },
+  "bloqueo": {
+    "titulo": "Course unavailable",
+    "mensaje": "You do not have access to this content. Please make sure you have purchased it or are logged in with the correct account."
+  }
+}

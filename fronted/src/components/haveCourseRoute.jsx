@@ -3,28 +3,27 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useLoading } from "../context/LoadingContext";
 import { getFreeCourses } from "../services/getFreeCourses";
+// 🔥 Importamos el traductor
+import { useTranslation } from 'react-i18next';
 
 const HaveCourseRoute = ({ children }) => {
+    const { t } = useTranslation("global"); // 🔥 Hook de traducción
     const token = localStorage.getItem("token");
     const { hideLoader } = useLoading();
     const params = useParams();
     const courseIdFromUrl = params.cid || params.id || params.idCurso;
 
     const [freeCourses, setFreeCourses] = useState([]);
-    // Agregamos un estado para saber si todavía estamos verificando datos
     const [isChecking, setIsChecking] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Asumo que getFreeCourses podría ser asíncrono. 
-                // Si es síncrono, quita el 'await'.
                 const courses = await getFreeCourses(); 
                 setFreeCourses(courses || []);
             } catch (error) {
                 console.error("Error cargando cursos gratuitos", error);
             } finally {
-                // Una vez que tenemos la data (o falló), dejamos de "checkear"
                 setIsChecking(false);
                 hideLoader();
             }
@@ -37,10 +36,8 @@ const HaveCourseRoute = ({ children }) => {
         return <Navigate to="/login" />;
     }
 
-    // 1. MIENTRAS CARGAMOS LA INFO DE CURSOS GRATUITOS, NO MOSTRAMOS NADA (O UN SPINNER)
-    // Esto evita que "parpadee" la pantalla de bloqueo
     if (isChecking) {
-        return null; // O puedes retornar un <div>Cargando...</div>
+        return null; 
     }
 
     try {
@@ -52,25 +49,21 @@ const HaveCourseRoute = ({ children }) => {
             return <Navigate to="/login" />;
         }
 
-        if (decoded.rol === "admin") {
+        if (decoded.rol === "admin" || decoded.rol === "administrador") {
             return children;
         }
 
-        // --- VALIDACIÓN 1: ¿LO TIENE COMPRADO? ---
         const misCursos = decoded.courses || [];
         const tieneCompra = misCursos.some(item => {
             const idEnToken = item.course || item;
             return String(idEnToken) === String(courseIdFromUrl);
         });
 
-        // --- VALIDACIÓN 2: ¿ES GRATUITO? ---
-        // Asumiendo que tus cursos gratuitos tienen propiedad _id o id
         const esGratuito = freeCourses.some(curso => {
             const idCurso = curso._id || curso.id; 
             return String(idCurso) === String(courseIdFromUrl);
         });
 
-        // SI NO LO COMPRÓ Y NO ES GRATIS -> BLOQUEAMOS
         if (!tieneCompra && !esGratuito) {
             return (
                 <div style={{
@@ -81,29 +74,39 @@ const HaveCourseRoute = ({ children }) => {
                     alignItems: "center",
                     background: "#1a1a1a",
                     color: "white",
-                    textAlign: "center"
+                    padding: "20px",
+                    textAlign: "center",
+                    fontFamily: "sans-serif"
                 }}>
-                    <h1 style={{ fontSize: "3rem" }}>🔒</h1>
-                    <h1>Curso no disponible</h1>
-                    {/* Mensaje amigable para el usuario */}
-                    <p style={{ opacity: 0.7 }}>
-                        No tienes acceso a este contenido. <br/>
-                        ID: {courseIdFromUrl || "No detectado"}
+                    <h1 style={{ fontSize: "4rem", marginBottom: "10px" }}>🔒</h1>
+                    {/* 🔥 Títulos traducidos */}
+                    <h1 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>{t("bloqueo.titulo")}</h1>
+                    
+                    <p style={{ opacity: 0.7, maxWidth: "400px", lineHeight: "1.5" }}>
+                        {t("bloqueo.mensaje")} <br/>
+                        <span style={{ fontSize: "0.8rem" }}>ID: {courseIdFromUrl || "N/A"}</span>
                     </p>
+
                     <button
                         style={{
-                            padding: "10px 20px", marginTop: "20px", cursor: "pointer",
-                            background: "#007bff", color: "white", border: "none", borderRadius: "5px"
+                            padding: "12px 25px", 
+                            marginTop: "30px", 
+                            cursor: "pointer",
+                            background: "#e040fb", // Usando el fucsia de tu paleta
+                            color: "white", 
+                            border: "none", 
+                            borderRadius: "8px",
+                            fontWeight: "bold",
+                            transition: "transform 0.2s"
                         }}
                         onClick={() => window.location.href = "/"}
                     >
-                        Volver al inicio
+                        {t("mis_cursos.btn_volver")}
                     </button>
                 </div>
             );
         }
 
-        // Si pasa cualquiera de las dos validaciones, mostramos el contenido
         return children;
 
     } catch (error) {

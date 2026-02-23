@@ -4,28 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useLoading } from "../../context/LoadingContext";
 import Recovery from "../recovery-password/Recovery";
-
+// 🔥 Importamos i18next
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t } = useTranslation("global"); // 🔥 Iniciamos el traductor
   const { hideLoader } = useLoading();
   const { login } = useAuth();
   const navigate = useNavigate();
-
- 
 
   const [mensaje, setMensaje] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [recovery, setRecovery] = useState(false);
-
-  // 🔥 1. ESTADO DE CARGA
   const [loading, setLoading] = useState(false);
 
   const submitUser = async (e) => {
     e.preventDefault();
     setMensaje("");
-
-    // 🔥 2. ACTIVAMOS EL SPINNER
     setLoading(true);
 
     try {
@@ -34,15 +30,16 @@ const Login = () => {
       if (res?.token) {
         login(res.token);
         navigate("/");
-        // No hace falta setLoading(false) porque cambiamos de página
       } else {
-        setMensaje(res || "Credenciales incorrectas");
-        setLoading(false); // 🔥 APAGAMOS SI FALLA
+        // 🔥 Traducción dinámica del error
+        const errorKey = res === "Credenciales incorrectas" ? "login.error_credenciales" : "login.error_general";
+        setMensaje(t(errorKey));
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
-      setMensaje("Error al iniciar sesión");
-      setLoading(false); // 🔥 APAGAMOS SI HAY ERROR
+      setMensaje(t("login.error_conexion"));
+      setLoading(false);
     }
   };
 
@@ -59,23 +56,20 @@ const Login = () => {
         <Recovery setRecovery={setRecovery} />
       ) : (
         <section className="page-login-container">
-
           <div className="page-login-card">
-
             <div className="page-login-header">
-              <h2 className="page-login-title">Bienvenido</h2>
-              <p className="page-login-subtitle">Inicia sesión para continuar</p>
+              <h2 className="page-login-title">{t("login.titulo")}</h2>
+              <p className="page-login-subtitle">{t("login.subtitulo")}</p>
               <div className="page-login-divider"></div>
             </div>
 
             <form className="page-login-form" onSubmit={submitUser}>
-
               <div className="page-login-input-group">
-                <label className="page-login-label">Correo Electrónico</label>
+                <label className="page-login-label">{t("login.label_email")}</label>
                 <input
                   className="page-login-input"
                   type="email"
-                  placeholder="ejemplo@email.com"
+                  placeholder={t("login.placeholder_email")}
                   required
                   autoComplete="email"
                   onChange={(e) => setEmail(e.target.value)}
@@ -83,7 +77,7 @@ const Login = () => {
               </div>
 
               <div className="page-login-input-group">
-                <label className="page-login-label">Contraseña</label>
+                <label className="page-login-label">{t("login.label_password")}</label>
                 <input
                   className="page-login-input"
                   placeholder="••••••••"
@@ -100,15 +94,13 @@ const Login = () => {
                 </div>
               )}
 
-              {/* 🔥 3. CAMBIAMOS INPUT POR BUTTON PARA EL SPINNER */}
               <button
                 className="page-login-btn-submit"
                 type="submit"
                 disabled={loading}
               >
-                {loading ? <div className="page-login-spinner"></div> : "Ingresar"}
+                {loading ? <div className="page-login-spinner"></div> : t("login.btn_ingresar")}
               </button>
-
             </form>
 
             <div className="page-login-footer">
@@ -116,17 +108,16 @@ const Login = () => {
                 className="page-login-link-btn"
                 onClick={() => setRecovery(true)}
               >
-                ¿Olvidaste tu contraseña?
+                {t("login.olvido_pass")}
               </button>
 
               <div className="page-login-register-area">
-                <span>¿No tienes cuenta?</span>
+                <span>{t("login.no_cuenta")}</span>
                 <Link className="page-login-link-highlight" to="/register">
-                  Regístrate aquí
+                  {t("login.registrate_aca")}
                 </Link>
               </div>
             </div>
-
           </div>
         </section>
       )}

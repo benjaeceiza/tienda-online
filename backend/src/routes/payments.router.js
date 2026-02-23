@@ -87,11 +87,14 @@ router.get("/mp/verify/:paymentId", async (req, res) => {
 
 
 // PAYPAL ROUTES
-
 router.post('/pp/create-order', async (req, res) => {
     const { courseID } = req.body;
 
-    const COTIZACION_DOLAR = 1300;
+    const COTIZACION_DOLAR = 1300; 
+    
+    // --- VARIABLES DE COMISIÓN DE PAYPAL ---
+    const TARIFA_FIJA_PAYPAL = 0.30; // 30 centavos de dólar
+    const COMISION_PORCENTAJE_PAYPAL = 0.054; // 5.4% (Ajustalo si tu cuenta tiene otra tasa)
 
     try {
         const course = await cursoModelo.findById(courseID);
@@ -100,32 +103,37 @@ router.post('/pp/create-order', async (req, res) => {
             return res.status(404).json({ message: 'Curso no encontrado' });
         }
 
-        // 2. CONVERSIÓN DE MONEDA
-        // Precio en Base de Datos (ARS) / Cotización = Precio en USD
+        // 1. CONVERSIÓN DE MONEDA (Este es el Precio Neto, lo que querés que te llegue limpio)
         const precioEnPesos = course.precio;
-        let precioEnDolares = precioEnPesos / COTIZACION_DOLAR;
+        const precioNetoDolares = precioEnPesos / COTIZACION_DOLAR;
+
+        // 2. AUMENTO POR COMISIÓN (Calculamos el Precio Bruto a cobrarle al alumno)
+        // Fórmula: (Neto + Tarifa Fija) / (1 - Porcentaje)
+        const precioBrutoDolares = (precioNetoDolares + TARIFA_FIJA_PAYPAL) / (1 - COMISION_PORCENTAJE_PAYPAL);
 
         // 3. FORMATEO (PayPal exige string con 2 decimales, ej: "43.48")
-        const precioFinalPayPal = precioEnDolares.toFixed(2);
+        const precioFinalPayPal = precioBrutoDolares.toFixed(2);
+
+        // Imprimimos en consola para que veas la magia funcionando cuando lo pruebes
+        console.log(`Pesos: $${precioEnPesos} | USD Limpios: $${precioNetoDolares.toFixed(2)} | A cobrar en PP: $${precioFinalPayPal}`);
 
         const request = new paypal.orders.OrdersCreateRequest();
         request.prefer("return=representation");
 
         request.requestBody({
             intent: 'CAPTURE',
-            // AGREGÁ ESTO:
             application_context: {
                 brand_name: "Sanación Cosmotelúrica",
                 landing_page: "NO_PREFERENCE",
                 user_action: "PAY_NOW",
-                return_url: `${urlFrontend}/pago-exitoso`, // Tu URL de frontend
-                cancel_url: `${urlFrontend}/pago-fallido`  // Tu URL de frontend
+                return_url: `${urlFrontend}/pago-exitoso`, 
+                cancel_url: `${urlFrontend}/pago-fallido`  
             },
             purchase_units: [{
                 description: course.nombre,
                 amount: {
                     currency_code: 'USD',
-                    value: precioFinalPayPal
+                    value: precioFinalPayPal // Pasamos el precio ya inflado
                 }
             }]
         });

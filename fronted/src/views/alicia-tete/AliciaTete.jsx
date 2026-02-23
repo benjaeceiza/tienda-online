@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useLoading } from "../../context/LoadingContext";
 import ContactoFlotante from "../../components/ContactoFlotante";
+// 🔥 Importamos el traductor
+import { useTranslation } from 'react-i18next';
 
 const AliciaTete = () => {
     const { hideLoader } = useLoading();
     const [videoLoading, setVideoLoading] = useState(true);
+    // 🔥 Iniciamos el traductor
+    const { t } = useTranslation("global");
 
     useEffect(() => {
-        // Ocultamos el loader global de la página apenas monta el componente
         hideLoader();
     }, [hideLoader]);
 
@@ -21,18 +24,17 @@ const AliciaTete = () => {
 
                 {/* Cabecera sutil */}
                 <div className="biografia-header">
-                    <span className="biografia-subtitle">Conoce mi historia</span>
+                    <span className="biografia-subtitle">{t("biografia.subtitle")}</span>
                     <h1 className="biografia-title">Alicia Tete</h1>
                     <p className="biografia-intro">
-                        Un recorrido por el camino de la sanación, el aprendizaje y la conexión espiritual.
+                        {t("biografia.intro")}
                     </p>
                 </div>
 
-                {/* Contenedor del Video (El protagonista) */}
+                {/* Contenedor del Video */}
                 <div className="biografia-video-frame">
                     <div className="biografia-video-wrapper">
 
-                        {/* Loader específico del video */}
                         {videoLoading && (
                             <div className="biografia-loader-overlay">
                                 <div className="biografia-spinner"></div>
@@ -42,19 +44,18 @@ const AliciaTete = () => {
                         <iframe
                             className="biografia-iframe"
                             src="https://player.mediadelivery.net/embed/588203/aab8598d-deb3-48c8-93f9-809a8ee07a4e?autoplay=false"
-                            title="Biografía de Alicia Tete"
+                            title={t("biografia.video_title")}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                             onLoad={handleVideoLoad}
                         ></iframe>
                     </div>
-                    {/* Detalles decorativos (Brillos) */}
                     <div className="biografia-glow"></div>
                 </div>
 
-                {/* Pie de video (Opcional, una frase o firma) */}
+                {/* Pie de video */}
                 <div className="biografia-footer">
-                    <p>“La sanación comienza cuando nos permitimos escuchar nuestra propia voz interior.”</p>
+                    <p>“{t("biografia.quote")}”</p>
                 </div>
 
             </div>

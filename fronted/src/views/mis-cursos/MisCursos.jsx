@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Importante para que el botón funcione
-import { FaCompass } from "react-icons/fa"; // Ícono para la pantalla vacía
+import { Link } from "react-router-dom";
+import { FaCompass } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 import { getUserCourses } from "../../services/getUserCourses";
 import CardCourse from "./CardCourse";
 import { useLoading } from "../../context/LoadingContext";
 import FondoMisCursos from "./FondoMisCursos";
+// 🔥 Importamos el traductor
+import { useTranslation } from 'react-i18next';
 
 const MisCursos = () => {
+    const { t } = useTranslation("global");
     const { user } = useAuth();
     const [cursos, setCursos] = useState([]);
     const { hideLoader } = useLoading();
     
-    // Estados de carga sincronizados
     const [dataReady, setDataReady] = useState(false);
     const [imgReady, setImgReady] = useState(false);
 
-    // 1. Cargar Datos
     useEffect(() => {
         if (!user) return;
         const token = localStorage.getItem("token");
@@ -32,7 +33,6 @@ const MisCursos = () => {
 
     }, [user]);
 
-    // 2. Efecto para ocultar Loader cuando AMBOS estén listos
     useEffect(() => {
         if (dataReady && imgReady ) {
             hideLoader();
@@ -41,16 +41,15 @@ const MisCursos = () => {
 
     return (
         <main className="mis-cursos-layout">
-            
-            {/* Componente de Fondo que avisa cuando carga */}
             <FondoMisCursos onImageLoad={() => setImgReady(true)} />
 
             <div className="mis-cursos-container">
                 {cursos.length > 0 ? (
                     <>
                         <div className="header-mis-cursos">
-                            <h1>MIS CURSOS</h1>
-                            <p>Tu biblioteca de sanación y conocimiento. Accedé a tu contenido aquí.</p>
+                            {/* 🔥 Traducciones de cabecera */}
+                            <h1>{t("mis_cursos.titulo")}</h1>
+                            <p>{t("mis_cursos.subtitulo")}</p>
                             <div className="divider-glow"></div>
                         </div>
 
@@ -59,18 +58,18 @@ const MisCursos = () => {
                         </section>
                     </>
                 ) : (
-                    /* 🔥 NUEVO ESTADO VACÍO (EMPTY STATE) 🔥 */
                     <div className="mis-cursos-empty-state">
                         <div className="mis-cursos-empty-card">
                             <div className="mis-cursos-empty-icon-wrapper">
                                 <FaCompass className="mis-cursos-empty-icon" />
                             </div>
-                            <h2 className="mis-cursos-empty-title">Tu viaje comienza aquí</h2>
+                            {/* 🔥 Traducciones de estado vacío */}
+                            <h2 className="mis-cursos-empty-title">{t("mis_cursos.vacio_titulo")}</h2>
                             <p className="mis-cursos-empty-text">
-                                Aún no tienes cursos en tu biblioteca. Explorá nuestra tienda, descubrí nuevas herramientas de sanación y comenzá a transformar tu energía.
+                                {t("mis_cursos.vacio_texto")}
                             </p>
                             <Link to="/" className="mis-cursos-btn-explorar">
-                                Volver al inicio
+                                {t("mis_cursos.btn_volver")}
                             </Link>
                         </div>
                     </div>
