@@ -270,7 +270,7 @@
   box-sizing: border-box;
 
   /* ESTÉTICA GLASS / COSMOTELÚRICA */
-  background: rgba(0, 0, 0, 0.212);
+  background: rgb(255, 255, 255);
   /* Negro semi-transparente */
   backdrop-filter: blur(10px);
   /* El efecto borroso detrás */
@@ -300,7 +300,7 @@
   margin: 0;
   cursor: pointer;
   /* Efecto de brillo en el logo */
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0 0 1px rgb(0, 0, 0));
   width: 50px;
 }
 
@@ -341,8 +341,8 @@
   border-radius: 50%;
 
   /* Mantenemos tu estilo original de vidrio */
-  background: #b14064;
-  border: 1px solid #b14064;
+  background: #8120a4;
+  border: 1px solid #8120a4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -394,6 +394,7 @@
   }
 }
 
+
 /* CONTENEDOR DE FONDO OSCURO (sidebar) */
 .navbarListContainer {
   position: fixed;
@@ -423,7 +424,7 @@
 /* EL PANEL LATERAL (Glassmorphism) */
 .navbarList {
   /* Degradado profundo azulado */
-  background-color: #b14064;
+  background-color: #8120a4;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -490,7 +491,7 @@
 .navbarLink:hover,
 .navbarLinkMob.active {
 
-  color: #b14064;
+  color: #8120a4;
   background: white;
   width: fit-content;
   margin: auto;
@@ -512,11 +513,11 @@
   font-family: "1";
   font-size: 0.9rem;
   font-weight: 800;
-  margin: 0;
-  margin-top: 10px;
   padding: 10px 15px;
   border-radius: 30px;
   box-shadow: 0px 0px 5px 2px rgb(255, 255, 255);
+  width: 200px;
+  margin: 20px auto;
 
 
 }
@@ -533,7 +534,7 @@
   flex-direction: row;
   /* Cambié a row normal para mejor orden */
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -542,6 +543,7 @@
   width: 28px;
   height: 28px;
   transition: transform 0.3s ease;
+
 
 }
 
@@ -568,10 +570,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #b14064;
+  background: #ffffff;
   padding: 8px 15px;
   border-radius: 30px;
-  box-shadow: 0px 0px 5px 2px rgb(255, 255, 255);
+
+}
+
+.userNameMob {
+  color: #2c1a4d;
+  /* Color lavanda suave */
+  font-family: '1', sans-serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0;
 }
 
 .userName {
@@ -841,7 +852,23 @@
   border: 1px solid #86efac;
 }
 
+.userModal_iconBtn_topLeft {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  /* Igual que el botón derecho, pero a la izquierda */
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
+.userModal_iconBtn_topLeft:hover {
+  color: #e040fb;
+  /* El fucsia o el color que uses para el hover */
+}
 
 /* Keyframes */
 @keyframes modalFadeIn {
@@ -946,7 +973,7 @@
 }
 
 
-@media(max-width:700px) {
+@media(max-width:900px) {
   .navbar-desktop {
     display: none;
   }
@@ -1509,7 +1536,23 @@
 /* Responsive: Columna única en móviles */
 @media (max-width: 1024px) {
   .detalle-curso-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    /* Apilamos los elementos verticalmente */
+  }
+
+  .detalle-curso-sidebar {
+    order: 1;
+    width: 100%;
+    /* Para que ocupe todo el ancho */
+    margin-bottom: 20px;
+    /* Para separarlo del contenido de abajo */
+  }
+
+  /* Le decimos al CONTENIDO (video/audio) que vaya al segundo lugar (abajo) */
+  .detalle-curso-main-card {
+    order: 2;
+    width: 100%;
   }
 }
 
@@ -1851,6 +1894,78 @@
 }
 
 
+
+.detalle-curso-audio-stage {
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.detalle-curso-audio-playlist {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* Separación entre las diferentes pistas */
+}
+
+/* 🔥 LA CAJA DE CADA PISTA: Ahora es una columna */
+.detalle-curso-audio-track {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  /* Apila el título y el audio */
+  gap: 12px;
+  /* Espacio exacto entre el título y el reproductor */
+}
+
+/* El contenedor del título */
+.track-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Separación entre el número y el nombre */
+}
+
+.track-number {
+  font-weight: bold;
+  color: #e040fb;
+  /* Tu color de acento fucsia */
+  font-size: 1.1rem;
+}
+
+.track-title {
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 1.05rem;
+  word-break: break-word;
+  /* Evita que títulos largos rompan la pantalla */
+}
+
+/* El reproductor estirado al 100% */
+.custom-audio-player {
+  width: 100%;
+  height: 45px;
+  border-radius: 50px;
+  outline: none;
+}
+
+/* Ajustes finos para celulares muy chicos */
+@media (max-width: 600px) {
+  .detalle-curso-audio-stage {
+    padding: 20px 15px;
+  }
+
+  .detalle-curso-audio-track {
+    padding: 15px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .header-content-wrapper {
     flex-direction: column;
@@ -1863,7 +1978,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .detalle-curso-header {
     margin-top: 70px;
   }
@@ -3256,6 +3371,246 @@
   }
 }
 
+
+/* SECCION DE AGRADECIMIENTO */
+
+.agradecimiento-section {
+  padding: 80px 20px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agradecimiento-container {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.agradecimiento-glass-card {
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 255, 255);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 0px 20px 3px rgb(75, 75, 75), 0 0 40px rgba(224, 64, 251, 0.1);
+  /* Brillo sutil */
+}
+
+/* En desktop se pone uno al lado del otro */
+@media (min-width: 900px) {
+  .agradecimiento-glass-card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+/* --- ZONA DEL VIDEO --- */
+.agradecimiento-video-wrapper {
+  flex: 1;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.agradecimiento-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-height: 450px;
+  /* Para que no se haga infinito en celulares */
+}
+
+/* --- ZONA DEL TEXTO --- */
+.agradecimiento-content {
+  flex: 1;
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.agradecimiento-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e040fb;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.agradecimiento-title {
+  font-size: 2.2rem;
+  color: #2c1a4d;
+  margin: 0 0 25px 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.agradecimiento-text {
+  color: #555555;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 20px 0;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.agradecimiento-signature {
+  margin-top: 20px;
+  font-family: 'Brush Script MT', 'Dancing Script', cursive;
+  /* Busca una fuente cursiva linda si podés */
+  font-size: 2.5rem;
+  color: #e040fb;
+  transform: rotate(-3deg);
+}
+
+/* --- ZONA DEL VIDEO (Ajustado para Iframe) --- */
+.agradecimiento-video-wrapper {
+  flex: 1;
+  background: #000;
+  position: relative;
+  /* Esto mantiene el video en proporción 16:9 */
+  padding-top: 56.25%;
+}
+
+/* ... (Tus estilos anteriores de .agradecimiento-section, .agradecimiento-glass-card, etc.) ... */
+
+/* ZONA DEL VIDEO (Ajustado para Iframe y Portada) */
+.agradecimiento-video-wrapper {
+  flex: 1;
+  background: #000;
+  position: relative;
+  /* Mantiene la proporción 16:9 en móviles */
+  padding-top: 56.25%;
+  overflow: hidden;
+  /* Para que la imagen no se salga */
+  cursor: pointer;
+  /* Manito para indicar que se puede hacer click */
+}
+
+/* En desktop, quitamos el padding-top */
+@media (min-width: 900px) {
+  .agradecimiento-video-wrapper {
+    padding-top: 0;
+    min-height: 100%;
+  }
+}
+
+/* --- ESTILOS DE LA PORTADA FALSA (Thumbnail) --- */
+.agradecimiento-thumbnail-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.agradecimiento-thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* La imagen cubre todo el espacio sin deformarse */
+  transition: transform 0.5s ease;
+}
+
+/* Efecto de zoom suave al pasar el mouse */
+.agradecimiento-video-wrapper:hover .agradecimiento-thumbnail-img {
+  transform: scale(1.05);
+}
+
+.agradecimiento-thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  /* Capa oscura sutil sobre la foto */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.agradecimiento-video-wrapper:hover .agradecimiento-thumbnail-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  /* Se oscurece un poco más al pasar el mouse */
+}
+
+.agradecimiento-play-btn {
+  background: rgba(224, 64, 251, 0.8);
+  /* Color fucsia con transparencia */
+  border: none;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(224, 64, 251, 0.4);
+  transition: all 0.3s ease;
+  animation: pulseBtn 2s infinite;
+  /* Animación de latido */
+}
+
+.agradecimiento-play-icon {
+  color: white;
+  font-size: 1.8rem;
+  margin-left: 4px;
+  /* Pequeño ajuste visual para centrar el triángulo */
+}
+
+/* Animación del botón de Play */
+@keyframes pulseBtn {
+  0% {
+    box-shadow: 0 0 0 0 rgba(224, 64, 251, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 15px rgba(224, 64, 251, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(224, 64, 251, 0);
+  }
+}
+
+.agradecimiento-video-wrapper:hover .agradecimiento-play-btn {
+  background: #e040fb;
+  /* Fucsia sólido al hacer hover */
+  transform: scale(1.1);
+}
+
+/* ... (El resto de tus estilos de texto: .agradecimiento-content, title, etc.) ... */
+
+/* En desktop, quitamos el padding-top y dejamos que llene el espacio */
+@media (min-width: 900px) {
+  .agradecimiento-video-wrapper {
+    padding-top: 0;
+    min-height: 100%;
+  }
+}
+
+/* Responsive para celulares */
+@media (max-width: 600px) {
+  .agradecimiento-content {
+    padding: 30px 20px;
+  }
+
+  .agradecimiento-title {
+    font-size: 1.8rem;
+  }
+}
+
 /* =========================================
    SECCIONES DE CURSOS (Home)
    ========================================= */
@@ -3896,7 +4251,7 @@
   display: flex;
   align-items: center;
   padding: 12px 15px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(250, 250, 250);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -3918,7 +4273,7 @@
 
 .course-select-item-icon {
   margin-right: 12px;
-  color: var(--cs-text-light);
+  color: #2c1a4d;
   opacity: 0.7;
 }
 
@@ -3930,6 +4285,7 @@
 .course-select-item-name {
   font-size: 0.95rem;
   font-weight: 500;
+  color: #2c1a4d;
 }
 
 .course-select-active-indicator {
@@ -4042,6 +4398,75 @@
   .course-select-glass-card {
     padding: 20px;
   }
+}
+
+
+/* mensaje de sesion */
+
+.course-select-sesion-banner {
+  background: rgb(255, 255, 255);
+  /* Un fondo verde muuuuy sutil */
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+  .course-select-sesion-banner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    padding: 20px 25px;
+  }
+}
+
+.sesion-banner-title {
+  color: #2c1a4d;
+  /* Verde brillante */
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sesion-banner-text {
+  color: #757575;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.sesion-banner-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #25D366;
+  /* Verde oficial de WhatsApp */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  white-space: nowrap;
+}
+
+.sesion-banner-btn:hover {
+  background: #1ebc59;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  color: white;
+}
+
+.sesion-icon-wsp {
+  font-size: 1.2rem;
 }
 
 

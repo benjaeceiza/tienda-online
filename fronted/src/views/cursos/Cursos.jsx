@@ -6,6 +6,7 @@ import { getUserCourses } from "../../services/getUserCourses";
 import { useLoading } from "../../context/LoadingContext";
 import ContactoFlotante from "../../components/ContactoFlotante";
 import ModalLogin from "../../components/ModalLogin";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Cursos = () => {
   const [cursos, setCursos] = useState([]);
@@ -43,6 +44,7 @@ const Cursos = () => {
 
   const videoGeneralActual = videosGenerales[categoria];
   const isEricBarone = categoria?.toLowerCase() === "eric barone";
+  const isSanacionEnCamilla = categoria?.toLowerCase() === "sistema de sanacion en camilla";
 
   // Función para recargar los cursos del usuario (se usa al agregar uno gratis)
   const cargarCursosUsuario = () => {
@@ -152,7 +154,7 @@ const Cursos = () => {
       setAgregando(false);
     }
   };
-  
+
   const VideoFacade = ({ image, onClick, label = "Ver Video" }) => (
     <div className="course-select-video-facade" onClick={onClick}>
       <img src={"https://res.cloudinary.com/dmnksm3th/image/upload/v1770840321/fondo-miniatura_1_to39yg.webp"} alt="Portada Video" className="course-select-facade-image" />
@@ -178,7 +180,7 @@ const Cursos = () => {
       {videoGeneralActual && !isEricBarone && (
         <section className="course-select-hero-section">
           <div className="course-select-glass-card course-select-hero-card">
-            <h2 className="course-select-hero-title">Bienvenida a {categoria}</h2>
+            <h2 className="course-select-hero-title">Bienvenidos a {categoria}</h2>
             <div className="course-select-divider"></div>
 
             <div className="course-select-video-wrapper">
@@ -248,9 +250,25 @@ const Cursos = () => {
               )}
             </div>
 
-            <div className="course-select-description-area">
-              <p className="course-select-description">{cursoSeleccionado?.descripcion}</p>
-            </div>
+       
+
+            {isSanacionEnCamilla && (
+              <div className="course-select-sesion-banner fade-in">
+                <div className="sesion-banner-content">
+                  <h4 className="sesion-banner-title">¿Preferís una atención personalizada?</h4>
+                  <p className="sesion-banner-text">Ofrecemos sesiones individuales de sanación en camilla.</p>
+                </div>
+                {/* Reemplazá el número con el WhatsApp real (con código de país, ej: 549...) */}
+                <a
+                  href="https://wa.me/5492657547597?text=Hola!%20Me%20gustar%C3%ADa%20consultar%20por%20una%20sesi%C3%B3n%20personalizada%20de%20Sanaci%C3%B3n%20en%20Camilla."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sesion-banner-btn"
+                >
+                  <FaWhatsapp className="sesion-icon-wsp" /> Consultar Turno
+                </a>
+              </div>
+            )}
 
             <div className="course-select-actions">
               {/* LÓGICA DE BOTONES DEFINITIVA */}

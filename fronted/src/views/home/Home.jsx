@@ -1,25 +1,22 @@
 import ContactoFlotante from "../../components/ContactoFlotante";
-import CursosHome from "./Cursos"; // Tu archivo de secciones de cursos
-import Hero from "./Hero"; // ANTES ERA HEADER.JSX
+import CursosHome from "./Cursos"; 
+import Hero from "./Hero"; 
 import Saludo from "./Saludo";
-
+import Agradecimiento from "./Agradecimiento"; 
 
 const Home = () => {
     return (
         <>
             <div className="homeContainer">
-                {/* 1. El Menú Fijo (Glass) */}
-
                 <main>
-                    {/* 2. La Portada Principal */}
                     <Hero />
                     
-                    <Saludo/>
+                    <Saludo />
 
-                    {/* 3. Las Secciones de Cursos */}
+                    <Agradecimiento />
+
                     <CursosHome />
                     
-                    {/* 4. Botón flotante de WhatsApp */}
                     <ContactoFlotante />
                 </main>
             </div>

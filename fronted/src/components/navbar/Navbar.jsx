@@ -1,15 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import userIcon from "../../assets/iconos/avatar.png";
-import salir from "../../assets/logos/logout.png";
+import userIcon from "../../assets/iconos/usuario-mob.png";
 import { getUser } from "../../services/getUser";
 import { useEffect, useState } from "react";
 import buttonMenu from "../../assets/iconos/hamburguesa.png";
-import ModalConfirm from "../ModalConfirm";
-import logo from "../../assets/logos/logo-transparente.png";
+import logo from "../../assets/logos/logo-tete.png";
+import ModalUser from "../modal-user/ModalUser";
+
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [userLog, setUserLog] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -23,16 +23,23 @@ const Navbar = () => {
     }
   }, [user]);
 
+  // 🔥 VALIDACIÓN DE ROL: Chequeamos si es administrador
+  const isAdmin = user?.rol === "admin" || user?.rol === "administrador" || userLog?.rol === "admin" || userLog?.rol === "administrador";
+
   return (
     <>
-      {showModal ? <ModalConfirm setShowModal={setShowModal} /> : null}
+      <ModalUser
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        user={user}
+        onLogout={logout}
+      />
 
-      {/* --- CAMBIO: Header Container --- */}
+      {/* --- Header Container --- */}
       <nav className="headerMain">
         {/* 1. SECCIÓN IZQUIERDA: LOGO */}
         <div className="logoContainer">
-          {/* Aquí puedes poner tu etiqueta <img src={tuLogo} /> */}
-        <Link to="/" className="logoLinkMob"><img className="logoText" src={logo} alt="logo"/></Link>
+          <Link to="/" className="logoLinkMob"><img className="logoText" src={logo} alt="logo" /></Link>
         </div>
 
         {/* 2. SECCIÓN DERECHA: BOTONES */}
@@ -55,7 +62,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* --- EL RESTO DEL MENÚ LATERAL SE MANTIENE IGUAL --- */}
+      {/* --- MENÚ LATERAL --- */}
       <div
         className={`navbarListContainer ${isVisible ? "show" : "hide"}`}
         onClick={() => setIsVisible(false)}
@@ -94,16 +101,32 @@ const Navbar = () => {
           {/* Lógica de Usuario */}
           {user ? (
             <>
+
+
               <li className="navbarItem">
                 <NavLink to="/mis-cursos" className="navbarLinkMob" onClick={() => setIsVisible(false)}>Mis cursos</NavLink>
               </li>
+              {/* 🔥 BOTÓN DE ADMIN: Solo aparece si isAdmin es true */}
+              {isAdmin && (
+                <li className="navbarItem">
+                  <NavLink
+                    to="/admin"
+                    className="navbarLinkMob"
+                    onClick={() => setIsVisible(false)}
+                    style={{ color: "#e040fb", fontWeight: "bold" }} // Fucsia para que destaque en el celu
+                  >
+                    Dashboard Admin
+                  </NavLink>
+                </li>
+              )}
               <li className="closeSessionItem">
-                <div className="userNameContainerMob">
+                <div className="userNameContainerMob" onClick={() => setShowModal(true)}>
                   <img src={userIcon} className="navbarIcon" alt="User" />
-                  <p className="userName">{user?.nickname || userLog?.nickname}</p>
+                  <p className="userNameMob">{user?.nickname || userLog?.nickname}</p>
                 </div>
-                <img src={salir} alt="Cerrar sesion" onClick={() => { setShowModal(true); setIsVisible(false); }} className="navbarIcon iconLogout" />
               </li>
+
+
             </>
           ) : (
             <li className="sessionItem">

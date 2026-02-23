@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaCog, FaSignOutAlt, FaUserEdit, FaLock, FaArrowLeft } from 'react-icons/fa';
+// 🔥 Agregamos FaTimes (la cruz) a la importación
+import { FaCog, FaSignOutAlt, FaUserEdit, FaLock, FaArrowLeft, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
 
@@ -35,16 +36,11 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
         onClose();
     };
 
-    // 🔥 LOGICA DEL BOTÓN: Comparamos si los inputs actuales son distintos a los originales
     const isModified = nickname !== (user?.nickname || "") || email !== (user?.email || "");
-
-    // El botón se deshabilita si está cargando o si NO hay modificaciones
     const isButtonDisabled = loading || !isModified;
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
-
-        // Medida de seguridad extra por si tocan el HTML
         if (!isModified) return;
 
         setLoading(true);
@@ -57,7 +53,6 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 },
-                // 🔥 TRADUCCIÓN FRONT-BACK: El frontend maneja 'nickname', pero le mandamos 'nombre' al backend
                 body: JSON.stringify({ nombre: nickname, email: email })
             });
 
@@ -66,12 +61,10 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
             if (response.ok) {
                 setMensaje({ tipo: "exito", texto: "¡Tus datos se actualizaron correctamente!" });
 
-                // 🔥 PISAMOS EL TOKEN VIEJO CON EL NUEVO QUE MANDÓ EL BACKEND
                 if (data.token) {
                     localStorage.setItem("token", data.token);
                 }
 
-                // Actualizamos el usuario en el estado global (Context)
                 if (setUser) {
                     setUser({ ...data.user, nickname: data.user.nombre || nickname });
                 }
@@ -92,11 +85,9 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
         }
     };
 
-
     const handleUpdatePassword = async (e) => {
         e.preventDefault();
 
-        // Validación local: verificamos que coincidan antes de pegarle al backend
         if (newPassword !== confirmPassword) {
             setMensaje({ tipo: "error", texto: "Las contraseñas no coinciden." });
             return;
@@ -124,12 +115,9 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
 
             if (response.ok) {
                 setMensaje({ tipo: "exito", texto: "¡Contraseña actualizada con éxito!" });
-
-                // Limpiamos los inputs
                 setNewPassword("");
                 setConfirmPassword("");
 
-                // Volvemos al perfil después de 2 segundos
                 setTimeout(() => {
                     setView('profile');
                     setMensaje({ tipo: "", texto: "" });
@@ -146,20 +134,24 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
         }
     };
 
-    // Lógica para deshabilitar el botón si los campos están vacíos o no coinciden
     const isPasswordButtonDisabled = loading || !newPassword || !confirmPassword || (newPassword !== confirmPassword);
-
 
     return (
         <div className="userModal_overlay" onClick={handleClose}>
             <div className="userModal_container" onClick={handleContainerClick}>
 
+                {/* 🔥 NUEVO: Cruz fija arriba a la derecha para cerrar */}
+                <button className="userModal_iconBtn_topRight" onClick={handleClose} title="Cerrar ventana">
+                    <FaTimes />
+                </button>
+
+                {/* 🔥 MOVIDO: Botón de Configuración/Volver ahora a la IZQUIERDA */}
                 {view === 'profile' ? (
-                    <button className="userModal_iconBtn_topRight" onClick={() => setView('editProfile')} title="Configuración">
+                    <button className="userModal_iconBtn_topLeft" onClick={() => setView('editProfile')} title="Configuración">
                         <FaCog />
                     </button>
                 ) : (
-                    <button className="userModal_iconBtn_topRight" onClick={() => { setView('profile'); setMensaje({ tipo: "", texto: "" }); }} title="Volver">
+                    <button className="userModal_iconBtn_topLeft" onClick={() => { setView('profile'); setMensaje({ tipo: "", texto: "" }); }} title="Volver al perfil">
                         <FaArrowLeft />
                     </button>
                 )}
@@ -233,7 +225,6 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                                 <FaLock /> Cambiar Contraseña
                             </button>
 
-                            {/* 🔥 BOTÓN DESHABILITADO: Le pasamos la variable isButtonDisabled */}
                             <button
                                 type="submit"
                                 className="userModal_btn_save"
@@ -245,7 +236,6 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                     </div>
                 )}
 
-                {/* --- VISTA 3: CAMBIAR CONTRASEÑA --- */}
                 {view === 'password' && (
                     <div className="userModal_content fade-in">
                         <div className="userModal_header_small">
@@ -254,7 +244,6 @@ const ModalUser = ({ isOpen, onClose, user, onLogout }) => {
                             <p className="userModal_subtitle">Elige una nueva contraseña</p>
                         </div>
 
-                        {/* Mismo sistema de alertas que usamos en el perfil */}
                         {mensaje.texto && (
                             <div className={`userModal_alert ${mensaje.tipo === "error" ? "userModal_alert_error" : "userModal_alert_success"}`}>
                                 {mensaje.texto}

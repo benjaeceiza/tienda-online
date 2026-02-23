@@ -37,7 +37,7 @@ const Recovery = ({ setRecovery }) => {
 
   const verifyCode = async (code) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/recovery/verify`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/users/recovery/verify`, {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, code }),
       });
       const data = await res.json();
@@ -65,7 +65,7 @@ const Recovery = ({ setRecovery }) => {
     setLoading(true);
     setErrorMessage("");
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/recovery/send`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL_BACKEND}/users/recovery/send`, {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }),
       });
       const data = await res.json();

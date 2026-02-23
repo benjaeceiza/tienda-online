@@ -77,25 +77,28 @@ const Curso = () => {
                         Reproductor de Meditaciones
                     </h3>
                     <div className="detalle-curso-audio-playlist">
-                        {listaAudios.map((item, idx) => {
-                            const url = typeof item === 'string' ? item : item.url;
-                            const nombre = typeof item === 'string' ? `Pista ${idx + 1}` : item.titulo;
+                       {listaAudios.map((item, idx) => {
+                                const url = typeof item === 'string' ? item : item.url;
+                                const nombre = typeof item === 'string' ? `Pista ${idx + 1}` : item.titulo;
 
-                            return (
-                                <div key={idx} className="detalle-curso-audio-track">
-                                    <div className="track-info" style={{ marginBottom: '5px' }}>
-                                        <span style={{ fontWeight: 'bold', color: 'var(--accent-color)', marginRight: '8px' }}>
-                                            {idx + 1}.
-                                        </span>
-                                        <span style={{ fontWeight: 500 }}>{nombre}</span>
+                                return (
+                                    <div key={idx} className="detalle-curso-audio-track">
+                                        
+                                        {/* 🔥 TÍTULO ARRIBA */}
+                                        <div className="track-info">
+                                            <span className="track-number">{idx + 1}.</span>
+                                            <span className="track-title">{nombre}</span>
+                                        </div>
+                                        
+                                        {/* 🔥 REPRODUCTOR ABAJO */}
+                                        <audio controls className="track-player custom-audio-player">
+                                            <source src={url} />
+                                            Tu navegador no soporta audio.
+                                        </audio>
+                                        
                                     </div>
-                                    <audio controls className="track-player" style={{ width: '100%' }}>
-                                        <source src={url} />
-                                        Tu navegador no soporta audio.
-                                    </audio>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
                     </div>
                 </div>
             );
