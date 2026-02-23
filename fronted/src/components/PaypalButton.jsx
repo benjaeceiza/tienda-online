@@ -8,7 +8,7 @@ const PaypalButton = ({ courseId, userId }) => {
     const navigate = useNavigate();
 
     const initialOptions = {
-        "client-id": "AT7wf-cc6pHvNFXO1J-WPKLttOa_MrmdtAleYX99ivQkl15NRn4bNWLxNbENlVd3KdN_DLXBh9x9Ga7s", // Tu ID
+        "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID, 
         currency: "USD",
         intent: "capture",
     };

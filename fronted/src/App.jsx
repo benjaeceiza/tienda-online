@@ -22,6 +22,14 @@ import AliciaTete from "./views/alicia-tete/AliciaTete";
 import Rejected from "./views/pay/Rejected";
 import AdminDashboard from "./views/admin-dashboard/AdminDashboard";
 
+// idioma
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+
+
+
+
 export default function App() {
   const { isVisible, isExiting } = useLoading();
 
@@ -32,10 +40,10 @@ export default function App() {
 
       <AuthProvider>
         <BrowserRouter>
-          <ScrollToTop/>
+          <ScrollToTop />
           <RouteLoader />
-          <NavbarDesktop/>
-          <Navbar/>
+          <NavbarDesktop />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<AdminDashboard />} />
@@ -48,7 +56,7 @@ export default function App() {
             <Route path="/alicia-tete" element={<AliciaTete />} />
             <Route path="/payment/:uid/:cid" element={<Checkout />} />
             <Route path="/pago-exitoso" element={<Approved />} />
-            <Route path="/pago-fallido" element={<Rejected/>} />
+            <Route path="/pago-fallido" element={<Rejected />} />
           </Routes>
           <Footer />
         </BrowserRouter>

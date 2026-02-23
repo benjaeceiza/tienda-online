@@ -8,8 +8,23 @@ import { router as paymentsRouter} from "./routes/payments.router.js";
 import cors from "cors";
 
 
+const origenesPermitidos = ['https://www.tudominionuevo.com', 'http://localhost:5173'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Si el origen está en el array, o si no hay origen (ej. herramientas como Postman), lo deja pasar
+    if (origenesPermitidos.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  credentials: true
+};
+
 const app = express();
-app.use(cors());
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 dotenv.config();
