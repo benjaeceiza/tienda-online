@@ -8,7 +8,12 @@ import { router as paymentsRouter} from "./routes/payments.router.js";
 import cors from "cors";
 
 
-const origenesPermitidos = ['https://www.tudominionuevo.com', 'http://localhost:5173'];
+const origenesPermitidos = [
+  'https://sanacioncosmotelurica.com', // <-- ¡TU DOMINIO NUEVO!
+  'http://localhost:8080',             // Para seguir probando en tu compu
+  'http://localhost:5173',             // Por si usas Vite localmente
+  'https://tienda-online-opal.vercel.app' // El viejo de Vercel (opcional, lo podés borrar si ya no lo usás)
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
