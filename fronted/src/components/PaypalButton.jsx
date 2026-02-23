@@ -2,18 +2,21 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useNavigate } from 'react-router-dom';
 
 const urlBackend = import.meta.env.VITE_API_URL_BACKEND;
+const paypalClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+
+
+
 
 const PaypalButton = ({ courseId, userId }) => {
 
     const navigate = useNavigate();
 
     const initialOptions = {
-        "client-id": import.meta.env.PAYPAL_CLIENT_ID, 
-        currency: "USD",
+        "client-id": paypalClientId, 
         intent: "capture",
     };
 
-
+    
 
     const handleCreateOrder = async (data, actions) => {
         try {
