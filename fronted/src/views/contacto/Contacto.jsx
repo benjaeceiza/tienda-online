@@ -1,3 +1,5 @@
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import { useLoading } from "../../context/LoadingContext";
 import ig from "../../assets/iconos/instagram.png";
 import fb from "../../assets/iconos/facebook.png";
@@ -10,8 +12,34 @@ const Contacto = () => {
   const { hideLoader } = useLoading();
   // 🔥 Iniciamos el traductor
   const { t } = useTranslation("global");
+  
+  // 🔥 Referencia y estado para EmailJS
+  const formRef = useRef();
+  const [enviando, setEnviando] = useState(false);
 
   const backgroundImage = "https://res.cloudinary.com/dmnksm3th/image/upload/v1770840323/fondo-contacto_gcwfzw_lzppb7.webp";
+
+  // 🔥 Función para enviar el mail
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setEnviando(true);
+
+    // Reemplaza estos IDs con tus claves reales de EmailJS
+    const serviceID = "service_kluelt9"; 
+    const templateID = "template_r1rv65h";
+    const publicKey = "TPuFZRovQRDl0N5MJ";
+
+    emailjs.sendForm(serviceID, templateID, formRef.current, publicKey)
+      .then(() => {
+        alert("¡Mensaje enviado con éxito!");
+        formRef.current.reset(); // Limpia los campos
+      })
+      .catch((error) => {
+        console.error("Error al enviar:", error);
+        alert("Hubo un error al enviar el mensaje.");
+      })
+      .finally(() => setEnviando(false));
+  };
 
   return (
     <main className="page-contact_main">
@@ -66,37 +94,42 @@ const Contacto = () => {
 
         {/* --- COLUMNA DERECHA: FORMULARIO --- */}
         <div className="page-contact_form_col">
-          <form className="page-contact_form" onSubmit={(e) => e.preventDefault()}>
+          <form className="page-contact_form" ref={formRef} onSubmit={sendEmail}>
             <h3 className="page-contact_form_title">{t("contacto.form_title")}</h3>
 
             <div className="page-contact_row">
               <div className="page-contact_input_group">
-                <input type="text" required className="page-contact_input" />
+                {/* Agregado name="user_name" */}
+                <input type="text" name="user_name" required className="page-contact_input" />
                 <label className="page-contact_label">{t("contacto.label_nombre")}</label>
               </div>
               <div className="page-contact_input_group">
-                <input type="text" required className="page-contact_input" />
+                {/* Agregado name="last_name" */}
+                <input type="text" name="last_name" required className="page-contact_input" />
                 <label className="page-contact_label">{t("contacto.label_apellido")}</label>
               </div>
             </div>
 
             <div className="page-contact_input_group">
-              <input type="email" required className="page-contact_input" />
+              {/* Agregado name="user_email" */}
+              <input type="email" name="user_email" required className="page-contact_input" />
               <label className="page-contact_label">Email</label>
             </div>
 
             <div className="page-contact_input_group">
-              <input type="tel" required className="page-contact_input" />
+              {/* Agregado name="user_phone" */}
+              <input type="tel" name="user_phone" required className="page-contact_input" />
               <label className="page-contact_label">{t("contacto.label_telefono")}</label>
             </div>
 
             <div className="page-contact_input_group">
-              <textarea required className="page-contact_input page-contact_textarea"></textarea>
+              {/* Agregado name="message" */}
+              <textarea name="message" required className="page-contact_input page-contact_textarea"></textarea>
               <label className="page-contact_label">{t("contacto.label_mensaje")}</label>
             </div>
 
-            <button type="submit" className="page-contact_submit_btn">
-              {t("contacto.btn_enviar")}
+            <button type="submit" disabled={enviando} className="page-contact_submit_btn">
+              {enviando ? "Enviando..." : t("contacto.btn_enviar")}
             </button>
           </form>
         </div>

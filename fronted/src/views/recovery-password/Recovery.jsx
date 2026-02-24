@@ -27,7 +27,7 @@ const Recovery = ({ setRecovery }) => {
   }, [step, timer]);
 
   const sendEmail = (userEmail, code) => {
-    return emailjs.send("service_9bojsir", "template_7b0zv1z", { email: userEmail, recovery_code: code }, "ozycZTfYueG9-OUJR");
+    return emailjs.send("service_kluelt9", "template_4u4tqap", { email: userEmail, recovery_code: code }, "TPuFZRovQRDl0N5MJ");
   };
 
   const verifyCode = async (code) => {
