@@ -3757,6 +3757,7 @@
   height: 100%;
   object-fit: cover;
   z-index: 1;
+  transform: scale(1.1);
 }
 
 /* Capa oscura para que resalte el botón de play */
