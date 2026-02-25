@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { usuarioModelo } from "../models/user.model.js";
-import { authMiddleware } from "../middleware/auth.js";
+import { authMiddleware, isAdmin } from "../middleware/auth.js";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
-import { asignarCursoManual, editarUsuarioPorAdmin, updatePassword, updateUser } from "../controllers/userController.js";
+import { asignarCursoManual, editarUsuarioPorAdmin, eliminarUsuario, updatePassword, updateUser } from "../controllers/userController.js";
 import { obtenerTodosLosUsuarios } from "../controllers/adminController.js";
 dotenv.config();
 
@@ -195,6 +195,7 @@ router.put("/update-password", authMiddleware,updatePassword );
 
 // RUTAS ADMIN
 
-router.get("/admin/users",authMiddleware, obtenerTodosLosUsuarios);
-router.post("/admin/assign-course", authMiddleware, asignarCursoManual);
-router.put("/admin/edit-user", authMiddleware, editarUsuarioPorAdmin);
+router.get("/admin/users",authMiddleware,isAdmin, obtenerTodosLosUsuarios);
+router.post("/admin/assign-course", authMiddleware,isAdmin, asignarCursoManual);
+router.put("/admin/edit-user", authMiddleware,isAdmin, editarUsuarioPorAdmin);
+router.delete("/admin/users/:id",authMiddleware,isAdmin, eliminarUsuario);

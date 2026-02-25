@@ -51,7 +51,7 @@ const Footer = () => {
                             <h3 className="footer-title">{t("footer.conectemos")}</h3>
                             <div className="footer-contact-item">
                                 <FaEnvelope className="footer-icon" />
-                                <span>contacto@tuweb.com</span>
+                                <span>sanacioncosmotelurica@gmail.com</span>
                             </div>
                             <div className="footer-contact-item">
                                 <FaWhatsapp className="footer-icon" />

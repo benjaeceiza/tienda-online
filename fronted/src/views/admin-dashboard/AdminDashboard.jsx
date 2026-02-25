@@ -9,6 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 import ModalAdminReceipts from "../../components/modal-admin-recibos/ModalAdminReceipts";
 import ModalAssignCourse from "../../components/modal-asignar-curso/ModalAssignCourse";
 import ModalAdminEditUser from "../../components/modal-admin-editar-usuario/ModalAdminEditUser";
+import ModalAdminDeleteUser from "../../components/modal-admin-delete-user/ModalAdminDeleteUser";
 
 const AdminDashboard = () => {
     const { user } = useAuth();
@@ -21,6 +22,7 @@ const AdminDashboard = () => {
     const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
     const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [error, setError] = useState("");
 
     // 1. Verificación rápida de seguridad en el Frontend
@@ -71,6 +73,7 @@ const AdminDashboard = () => {
         return nombre.includes(termino) || email.includes(termino);
     });
 
+    
     return (
         <main className="admin-dashboard-layout">
             <div className="admin-dashboard-container">
@@ -188,7 +191,10 @@ const AdminDashboard = () => {
                                                     <button
                                                         className="admin-btn-icon btn-delete"
                                                         title="Eliminar Cuenta"
-                                                        onClick={() => alert(`Eliminando a ${u.nombre}`)}
+                                                        onClick={() => {
+                                                            setUsuarioSeleccionado(u);
+                                                            setIsDeleteModalOpen(true);
+                                                        }}
                                                     >
                                                         <FaTrash />
                                                     </button>
@@ -229,6 +235,16 @@ const AdminDashboard = () => {
                 usuarioSeleccionado={usuarioSeleccionado}
                 onUserUpdated={() => window.location.reload()}
             />
+
+            <ModalAdminDeleteUser
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                usuarioSeleccionado={usuarioSeleccionado}
+                onUserDeleted={(idEliminado) => {
+                    // Actualizamos la tabla sacando al usuario que acabamos de volar
+                    setUsuarios(usuarios.filter(user => user._id !== idEliminado));
+                }}
+            />  
         </main>
     );
 };

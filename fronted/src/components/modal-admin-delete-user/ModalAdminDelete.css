@@ -1,0 +1,150 @@
+/* --- ModalAdminDeleteUser.css --- */
+
+/* Fondo oscuro desenfocado (Overlay) */
+.modal-admin-delete-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 10, 15, 0.7);
+    backdrop-filter: blur(8px); /* Efecto vidrio */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeInDelete 0.3s ease-in-out;
+}
+
+/* Contenedor principal del modal */
+.modal-admin-delete-content {
+    background: linear-gradient(145deg, #1e1e2f, #25253a);
+    border: 1px solid rgba(231, 76, 60, 0.3); /* Borde sutil rojizo */
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.15); /* Resplandor rojo de fondo */
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    position: relative;
+    color: #e0e0e0;
+    text-align: center;
+    animation: slideUpDelete 0.3s ease-out;
+}
+
+/* Botón de cerrar la ventana (la X) */
+.modal-admin-delete-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #a0a0b0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.modal-admin-delete-close:hover {
+    color: #e74c3c;
+}
+
+/* Cabecera del modal */
+.modal-admin-delete-header {
+    margin-bottom: 20px;
+}
+
+.modal-admin-delete-header h2 {
+    margin: 10px 0 0 0;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Cuerpo del texto */
+.modal-admin-delete-body p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.modal-admin-delete-body strong {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+/* Mensaje de advertencia en rojo */
+.modal-admin-delete-warning {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: rgba(231, 76, 60, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Contenedor de botones (Footer) */
+.modal-admin-delete-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Botón Cancelar */
+.modal-admin-delete-btn-cancel {
+    background: transparent;
+    border: 1px solid #505060;
+    color: #cccccc;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-admin-delete-btn-cancel:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-color: #707080;
+}
+
+/* Botón Eliminar (Confirmar) */
+.modal-admin-delete-btn-confirm {
+    background: #e74c3c;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+
+.modal-admin-delete-btn-confirm:hover:not(:disabled) {
+    background: #c0392b;
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+    transform: translateY(-2px);
+}
+
+.modal-admin-delete-btn-confirm:disabled,
+.modal-admin-delete-btn-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Animaciones */
+@keyframes fadeInDelete {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUpDelete {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}

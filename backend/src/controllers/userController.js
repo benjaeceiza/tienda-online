@@ -221,3 +221,25 @@ export const editarUsuarioPorAdmin = async (req, res) => {
         res.status(500).json({ error: "Error en el servidor al editar usuario." });
     }
 };
+
+
+export const eliminarUsuario = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Buscamos y eliminamos al usuario por su ID
+        const usuarioEliminado = await usuarioModelo.findByIdAndDelete(id);
+
+        // Si no lo encuentra, devolvemos un 404
+        if (!usuarioEliminado) {
+            return res.status(404).json({ error: "Usuario no encontrado." });
+        }
+
+        // Si todo sale bien, mandamos el OK
+        res.status(200).json({ mensaje: "Usuario eliminado correctamente." });
+
+    } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+        res.status(500).json({ error: "Error interno del servidor al eliminar." });
+    }
+};

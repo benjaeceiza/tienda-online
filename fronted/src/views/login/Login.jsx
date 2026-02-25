@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { userLogin } from "../../services/login";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -32,7 +32,7 @@ const Login = () => {
         navigate("/");
       } else {
         // 🔥 Traducción dinámica del error
-        const errorKey = res === "Credenciales incorrectas" ? "login.error_credenciales" : "login.error_general";
+        const errorKey = res === "Email o Contraseña inválido" ? "login.error_credenciales" : "login.error_general";
         setMensaje(t(errorKey));
         setLoading(false);
       }
